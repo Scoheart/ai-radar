@@ -1,3 +1,5 @@
+> **已停用**：统一改为写入 /workspace/agent-memory 的 daily/日期/<领域>-digest.md（2026-10-24）。
+
 # AI 前沿追踪 · 持久归档
 
 位置：`/workspace/ai-radar`（共享电脑上，所有 Agent 都能写）。
