@@ -47,6 +47,12 @@ def commit(_=None):
     subprocess.run(["git", "-c", "user.name=ai-radar", "-c", "user.email=ai-radar@local",
                     "commit", "-qm", f"radar {datetime.datetime.now():%F %T}"], cwd=ROOT)
 
+def publish(_=None):
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py")], check=True)
+    index(); commit()
+    r = subprocess.run(["git", "push", "-q", "origin", "HEAD:main"], cwd=ROOT)
+    print("已推送，页面稍后刷新" if r.returncode == 0 else "推送失败，请检查 git remote / 登录状态")
+
 p = argparse.ArgumentParser()
 s = p.add_subparsers(required=True)
 x = s.add_parser("add"); x.set_defaults(fn=add)
@@ -56,4 +62,5 @@ x.add_argument("--source", choices=["x", "web"], default="web")
 x.add_argument("--agent", default="unknown"); x.add_argument("--date"); x.add_argument("--tags", default="")
 s.add_parser("index").set_defaults(fn=index)
 s.add_parser("commit").set_defaults(fn=commit)
+s.add_parser("publish").set_defaults(fn=publish)
 a = p.parse_args(); a.fn(a)
