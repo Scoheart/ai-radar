@@ -11,7 +11,8 @@
    "benchmark",
    "coding",
    "anti-cheat"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "eval",
@@ -24,7 +25,10 @@
   "tags": [
    "benchmark",
    "coding"
-  ]
+  ],
+  "links": {
+   "dataset": "https://huggingface.co/datasets/ScaleAI/SWE-bench_Pro"
+  }
  },
  {
   "topic": "eval",
@@ -38,7 +42,8 @@
    "audit",
    "skill",
    "coding"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "eval",
@@ -52,7 +57,10 @@
    "skill",
    "harness",
    "benchmark"
-  ]
+  ],
+  "links": {
+   "github": "https://github.com/spcl/HPCAgent-Bench"
+  }
  },
  {
   "topic": "eval",
@@ -66,7 +74,8 @@
    "skill",
    "judge",
    "mcp"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "eval",
@@ -80,7 +89,8 @@
    "benchmark",
    "multimodal",
    "audit"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "eval",
@@ -93,7 +103,8 @@
   "tags": [
    "benchmark",
    "multimodal"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "eval",
@@ -106,7 +117,10 @@
   "tags": [
    "methodology",
    "survey"
-  ]
+  ],
+  "links": {
+   "paper": "https://sage.cs.princeton.edu/trends/emerging-trends-paper.pdf"
+  }
  },
  {
   "topic": "eval",
@@ -119,7 +133,8 @@
   "tags": [
    "agent",
    "research-eval"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "eval",
@@ -132,7 +147,8 @@
   "tags": [
    "methodology",
    "judge"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "eval",
@@ -146,7 +162,10 @@
    "safety",
    "sandbox",
    "eval-security"
-  ]
+  ],
+  "links": {
+   "blog": "https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident"
+  }
  },
  {
   "topic": "eval",
@@ -159,7 +178,8 @@
   "tags": [
    "platform",
    "regression"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -172,7 +192,8 @@
   "tags": [
    "agentic-search",
    "graph"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -185,7 +206,8 @@
   "tags": [
    "agentic-search",
    "rl"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -198,7 +220,8 @@
   "tags": [
    "wiki",
    "personal-kb"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -211,7 +234,8 @@
   "tags": [
    "platform",
    "wiki"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -225,7 +249,8 @@
    "parsing",
    "embedding",
    "rerank"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -237,7 +262,8 @@
   "agent": "知识库",
   "tags": [
    "parsing"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -249,7 +275,8 @@
   "agent": "知识库",
   "tags": [
    "parsing"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -262,7 +289,8 @@
   "tags": [
    "hybrid-search",
    "vector-db"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -274,7 +302,8 @@
   "agent": "知识库",
   "tags": [
    "graphrag"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -287,7 +316,8 @@
   "tags": [
    "graphrag",
    "local-first"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -299,7 +329,10 @@
   "agent": "知识库",
   "tags": [
    "parsing"
-  ]
+  ],
+  "links": {
+   "x": "https://x.com/jerryjliu0/status/2113008819328700439"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -311,7 +344,8 @@
   "agent": "知识库",
   "tags": [
    "agentic-search"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -323,7 +357,8 @@
   "agent": "知识库",
   "tags": [
    "hybrid-search"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "knowledge-base",
@@ -335,7 +370,8 @@
   "agent": "知识库",
   "tags": [
    "vector-db"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "memory",
@@ -349,7 +385,8 @@
    "Letta",
    "Dreaming",
    "benchmark"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "memory",
@@ -363,7 +400,8 @@
    "Mem0",
    "Zep",
    "成本"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "memory",
@@ -376,7 +414,8 @@
   "tags": [
    "memory-worth",
    "lifelong"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "memory",
@@ -389,7 +428,8 @@
   "tags": [
    "Mem0",
    "temporal"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "memory",
@@ -402,7 +442,8 @@
   "tags": [
    "filesystem",
    "markdown"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "memory",
@@ -415,7 +456,8 @@
   "tags": [
    "security",
    "poisoning"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "code-review",
@@ -429,7 +471,10 @@
    "agent",
    "误报抑制",
    "benchmark"
-  ]
+  ],
+  "links": {
+   "github": "https://github.com/alibaba/open-code-review"
+  }
  },
  {
   "topic": "code-review",
@@ -442,7 +487,8 @@
   "tags": [
    "误报抑制",
    "生产实践"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "code-review",
@@ -456,7 +502,8 @@
    "agent",
    "上下文",
    "沙盒"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "code-review",
@@ -470,7 +517,8 @@
    "安全",
    "SAST",
    "benchmark"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "code-review",
@@ -483,7 +531,8 @@
   "tags": [
    "安全",
    "benchmark"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "code-review",
@@ -496,7 +545,8 @@
   "tags": [
    "上下文",
    "benchmark"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "code-review",
@@ -508,7 +558,8 @@
   "agent": "代码审查",
   "tags": [
    "benchmark"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "code-review",
@@ -521,7 +572,8 @@
   "tags": [
    "范式",
    "形式化验证"
-  ]
+  ],
+  "links": {}
  },
  {
   "topic": "code-review",
@@ -533,36 +585,11 @@
   "agent": "代码审查",
   "tags": [
    "产品动态"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
-  "date": "2026-10-24",
-  "title": "Anthropic 将 Agent Skills（SKILL.md）捐赠给 Linux 基金会 AAIF",
-  "url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
-  "summary": "SKILL.md 规范、agentskills 组织与域名转入与 MCP 同属的 AAIF，已被 70+ 平台集成；由 Anthropic、Google、OpenAI 等工程师组成 TSC，首期路线图为版本化发布、RFC 流程与供应链安全指南。",
-  "source": "网页/文档",
-  "agent": "MCP与Skills",
-  "tags": [
-   "skills",
-   "governance"
-  ]
- },
- {
-  "topic": "mcp-skills",
-  "date": "2026-10-24",
-  "title": "据 X 上的报道：@ClaudeDevs 披露 Skills 捐赠 AAIF 细节",
-  "url": "https://x.com/ClaudeDevs/status/2113328526413996100",
-  "summary": "官方账号同步发布 Agent Skills 捐赠 AAIF 的消息。",
-  "source": "据 X 上的报道",
-  "agent": "MCP与Skills",
-  "tags": [
-   "skills",
-   "governance"
-  ]
- },
- {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "SEP-2640 Skills over MCP 成为官方扩展",
   "url": "https://modelcontextprotocol.io/seps/2640-skills-extension",
@@ -573,23 +600,11 @@
    "mcp",
    "skills",
    "sep"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
-  "date": "2026-10-24",
-  "title": "据 X 上的报道：Bloomberg 参与 SEP-2640 并落地 ASKB",
-  "url": "https://x.com/TechAtBloomberg/status/2113284244592042250",
-  "summary": "Bloomberg 技术团队分享参与制定 Skills 扩展标准及内部应用。",
-  "source": "据 X 上的报道",
-  "agent": "MCP与Skills",
-  "tags": [
-   "skills",
-   "sep"
-  ]
- },
- {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "MCP 2026-07-28 无状态核心规范",
   "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
@@ -599,10 +614,11 @@
   "tags": [
    "mcp",
    "spec"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "SEP-3415 Events 扩展：轮询、流式、Webhook 三种事件投递",
   "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3415",
@@ -613,10 +629,11 @@
    "mcp",
    "sep",
    "events"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "SEP-2848 工具调用异步审批",
   "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2848",
@@ -627,10 +644,11 @@
    "mcp",
    "sep",
    "auth"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "SEP-2643 结构化授权拒绝",
   "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2643",
@@ -641,10 +659,11 @@
    "mcp",
    "sep",
    "auth"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "Uber 企业级 MCP Gateway：800+ Server、5000+ 工具",
   "url": "https://www.uber.com/us/en/blog/designing-mcp-gateway/",
@@ -653,10 +672,11 @@
   "agent": "MCP与Skills",
   "tags": [
    "gateway"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "据 X 上的报道：@UberEng 发布 MCP Gateway 文章",
   "url": "https://x.com/UberEng/status/2106072693154120124",
@@ -665,10 +685,11 @@
   "agent": "MCP与Skills",
   "tags": [
    "gateway"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "MCP 授权：弃用 DCR 转向 CIMD",
   "url": "https://www.scalekit.com/blog/mcp-authorization-guide",
@@ -678,10 +699,11 @@
   "tags": [
    "auth",
    "gateway"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "Zuplo MCP Gateway 双面 OAuth 与无状态路由",
   "url": "https://zuplo.com/docs/mcp-gateway/how-it-works",
@@ -691,10 +713,11 @@
   "tags": [
    "gateway",
    "auth"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "Microsoft MCP Gateway 适配 2026-07-28",
   "url": "https://github.com/microsoft/mcp-gateway/blob/main/docs/mcp-2026-07-28.md",
@@ -703,10 +726,11 @@
   "agent": "MCP与Skills",
   "tags": [
    "gateway"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "MCP Apps 官方扩展仓库 ext-apps 持续更新",
   "url": "https://github.com/modelcontextprotocol/ext-apps",
@@ -715,10 +739,11 @@
   "agent": "MCP与Skills",
   "tags": [
    "mcp-apps"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "DVARA 网关治理 MCP Apps：页面指纹锁定",
   "url": "https://dvarahq.com/docs/mcp-gateway/apps",
@@ -729,10 +754,11 @@
    "mcp-apps",
    "gateway",
    "security"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "mcp",
   "date": "2026-10-24",
   "title": "据 X 上的报道：ChatGPT Desktop 为 MCP Apps 启用 WebMCP",
   "url": "https://x.com/ndmccormack/status/2112701653098930296",
@@ -741,10 +767,53 @@
   "agent": "MCP与Skills",
   "tags": [
    "mcp-apps"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "skills",
+  "date": "2026-10-24",
+  "title": "Anthropic 将 Agent Skills（SKILL.md）捐赠给 Linux 基金会 AAIF",
+  "url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
+  "summary": "SKILL.md 规范、agentskills 组织与域名转入与 MCP 同属的 AAIF，已被 70+ 平台集成；由 Anthropic、Google、OpenAI 等工程师组成 TSC，首期路线图为版本化发布、RFC 流程与供应链安全指南。",
+  "source": "网页/文档",
+  "agent": "MCP与Skills",
+  "tags": [
+   "skills",
+   "governance"
+  ],
+  "links": {}
+ },
+ {
+  "topic": "skills",
+  "date": "2026-10-24",
+  "title": "据 X 上的报道：@ClaudeDevs 披露 Skills 捐赠 AAIF 细节",
+  "url": "https://x.com/ClaudeDevs/status/2113328526413996100",
+  "summary": "官方账号同步发布 Agent Skills 捐赠 AAIF 的消息。",
+  "source": "据 X 上的报道",
+  "agent": "MCP与Skills",
+  "tags": [
+   "skills",
+   "governance"
+  ],
+  "links": {}
+ },
+ {
+  "topic": "skills",
+  "date": "2026-10-24",
+  "title": "据 X 上的报道：Bloomberg 参与 SEP-2640 并落地 ASKB",
+  "url": "https://x.com/TechAtBloomberg/status/2113284244592042250",
+  "summary": "Bloomberg 技术团队分享参与制定 Skills 扩展标准及内部应用。",
+  "source": "据 X 上的报道",
+  "agent": "MCP与Skills",
+  "tags": [
+   "skills",
+   "sep"
+  ],
+  "links": {}
+ },
+ {
+  "topic": "skills",
   "date": "2026-10-24",
   "title": "NVIDIA 开源 SkillSpector 技能安全扫描器",
   "url": "https://github.com/NVIDIA/SkillSpector",
@@ -754,10 +823,11 @@
   "tags": [
    "skills",
    "security"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "skills",
   "date": "2026-10-24",
   "title": "agent-skills-eval：SKILL.md 双轨基线评测运行器",
   "url": "https://github.com/darkrishabh/agent-skills-eval",
@@ -767,10 +837,11 @@
   "tags": [
    "skills",
    "eval"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "skills",
   "date": "2026-10-24",
   "title": "OpenAI：用 evals 系统化测试 Agent Skills",
   "url": "https://developers.openai.com/blog/eval-skills",
@@ -780,10 +851,11 @@
   "tags": [
    "skills",
    "eval"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "skills",
   "date": "2026-10-24",
   "title": "LangChain：Evaluating Skills",
   "url": "https://www.langchain.com/blog/evaluating-skills",
@@ -793,10 +865,11 @@
   "tags": [
    "skills",
    "eval"
-  ]
+  ],
+  "links": {}
  },
  {
-  "topic": "mcp-skills",
+  "topic": "skills",
   "date": "2026-10-24",
   "title": "Phil Schmid：评测与测试 Agent Skills 实战指南",
   "url": "https://www.philschmid.de/testing-skills",
@@ -806,6 +879,7 @@
   "tags": [
    "skills",
    "eval"
-  ]
+  ],
+  "links": {}
  }
 ]
