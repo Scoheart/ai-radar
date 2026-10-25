@@ -27,7 +27,7 @@ python3 /workspace/ai-radar/scripts/radar.py publish
 - 有额外资源时，条目里写成一行：`- 资源：github=https://github.com/org/repo；paper=https://arxiv.org/abs/xxxx.xxxxx`（类型之间用中文分号 `；`）。没有资源就不要写这一行
 
 ## 页面
-`python3 scripts/build_site.py` 只用标准库，生成 `docs/index.html`、`docs/data.json` 和 `docs/.nojekyll`。顶部是一排专题 Tab（另有「全部」，并显示条数），选中项记在 URL hash（如 `#mcp`、`#skills`），刷新或分享链接后仍停在该 Tab。搜索框只搜索当前 Tab。
+`python3 scripts/build_site.py` 只用标准库，生成 `docs/index.html`、`docs/data.json` 和 `docs/.nojekyll`。桌面端（≥900px）是左侧专题栏：站点标题、搜索框、专题列表（另有「全部」，每项显示条数）；右侧是当前专题按日期分组的条目。窄屏改为顶部的标题、搜索和专题下拉。选中项记在 URL hash（如 `#mcp`、`#skills`），刷新或分享链接后仍停在该专题。搜索框只搜索当前专题。
 
 ## 发布
 `radar.py publish` 会重建静态页（`docs/`）、更新索引、提交并推送到 GitHub，GitHub Pages 自动刷新。
