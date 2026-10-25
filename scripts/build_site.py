@@ -1,82 +1,563 @@
 #!/usr/bin/env python3
-"""把 topics/*/*.md 解析成 docs/data.json，并生成静态页 docs/index.html。"""
+"""把 topics/*/*.md 解析成 docs/data.json，并生成静态页 docs/index.html。
+
+只用 Python 标准库。
+"""
 import json, pathlib, re
+from collections import Counter
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-TOPICS = {"eval": "能力评测", "knowledge-base": "知识库", "memory": "记忆",
-          "code-review": "代码审查", "mcp-skills": "MCP 与 Skills"}
+TOPICS = {
+    "eval": "能力评测",
+    "knowledge-base": "知识库",
+    "memory": "记忆",
+    "code-review": "代码审查",
+    "mcp": "MCP",
+    "skills": "Skills",
+}
+
+def parse_links(raw):
+    """解析「github=URL；hf=URL」。没有资源时返回空字典。"""
+    links = {}
+    for part in re.split(r"[；;]", raw or ""):
+        part = part.strip().strip("。")
+        if "=" not in part:
+            continue
+        typ, url = part.split("=", 1)
+        typ, url = typ.strip(), url.strip()
+        if typ and url:
+            links[typ] = url
+    return links
 
 def parse():
     items = []
-    for t in TOPICS:
-        for f in sorted((ROOT / "topics" / t).glob("*.md")):
+    for topic in TOPICS:
+        folder = ROOT / "topics" / topic
+        if not folder.is_dir():
+            continue
+        for f in sorted(folder.glob("*.md")):
             date = f.stem
             for block in re.split(r"^## ", f.read_text(), flags=re.M)[1:]:
                 lines = block.strip().splitlines()
-                it = {"topic": t, "date": date, "title": lines[0].strip(),
-                      "url": "", "summary": "", "source": "", "agent": "", "tags": []}
+                it = {
+                    "topic": topic,
+                    "date": date,
+                    "title": lines[0].strip(),
+                    "url": "",
+                    "summary": "",
+                    "source": "",
+                    "agent": "",
+                    "tags": [],
+                    "links": {},
+                }
                 for ln in lines[1:]:
                     if ln.startswith("- 来源："):
                         m = re.match(r"- 来源：(.*?)　记录者：(.*)", ln)
-                        if m: it["source"], it["agent"] = m.group(1), m.group(2)
-                    elif ln.startswith("- 链接："): it["url"] = ln[5:].strip()
-                    elif ln.startswith("- 要点："): it["summary"] = ln[5:].strip()
-                    elif ln.startswith("- 标签："): it["tags"] = [x for x in re.split(r"[,，]", ln[5:]) if x.strip()]
+                        if m:
+                            it["source"], it["agent"] = m.group(1).strip(), m.group(2).strip()
+                    elif ln.startswith("- 链接："):
+                        it["url"] = ln.removeprefix("- 链接：").strip()
+                    elif ln.startswith("- 要点："):
+                        it["summary"] = ln.removeprefix("- 要点：").strip()
+                    elif ln.startswith("- 标签："):
+                        it["tags"] = [x.strip() for x in re.split(r"[,，]", ln.removeprefix("- 标签：")) if x.strip()]
+                    elif ln.startswith("- 资源：") or ln.startswith("- 资源:"):
+                        it["links"] = parse_links(re.sub(r"^- 资源[:：]", "", ln).strip())
                 items.append(it)
     return items
 
-HTML = r"""<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+def embed(obj):
+    # 避免条目正文里的 `<` 提前结束 script。
+    return (
+        json.dumps(obj, ensure_ascii=False)
+        .replace("<", "\\u003c")
+        .replace("\u2028", "\\u2028")
+        .replace("\u2029", "\\u2029")
+    )
+
+HTML = r"""<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>AI 前沿追踪</title>
 <style>
-:root{--bg:#fafaf9;--fg:#1c1917;--mut:#78716c;--card:#fff;--line:#e7e5e4;--acc:#2563eb}
-@media(prefers-color-scheme:dark){:root{--bg:#0c0a09;--fg:#e7e5e4;--mut:#a8a29e;--card:#1c1917;--line:#292524;--acc:#60a5fa}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif}
-.wrap{max-width:820px;margin:0 auto;padding:28px 16px 80px}
-h1{font-size:22px;margin:0 0 4px}.sub{color:var(--mut);font-size:13px;margin-bottom:18px}
-.bar{position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--line)}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.tab{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:3px 12px;font-size:13px;cursor:pointer}
-.tab.on{background:var(--acc);border-color:var(--acc);color:#fff}
-input{width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);font-size:14px}
-h2.d{font-size:14px;color:var(--mut);margin:26px 0 8px;font-weight:600}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px}
-.card h3{font-size:15px;margin:0 0 4px}.card h3 a{color:var(--fg);text-decoration:none}.card h3 a:hover{color:var(--acc)}
-.card p{margin:4px 0 6px}.meta{font-size:12px;color:var(--mut)}
-.tag{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-right:4px;font-size:11px}
-.empty{color:var(--mut);text-align:center;padding:40px 0}
-</style></head><body><div class="wrap">
-<h1>AI 前沿追踪</h1><div class="sub" id="sub"></div>
-<div class="bar"><div class="tabs" id="tabs"></div><input id="q" placeholder="搜索标题、要点、标签…"></div>
-<div id="list"></div></div>
+:root {
+  --bg: #f3f2ef;
+  --fg: #1c1b19;
+  --muted: #5f5a53;
+  --card: #fffcf9;
+  --line: #e3dfd6;
+  --chip: #eeece6;
+  --accent: #1f4e79;
+  --shadow: 0 1px 0 rgba(28, 27, 25, .04);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141311;
+    --fg: #f3f0ea;
+    --muted: #b7b0a4;
+    --card: #1e1d1a;
+    --line: #34322c;
+    --chip: #2a2824;
+    --accent: #9ec4e6;
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: calc(var(--bar-h, 96px) + 12px); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Noto Sans SC", "Microsoft YaHei", "WenQuanYi Micro Hei", "Droid Sans Fallback", sans-serif;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 88px; }
+header.mast { margin-bottom: 4px; }
+h1 { font-size: 22px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+.sub { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  background: var(--bg);
+  padding: 12px 0 10px;
+  margin: 0 0 6px;
+  border-bottom: 1px solid var(--line);
+}
+.tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -2px;
+  padding: 2px;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--fg);
+  font: 13px/1 inherit;
+  cursor: pointer;
+}
+.tab .n {
+  min-width: 1.5em;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.tab[aria-selected="true"] {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+.tab[aria-selected="true"] .n { background: transparent; color: inherit; opacity: .72; padding-right: 2px; }
+.tab:hover { border-color: var(--muted); }
+.tab:focus-visible, .search:focus-within, .iconbtn:focus-visible, .open:focus-visible, .summary a:focus-visible, h3 a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 0 12px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.search svg { width: 16px; height: 16px; flex: none; stroke: var(--muted); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-size: 16px;
+}
+.search input::placeholder { color: var(--muted); }
+.hint { margin: 8px 2px 0; color: var(--muted); font-size: 12px; }
+.hint:empty { display: none; }
+.day {
+  position: sticky;
+  top: var(--bar-h, 96px);
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0;
+  padding: 12px 0 8px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 600;
+}
+.day .c { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px 12px;
+  margin: 10px 0 0;
+  box-shadow: var(--shadow);
+}
+.card:hover { position: relative; z-index: 3; }
+.kicker { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--muted);
+  font-size: 12px;
+}
+.chip.x { color: var(--fg); background: transparent; border: 1px solid var(--line); }
+.card h3 { font-size: 16px; line-height: 1.45; font-weight: 600; letter-spacing: -0.011em; margin: 0 0 6px; }
+.card h3 a { color: inherit; text-decoration: none; }
+.card h3 a:hover { color: var(--accent); }
+.summary { margin: 0; font-size: 14.5px; line-height: 1.65; }
+.summary a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.meta time { font-variant-numeric: tabular-nums; }
+.tag {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--chip);
+  color: var(--fg);
+  font-size: 12px;
+}
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.icons { display: flex; flex-wrap: wrap; gap: 6px; }
+.iconbtn {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--fg);
+  text-decoration: none;
+}
+.iconbtn:hover { border-color: var(--fg); color: var(--accent); }
+.iconbtn svg { width: 16px; height: 16px; display: block; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.iconbtn:hover::after, .iconbtn:focus-visible::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%);
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 6;
+}
+.open {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 9px;
+  background: var(--fg);
+  color: var(--bg);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+.open svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.open:hover { background: var(--accent); color: var(--bg); }
+.empty { color: var(--muted); text-align: center; padding: 48px 8px; }
+@media (max-width: 640px) {
+  .wrap { padding: 18px 14px 72px; }
+  h1 { font-size: 20px; }
+  .card { padding: 13px 13px 12px; }
+  .open { margin-left: 0; flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+  <h1>AI 前沿追踪</h1>
+  <p class="sub" id="sub"></p>
+</header>
+<div class="bar">
+  <div class="tabs" id="tabs" role="tablist" aria-label="专题"></div>
+  <label class="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="搜索当前专题的标题、要点、标签…" aria-label="搜索当前专题" autocomplete="off">
+  </label>
+  <div class="hint" id="hint" aria-live="polite"></div>
+</div>
+<div id="list"></div>
+<noscript><p class="empty">需要启用 JavaScript 才能浏览这份归档。</p></noscript>
+</div>
 <script>
-const T=__TOPICS__, D=__DATA__;let cur="all";
-const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const linkify=s=>esc(s).replace(/(https?:\/\/[^\s，。）)]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
-document.getElementById("sub").textContent=`共 ${D.length} 条 · 最近更新 ${D.map(x=>x.date).sort().pop()||"-"}`;
-function tabs(){const el=document.getElementById("tabs");el.innerHTML="";
- [["all","全部"],...Object.entries(T)].forEach(([k,n])=>{const c=k==="all"?D.length:D.filter(x=>x.topic===k).length;
-  const b=document.createElement("button");b.className="tab"+(cur===k?" on":"");b.textContent=`${n} ${c}`;b.onclick=()=>{cur=k;tabs();render()};el.appendChild(b)})}
-function render(){const q=document.getElementById("q").value.trim().toLowerCase();
- const xs=D.filter(x=>(cur==="all"||x.topic===cur)&&(!q||(x.title+x.summary+x.tags.join(" ")).toLowerCase().includes(q)));
- xs.sort((a,b)=>b.date.localeCompare(a.date));const g={};xs.forEach(x=>(g[x.date]=g[x.date]||[]).push(x));
- const el=document.getElementById("list");
- if(!xs.length){el.innerHTML='<div class="empty">没有匹配的内容</div>';return}
- el.innerHTML=Object.entries(g).map(([d,a])=>`<h2 class="d">${d} · ${a.length} 条</h2>`+a.map(x=>`<div class="card">
-  <h3>${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>`:esc(x.title)}</h3>
-  <p>${linkify(x.summary)}</p><div class="meta">${T[x.topic]} · ${esc(x.source)} · ${esc(x.agent)} ${x.tags.map(t=>`<span class="tag">${esc(t.trim())}</span>`).join("")}</div></div>`).join("")).join("")}
-document.getElementById("q").oninput=render;tabs();render();
-</script></body></html>"""
+const T = __TOPICS__;
+const D = __DATA__;
+const ORDER = ["all", ...Object.keys(T)];
+
+const LABEL = {
+  github: "GitHub", hf: "Hugging Face", paper: "论文", arxiv: "arXiv", x: "X",
+  docs: "文档", blog: "博客", demo: "演示", youtube: "YouTube", reddit: "Reddit",
+  hn: "Hacker News", pypi: "PyPI", npm: "npm", dataset: "数据集",
+  leaderboard: "排行榜", discord: "Discord", spec: "规范", link: "链接"
+};
+const ICONS = {
+  github: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',
+  hf: '<circle cx="12" cy="12.2" r="7.2"/><path d="M8.4 13.6c.8 1.35 2 2 3.6 2s2.8-.65 3.6-2"/><circle cx="9.2" cy="10.6" r=".7" style="fill:currentColor;stroke:none"/><circle cx="14.8" cy="10.6" r=".7" style="fill:currentColor;stroke:none"/><path d="M7.2 8.4 5.6 6.2M16.8 8.4l1.6-2.2"/>',
+  paper: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M8 13h8M8 17h5"/>',
+  x: '<path d="M5 5l14 14M19 5 5 19"/>',
+  docs: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+  blog: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+  demo: '<circle cx="12" cy="12" r="9"/><path d="M10 8.8v6.4l5.6-3.2z"/>',
+  youtube: '<rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M10.5 9.4v5.2l5-2.6z"/>',
+  reddit: '<circle cx="12" cy="13" r="7"/><circle cx="9" cy="12.6" r=".7" style="fill:currentColor;stroke:none"/><circle cx="15" cy="12.6" r=".7" style="fill:currentColor;stroke:none"/><path d="M9.2 15.4c.8.8 1.8 1.2 2.8 1.2s2-.4 2.8-1.2"/><path d="M15.6 8.2 13.8 6.6"/><circle cx="17.2" cy="7.4" r="1.5"/>',
+  hn: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7.5 12 13l4-5.5M12 13v4.5"/>',
+  pypi: '<path d="M12 3 20 7.5v9L12 21 4 16.5v-9z"/><path d="M12 12 20 7.5M12 12v9M12 12 4 7.5"/>',
+  npm: '<path d="M4 8h16v8H4z"/><path d="M8 16V10h2.2v4h1.6V10H14v6"/>',
+  dataset: '<ellipse cx="12" cy="6" rx="7.5" ry="3"/><path d="M4.5 6v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6"/><path d="M4.5 12v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6"/>',
+  leaderboard: '<path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5A2.5 2.5 0 0 0 7 10.5M17 6h2.5A2.5 2.5 0 0 1 17 10.5"/>',
+  discord: '<path d="M8 8.6c1.6-.9 3.1-1.3 4-1.3s2.4.4 4 1.3"/><path d="M6.6 10.2C5 11.5 4.4 13.4 4.4 15.4c1.5 1.1 3 1.6 4.5 1.6l.8-1.6h4.6l.8 1.6c1.5 0 3-.5 4.5-1.6 0-2-0.6-3.9-2.2-5.2"/><circle cx="9.4" cy="13.8" r=".7" style="fill:currentColor;stroke:none"/><circle cx="14.6" cy="13.8" r=".7" style="fill:currentColor;stroke:none"/>',
+  spec: '<path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 6.2 5 7.6 7.2 4.8M3.5 12.2 5 13.6 7.2 10.8M3.5 18.2 5 19.6 7.2 16.8"/>',
+  link: '<path d="M10 13a5 5 0 0 0 7.07 0l1.77-1.77a5 5 0 0 0-7.07-7.07L10.5 5.4"/><path d="M14 11a5 5 0 0 0-7.07 0L5.16 12.77a5 5 0 0 0 7.07 7.07l1.23-1.23"/>'
+};
+const OPEN_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"/><path d="M19 5l-9 9"/><path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>';
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const linkify = s => esc(s).replace(/(https?:\/\/[^\s，。）)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+const labelOf = type => LABEL[type] || type;
+const iconOf = type => ICONS[type === "arxiv" ? "paper" : type] || ICONS.link;
+
+function hostOf(u) { return u.hostname.toLowerCase().replace(/^www\./, ""); }
+function under(h, domain) { return h === domain || h.endsWith("." + domain); }
+function detect(url) {
+  let u;
+  try { u = new URL(url); } catch { return "link"; }
+  if (u.protocol !== "http:" && u.protocol !== "https:") return "link";
+  const h = hostOf(u);
+  const seg = u.pathname.split("/").filter(Boolean).map(s => s.toLowerCase());
+  if (under(h, "github.com")) return "github";
+  if (under(h, "arxiv.org")) return "arxiv";
+  if (["openreview.net", "aclanthology.org", "aclweb.org", "biorxiv.org", "medrxiv.org", "semanticscholar.org", "doi.org", "ssrn.com", "paperswithcode.com"].some(d => under(h, d))) return "paper";
+  if (under(h, "x.com") || under(h, "twitter.com")) return "x";
+  if (under(h, "youtube.com") || h === "youtu.be") return "youtube";
+  if (under(h, "reddit.com")) return "reddit";
+  if (h === "news.ycombinator.com") return "hn";
+  if (under(h, "pypi.org") || h === "pypi.python.org") return "pypi";
+  if (under(h, "npmjs.com") || under(h, "npmjs.org")) return "npm";
+  if (under(h, "discord.com") || h === "discord.gg" || under(h, "discordapp.com")) return "discord";
+  if (under(h, "huggingface.co") || h === "hf.co") return seg[0] === "datasets" ? "dataset" : "hf";
+  if (["medium.com", "substack.com", "dev.to", "bearblog.dev", "hashnode.dev", "wordpress.com"].some(d => under(h, d))) return "blog";
+  if (under(h, "readthedocs.io") || under(h, "gitbook.io")) return "docs";
+  if (h.startsWith("blog.")) return "blog";
+  if (h.startsWith("docs.")) return "docs";
+  if (h.startsWith("spec.")) return "spec";
+  if (h.startsWith("demo.")) return "demo";
+  const table = [
+    ["blog", ["blog", "news", "posts", "post", "articles", "article", "research", "research-notes"]],
+    ["docs", ["docs", "doc", "documentation", "guide", "guides", "reference"]],
+    ["spec", ["seps", "sep", "spec", "specs", "specification", "rfc"]],
+    ["leaderboard", ["leaderboard", "leaderboards", "benchmarks"]],
+    ["dataset", ["datasets", "dataset"]],
+    ["demo", ["demo", "playground"]]
+  ];
+  for (const s of seg) {
+    for (const [type, names] of table) if (names.includes(s)) return type;
+  }
+  if (h.startsWith("developers.") || h.startsWith("developer.")) return "docs";
+  if (h.endsWith(".github.io")) return "docs";
+  return "link";
+}
+function norm(url) {
+  try {
+    const u = new URL(url);
+    const h = hostOf(u);
+    return u.protocol + "//" + h + u.pathname.replace(/\/+$/, "") + u.search;
+  } catch { return String(url || "").trim(); }
+}
+function safeHttp(url) { return /^https?:\/\//i.test(url || ""); }
+function resources(item) {
+  const explicit = [];
+  const seen = new Set();
+  for (const [type, url] of Object.entries(item.links || {})) {
+    if (!safeHttp(url)) continue;
+    const n = norm(url);
+    if (seen.has(n)) continue;
+    seen.add(n);
+    explicit.push({ type, url, n });
+  }
+  const out = [];
+  const shown = new Set();
+  if (safeHttp(item.url)) {
+    const n = norm(item.url);
+    const hit = explicit.find(e => e.n === n);
+    out.push(hit ? { type: hit.type, url: hit.url } : { type: detect(item.url), url: item.url });
+    shown.add(n);
+  }
+  for (const e of explicit) {
+    if (shown.has(e.n)) continue;
+    shown.add(e.n);
+    out.push({ type: e.type, url: e.url });
+  }
+  return out;
+}
+function iconLink(type, url) {
+  const name = labelOf(type);
+  return `<a class="iconbtn" data-type="${esc(type)}" data-label="${esc(name)}" href="${esc(url)}" target="_blank" rel="noopener" aria-label="${esc(name)}"><svg viewBox="0 0 24 24" aria-hidden="true">${iconOf(type)}</svg></a>`;
+}
+
+let cur = "all";
+const latest = D.map(x => x.date).sort().at(-1) || "—";
+document.getElementById("sub").textContent = `共 ${D.length} 条 · 更新至 ${latest}`;
+
+function fromHash() {
+  const h = decodeURIComponent(location.hash.replace(/^#/, ""));
+  if (!h || h === "all") return "all";
+  return Object.prototype.hasOwnProperty.call(T, h) ? h : "all";
+}
+function syncBar() {
+  const bar = document.querySelector(".bar");
+  document.documentElement.style.setProperty("--bar-h", bar.offsetHeight + "px");
+}
+function paintTabs() {
+  const el = document.getElementById("tabs");
+  el.innerHTML = "";
+  for (const k of ORDER) {
+    const name = k === "all" ? "全部" : T[k];
+    const n = k === "all" ? D.length : D.filter(x => x.topic === k).length;
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "tab";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", cur === k ? "true" : "false");
+    b.innerHTML = `${esc(name)}<span class="n">${n}</span>`;
+    b.addEventListener("click", () => {
+      cur = k;
+      if (location.hash !== "#" + k) location.hash = k;
+      paint();
+    });
+    el.appendChild(b);
+  }
+  const on = el.querySelector('[aria-selected="true"]');
+  if (on) {
+    const left = on.offsetLeft - 12;
+    el.scrollTo({ left: Math.max(0, left), behavior: "auto" });
+  }
+}
+function render() {
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const name = cur === "all" ? "全部" : T[cur];
+  const xs = D.filter(x => (cur === "all" || x.topic === cur) && (!q || (x.title + "\n" + x.summary + "\n" + (x.tags || []).join(" ")).toLowerCase().includes(q)));
+  xs.sort((a, b) => a.date === b.date ? 0 : (a.date < b.date ? 1 : -1));
+  const hint = document.getElementById("hint");
+  hint.textContent = q ? `在「${name}」中 ${xs.length} 条匹配` : "";
+  const list = document.getElementById("list");
+  if (!xs.length) {
+    list.innerHTML = '<p class="empty">没有匹配的内容</p>';
+    return;
+  }
+  const groups = [];
+  for (const x of xs) {
+    if (!groups.length || groups[groups.length - 1].date !== x.date) groups.push({ date: x.date, items: [x] });
+    else groups[groups.length - 1].items.push(x);
+  }
+  list.innerHTML = groups.map(g => {
+    const cards = g.items.map(card).join("");
+    return `<section><h2 class="day"><span>${esc(g.date)}</span><span class="c">${g.items.length} 条</span></h2>${cards}</section>`;
+  }).join("");
+}
+function card(x) {
+  const icons = resources(x).map(r => iconLink(r.type, r.url)).join("");
+  const open = safeHttp(x.url) ? `<a class="open" href="${esc(x.url)}" target="_blank" rel="noopener">原文${OPEN_ICON}</a>` : "";
+  const title = safeHttp(x.url) ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>` : esc(x.title);
+  const chips = [];
+  if (x.source) chips.push(`<span class="chip ${/X/.test(x.source) ? "x" : "web"}">${esc(x.source)}</span>`);
+  if (cur === "all") chips.push(`<span class="chip">${esc(T[x.topic] || x.topic)}</span>`);
+  const tags = (x.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join("");
+  return `<article class="card" data-topic="${esc(x.topic)}">
+    <div class="kicker">${chips.join("")}</div>
+    <h3>${title}</h3>
+    <p class="summary">${linkify(x.summary)}</p>
+    <div class="meta"><span>记录者 ${esc(x.agent || "—")}</span><time datetime="${esc(x.date)}">${esc(x.date)}</time>${tags}</div>
+    <div class="actions"><div class="icons">${icons}</div>${open}</div>
+  </article>`;
+}
+function paint() { paintTabs(); render(); syncBar(); }
+document.getElementById("q").addEventListener("input", () => { render(); syncBar(); });
+window.addEventListener("hashchange", () => { cur = fromHash(); paint(); });
+window.addEventListener("resize", syncBar);
+cur = fromHash();
+{
+  const raw = decodeURIComponent(location.hash.replace(/^#/, ""));
+  if (raw !== cur) history.replaceState(null, "", "#" + cur);
+}
+paint();
+</script>
+</body>
+</html>
+"""
 
 def main():
     items = parse()
-    out = ROOT / "docs"; out.mkdir(exist_ok=True)
-    (out / "data.json").write_text(json.dumps(items, ensure_ascii=False, indent=1))
-    html = HTML.replace("__TOPICS__", json.dumps(TOPICS, ensure_ascii=False)).replace(
-        "__DATA__", json.dumps(items, ensure_ascii=False).replace("</", "<\\/"))
+    out = ROOT / "docs"
+    out.mkdir(exist_ok=True)
+    (out / "data.json").write_text(json.dumps(items, ensure_ascii=False, indent=1) + "\n")
+    html = HTML.replace("__TOPICS__", embed(TOPICS)).replace("__DATA__", embed(items))
     (out / "index.html").write_text(html)
     (out / ".nojekyll").write_text("")
-    print(f"站点已生成：{len(items)} 条")
+    counts = Counter(i["topic"] for i in items)
+    linked = sum(1 for i in items if i["links"])
+    print(f"站点已生成：{len(items)} 条，其中 {linked} 条带资源行")
+    for key, name in TOPICS.items():
+        print(f"  {key} {name}: {counts[key]}")
 
 if __name__ == "__main__":
     main()
