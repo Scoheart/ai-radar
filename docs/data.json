@@ -807,5 +807,89 @@
    "skills",
    "eval"
   ]
+ },
+ {
+  "topic": "mcp-skills",
+  "date": "2026-10-25",
+  "title": "Anthropic：把部分子 Agent 折叠进「单 Agent + Skills」循环，并发布迁移工具包",
+  "url": "https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop",
+  "summary": "Anthropic 应用 AI 团队（10-22）称多个企业案例中「单 Agent + Skills 渐进披露」常在质量上优于多子 Agent，成本与延迟更低，Claude Code 系统提示因此缩减 80% 以上。建议逐个把子 Agent 折叠为 Skill + MCP 工具，并用 eval 对比后再决定去留；并行/隔离上下文等场景仍保留子 Agent。",
+  "source": "网页/文档",
+  "agent": "Skills",
+  "tags": [
+   "skills",
+   "agent-architecture",
+   "eval"
+  ]
+ },
+ {
+  "topic": "mcp-skills",
+  "date": "2026-10-25",
+  "title": "anthropics/single-agent-loop-kit：多 Agent 迁移到单循环的评测驱动工具包",
+  "url": "https://github.com/anthropics/single-agent-loop-kit",
+  "summary": "配套文章的参考实现（不维护、不接受贡献）：先度量、再合并、再把子 Agent 逐个折叠为技能与工具，每步在同一 eval 上前后对比，数据证明替代可行才删除子 Agent；并建议由小团队维护系统提示与共享 eval，各领域团队负责自己的 skills。",
+  "source": "网页/文档",
+  "agent": "Skills",
+  "tags": [
+   "skills",
+   "eval",
+   "build"
+  ]
+ },
+ {
+  "topic": "mcp-skills",
+  "date": "2026-10-25",
+  "title": "据 X 上的报道：@cherry_mx_reds 解读 Anthropic「删子 Agent、用 Skills」建议，获近 2.5k 赞",
+  "url": "https://x.com/cherry_mx_reds/status/2113969070118666670",
+  "summary": "10-24 发布的长帖概括 Skills 教「怎么做」、MCP 工具给「能做什么」、子 Agent 用于并行/隔离上下文，称有客户执行速度约快 2 倍；帖子获 2538 赞、58 万曝光，说明该架构建议在 X 上引发大量讨论。",
+  "source": "据 X 上的报道",
+  "agent": "Skills",
+  "tags": [
+   "skills",
+   "agent-architecture"
+  ]
+ },
+ {
+  "topic": "mcp-skills",
+  "date": "2026-10-25",
+  "title": "VirusTotal：35,878 个 Agent Skills 分析，18.5% 恶意，62% 恶意技能不含任何恶意代码",
+  "url": "https://blog.virustotal.com/2026/10/from-automation-to-infection-part-iii.html",
+  "summary": "10-08 发布（Part III）：52.9% 的技能带安全/滥用风险，恶意者多属 1,016 个家族，攻击完全写在自然语言指令里（如让 Agent 把税务文件 BCC 给攻击者）。同时提出 CARO-A 命名方案；实测 NVIDIA SkillSpector 2.11.2 默认阈值检出 43.1%、误报 46.2%，Cisco Skill Scanner 检出 28.5%，且 SkillSpector 遇 2.75MB 压缩 JS 因正则回溯卡死 5 分钟以上。",
+  "source": "网页/文档",
+  "agent": "Skills",
+  "tags": [
+   "skills",
+   "security",
+   "SkillSpector"
+  ]
+ },
+ {
+  "topic": "mcp-skills",
+  "date": "2026-10-25",
+  "title": "MaliciousSkillBench：整合 13 个公开来源的 9,740 技能恶意检测基准",
+  "url": "https://arxiv.org/abs/2608.19901",
+  "summary": "7,505 恶意 + 2,235 良性。跨来源（Source-Disjoint）评测下，学习型检测器召回 95.6% 但良性误报 62.4%；Cisco 与 SkillSpector（静态、关 LLM）误报仅 1.1%/0.55%，但召回只有 2.5%/0%。结论：现有检测器尚无「高召回 + 低误报」方案，需同时评估两端。",
+  "source": "网页/文档",
+  "agent": "Skills",
+  "tags": [
+   "skills",
+   "security",
+   "benchmark",
+   "SkillSpector"
+  ]
+ },
+ {
+  "topic": "mcp-skills",
+  "date": "2026-10-25",
+  "title": "Stackness 分析：AAIF 接管 Agent Skills 后规范本身没变，版本发布/RFC/安全指南仍只是提案",
+  "url": "https://stackness.dev/blog/agent-skills-open-standard-agentic-ai-foundation-what-changes",
+  "summary": "10-23 文章核对：规范仓库自 8-09 未变更、无 tag 或版本号，SKILL.md 仍为 6 个 frontmatter 字段；9 款编码 Agent 对 .agents/skills/ 等目录的支持不一（仅 Claude Code 不读 .agents/skills/），hooks、MCP 配置等扩展字段不可移植。并提醒 Skills over MCP（SEP-2640）的宿主支持仍在落地。",
+  "source": "网页/文档",
+  "agent": "Skills",
+  "tags": [
+   "skills",
+   "governance",
+   "spec"
+  ]
  }
 ]
