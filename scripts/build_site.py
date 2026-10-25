@@ -170,7 +170,7 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   font-size: 14px;
 }
 .search input::placeholder { color: var(--muted); }
-.search:focus-within, .picker select:focus-visible, .iconbtn:focus-visible, .open:focus-visible, .summary a:focus-visible, h3 a:focus-visible {
+.search:focus-within, .picker select:focus-visible, .iconbtn:focus-visible, .summary a:focus-visible, h3 a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -327,23 +327,6 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   pointer-events: none;
   z-index: 6;
 }
-.open {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  justify-content: center;
-  min-height: 34px;
-  padding: 0 12px;
-  border-radius: 9px;
-  background: var(--fg);
-  color: var(--bg);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-}
-.open svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
-.open:hover { background: var(--accent); color: var(--bg); }
 .empty { color: var(--muted); text-align: center; padding: 48px 8px; }
 @media (max-width: 899px) {
   :root { --bar-h: 148px; }
@@ -371,7 +354,7 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
 }
 @media (max-width: 640px) {
   .card { padding: 13px 13px 12px; }
-  .open { margin-left: 0; flex: 1 1 auto; }
+  .iconbtn { width: 44px; height: 44px; }
 }
 @media (forced-colors: active) {
   .nav-item[aria-current="page"] { background: Highlight; color: HighlightText; outline: 2px solid CanvasText; }
@@ -437,7 +420,6 @@ const ICONS = {
   spec: '<path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 6.2 5 7.6 7.2 4.8M3.5 12.2 5 13.6 7.2 10.8M3.5 18.2 5 19.6 7.2 16.8"/>',
   link: '<path d="M10 13a5 5 0 0 0 7.07 0l1.77-1.77a5 5 0 0 0-7.07-7.07L10.5 5.4"/><path d="M14 11a5 5 0 0 0-7.07 0L5.16 12.77a5 5 0 0 0 7.07 7.07l1.23-1.23"/>'
 };
-const OPEN_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"/><path d="M19 5l-9 9"/><path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>';
 
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const linkify = s => esc(s).replace(/(https?:\/\/[^\s，。）)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
@@ -506,8 +488,7 @@ function resources(item) {
   const shown = new Set();
   if (safeHttp(item.url)) {
     const n = norm(item.url);
-    const hit = explicit.find(e => e.n === n);
-    out.push(hit ? { type: hit.type, url: hit.url } : { type: detect(item.url), url: item.url });
+    out.push({ type: detect(item.url), url: item.url });
     shown.add(n);
   }
   for (const e of explicit) {
@@ -595,18 +576,18 @@ function render() {
 }
 function card(x) {
   const icons = resources(x).map(r => iconLink(r.type, r.url)).join("");
-  const open = safeHttp(x.url) ? `<a class="open" href="${esc(x.url)}" target="_blank" rel="noopener">原文${OPEN_ICON}</a>` : "";
   const title = safeHttp(x.url) ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>` : esc(x.title);
   const chips = [];
   if (x.source) chips.push(`<span class="chip ${/X/.test(x.source) ? "x" : "web"}">${esc(x.source)}</span>`);
   if (cur === "all") chips.push(`<span class="chip">${esc(T[x.topic] || x.topic)}</span>`);
   const tags = (x.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join("");
+  const actions = icons ? `<div class="actions"><div class="icons">${icons}</div></div>` : "";
   return `<article class="card" data-topic="${esc(x.topic)}">
     <div class="kicker">${chips.join("")}</div>
     <h3>${title}</h3>
     <p class="summary">${linkify(x.summary)}</p>
     <div class="meta"><span>记录者 ${esc(x.agent || "—")}</span><time datetime="${esc(x.date)}">${esc(x.date)}</time>${tags}</div>
-    <div class="actions"><div class="icons">${icons}</div>${open}</div>
+    ${actions}
   </article>`;
 }
 function paint() { paintNav(); render(); syncBar(); }
