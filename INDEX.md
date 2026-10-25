@@ -18,4 +18,5 @@
 
 ## MCP 与 Skills
 
+- [2026-10-25](topics/mcp-skills/2026-10-25.md)（6 条）
 - [2026-10-24](topics/mcp-skills/2026-10-24.md)（21 条）
