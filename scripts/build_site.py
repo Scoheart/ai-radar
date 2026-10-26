@@ -379,18 +379,18 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
 .card h3 { font-size: 16px; line-height: 1.45; font-weight: 600; letter-spacing: -0.011em; margin: 0 0 6px; }
 .card h3 a { color: inherit; text-decoration: none; }
 .card h3 a:hover { color: var(--accent); }
-.summary { margin: 0; font-size: 14.5px; line-height: 1.65; }
+.summary { margin: 0; font-size: 14.5px; line-height: 1.7; }
 .summary a, .block a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
 .block {
-  margin-top: 10px;
-  padding-top: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid var(--line);
 }
 .block h4 {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 0 0 4px;
+  margin: 0 0 8px;
   color: var(--fg);
   font-size: 13px;
   font-weight: 600;
@@ -405,14 +405,15 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   background: var(--accent);
 }
 .lessons h4::before { background: var(--lesson); }
-.block ul { margin: 0; padding: 0 0 0 1.15em; }
+.block ul { margin: 0; padding: 0 0 0 1.25em; }
 .block li {
-  margin: 0;
-  padding: 1px 0;
-  font-size: 14px;
-  line-height: 1.55;
+  margin: 0 0 0.65em;
+  padding: 0;
+  font-size: 14.5px;
+  line-height: 1.7;
   overflow-wrap: break-word;
 }
+.block li:last-child { margin-bottom: 0; }
 .highlights li::marker { color: var(--accent); }
 .lessons li::marker { color: var(--lesson); }
 .block-first { margin-top: 8px; padding-top: 0; border-top: 0; }
@@ -493,9 +494,13 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   .main { padding: 4px 14px 72px; }
 }
 @media (max-width: 640px) {
-  .card { padding: 13px 13px 12px; }
-  .block { margin-top: 8px; padding-top: 7px; }
-  .block-first { margin-top: 8px; padding-top: 0; border-top: 0; }
+  .card { padding: 16px 16px 14px; }
+  .card h3 { font-size: 16.5px; line-height: 1.45; margin-bottom: 8px; }
+  .summary { font-size: 15px; line-height: 1.75; }
+  .block { margin-top: 12px; padding-top: 10px; }
+  .block-first { margin-top: 10px; padding-top: 0; border-top: 0; }
+  .block h4 { margin-bottom: 8px; }
+  .block li { font-size: 15px; line-height: 1.75; margin-bottom: 0.75em; }
   .iconbtn { width: 44px; height: 44px; }
 }
 @media (forced-colors: active) {
