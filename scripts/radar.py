@@ -31,10 +31,29 @@ def clean_items(raw):
             out.append(one)
     return out
 
+# 只提醒，不拒绝写入。旧稿更短或只有一条时仍可构建。
+LONG_CHARS = 420
+THIN_CHARS = 40
+
 def warn_long(items, label):
     for one in items:
-        if len(one) > 180:
-            print(f"注意：「{label}」里有一条较长（{len(one)} 字），建议一句说完", file=sys.stderr)
+        if len(one) > LONG_CHARS:
+            print(
+                f"注意：「{label}」里有一条较长（{len(one)} 字），建议收束到两三句能说清的范围",
+                file=sys.stderr,
+            )
+
+def warn_thin(items, label):
+    if not items:
+        return
+    if len(items) == 1:
+        print(f"注意：「{label}」只有 1 条，通常写 3–5 条", file=sys.stderr)
+    for one in items:
+        if len(one) < THIN_CHARS:
+            print(
+                f"注意：「{label}」里有一条较短（{len(one)} 字），建议写成两三句",
+                file=sys.stderr,
+            )
 
 def write_list(fh, label, items):
     if not items:
@@ -77,6 +96,8 @@ def add(a):
     lessons = clean_items(a.lesson)
     warn_long(highlights, "摘要")
     warn_long(lessons, "启示")
+    warn_thin(highlights, "摘要")
+    warn_thin(lessons, "启示")
     date = a.date or datetime.date.today().isoformat()
     f = ROOT / "topics" / a.topic / f"{date}.md"
     if f.exists() and a.url in f.read_text():
@@ -126,16 +147,32 @@ def publish(_=None):
 def main(argv=None):
     p = argparse.ArgumentParser(description="AI 前沿追踪归档")
     s = p.add_subparsers(required=True)
-    x = s.add_parser("add", help="写入一条归档")
+    x = s.add_parser(
+        "add",
+        help="写入一条归档",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=(
+            "写入一条归档。\n\n"
+            "摘要（--highlight，可重复）每条 2–3 句：这条内容讲了什么、关键机制或做法、"
+            "数字或限定条件（只写原文核对得到的）。每块通常 3–5 条。不要写成给团队的建议，"
+            "也不再要求一句说完。\n\n"
+            "启示（--lesson，可重复）每条 2–3 句：对我们（做 Agent、评测、知识库、记忆、"
+            "代码审查、MCP、Skills 的团队）具体能怎么做——改哪个流程、补哪个能力、先试什么、"
+            "需要注意的风险。不要把要点再讲一遍，不要写「值得关注」这类空话。\n\n"
+            "禁止空话（如「值得关注」「很有启发」「具有重要意义」），不编造原文没有的数字。"
+            "两块都可以不写。单条少于 40 字、某一块只有 1 条，或单条超过 420 字时，"
+            "会在 stderr 提醒，仍会写入。"
+        ),
+    )
     x.set_defaults(fn=add)
     x.add_argument("--topic", required=True, help="eval / knowledge-base / memory / code-review / mcp / skills / bugfix")
     x.add_argument("--title", required=True)
     x.add_argument("--url", required=True, help="主链接")
-    x.add_argument("--summary", required=True)
+    x.add_argument("--summary", required=True, help="要点。卡片上若写了摘要，这段不再重复展示")
     x.add_argument("--highlight", action="append", default=None, metavar="TEXT",
-                   help="可重复。一条「摘要」，只写这条内容本身的判断；没有就不要传")
+                   help="可重复。一条「摘要」，2–3 句：讲了什么、关键机制或做法、原文核对得到的数字或限定。每块通常 3–5 条；没有就不要传")
     x.add_argument("--lesson", action="append", default=None, metavar="TEXT",
-                   help="可重复。一条「启示」，写可实践的改法；没有就不要传")
+                   help="可重复。一条「启示」，2–3 句：改哪个流程、补哪个能力、先试什么、注意什么风险。不要空话；没有就不要传")
     x.add_argument("--source", choices=["x", "web"], default="web")
     x.add_argument("--agent", default="unknown")
     x.add_argument("--date")
