@@ -15,7 +15,9 @@
   "links": {
    "blog": "https://labs.scale.com/blog/swe-bench-pro-v2",
    "dataset": "https://huggingface.co/datasets/ScaleAI/SWE-bench_Pro"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -32,7 +34,9 @@
   "links": {
    "paper": "https://arxiv.org/abs/2610.24206",
    "dataset": "https://huggingface.co/datasets/ScaleAI/SWE-bench_Pro"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -47,7 +51,9 @@
    "skill",
    "coding"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -64,7 +70,9 @@
   ],
   "links": {
    "github": "https://github.com/spcl/HPCAgent-Bench"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -79,7 +87,9 @@
    "judge",
    "mcp"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -96,7 +106,9 @@
   ],
   "links": {
    "x": "https://x.com/dejavucoder/status/2112910513982292256"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -110,7 +122,9 @@
    "benchmark",
    "multimodal"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -126,7 +140,9 @@
   ],
   "links": {
    "paper": "https://sage.cs.princeton.edu/trends/emerging-trends-paper.pdf"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -140,7 +156,9 @@
    "agent",
    "research-eval"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -154,7 +172,9 @@
    "methodology",
    "judge"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -171,7 +191,9 @@
   ],
   "links": {
    "blog": "https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -185,7 +207,9 @@
    "platform",
    "regression"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "eval",
@@ -203,7 +227,17 @@
   ],
   "links": {
    "github": "https://github.com/lorenzbrehme/swe-dive_usersim"
-  }
+  },
+  "highlights": [
+   "单轮编码任务被改成多轮：用户模拟器按不同行为模式逐步提出需求。",
+   "对话校验器负责核对模拟器有没有偏离原始需求，完成与否仍由测试判定。",
+   "整套评测封装在 Harbor 里。"
+  ],
+  "lessons": [
+   "评自己的编码 Agent 时，补一组需求会中途追加的多轮任务，不要只报单轮基准。",
+   "用户模拟器要单独校验是否忠于原需求，否则分数反映的是模拟器而不是 Agent。",
+   "多轮任务可以收进现有 Harbor 环境，不必另起一套基础设施。"
+  ]
  },
  {
   "topic": "eval",
@@ -218,7 +252,16 @@
    "agent",
    "offline-eval"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [
+   "1000 道离线 VQA 覆盖 Web、机器人、第一视角视频、游戏和空间规划，排名与对应在线评测一致。",
+   "22 个 VLM 里最好的只有 58.5%。",
+   "主要错在视觉状态的定位和追踪，而不是任务理解或推理。"
+  ],
+  "lessons": [
+   "视觉模型可以先用这种离线 VQA 筛选，它的排名和对应在线评测一致。",
+   "能力建设把「视觉状态定位和追踪」单列出来，不要只看任务理解和推理。"
+  ]
  },
  {
   "topic": "eval",
@@ -232,7 +275,16 @@
    "reward-model",
    "meta-eval"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [
+   "成对比较会抵消同一条 prompt 下的共享分量，看不出分数能不能跨 prompt 比较。",
+   "HelpSteer2 上 6 个奖励模型的跨 prompt 方差占比是 0.34–0.64，人类接近 0。",
+   "评测时应分开看跨 prompt 变化、错误 prompt 敏感性和选择有用性。"
+  ],
+  "lessons": [
+   "选用奖励模型时，除了成对偏好，还要审计分数能不能跨 prompt 比较。",
+   "评测清单分成三列：跨 prompt 变化、对错误 prompt 的敏感性、选择是否有用。"
+  ]
  },
  {
   "topic": "eval",
@@ -249,7 +301,16 @@
   ],
   "links": {
    "github": "https://github.com/RaychevAngel/generative-reward-models"
-  }
+  },
+  "highlights": [
+   "GRPO 训练的 Thinking 判官静态准确率更高。",
+   "把它当作在线 DPO 的奖励源时，8 组匹配设置里有 7 组不如 SFT 训练的 Answer-Only 判官。",
+   "静态判分准确率不能代表下游优化质量。"
+  ],
+  "lessons": [
+   "不要用静态判分准确率决定哪个模型来当在线奖励。",
+   "思考链判官更准时，仍要用下游策略的结果再确认一次。"
+  ]
  },
  {
   "topic": "eval",
@@ -267,7 +328,18 @@
   "links": {
    "paper": "https://arxiv.org/abs/2610.04433",
    "github": "https://github.com/YangzeLiu/what-does-a-harness-buy"
-  }
+  },
+  "highlights": [
+   "45 道困难题上，重跑和更换 Harness 都会让大约 13% 的题结果翻转。",
+   "447 题里 Claude Code 和 mini-SWE-agent 相差不超过 5 分；OpenCode 最多落后 9 分，其中约一半来自输出上限被截断。",
+   "同一模型、同一任务的每题成本最多差 3 倍，主要差在每步前置提示的 token 数。",
+   "报告 Harness 对比时，应附上同配置的重跑结果。"
+  ],
+  "lessons": [
+   "Harness 对比必须附上同配置重跑，困难题上重跑本身就会翻转大约一成的结果。",
+   "成本差一倍以上时，先查每步前置提示的 token 数。",
+   "输出被截断要单独记录，避免把截断当成模型能力差距。"
+  ]
  },
  {
   "topic": "eval",
@@ -284,7 +356,16 @@
   ],
   "links": {
    "leaderboard": "https://livebench.ai/"
-  }
+  },
+  "highlights": [
+   "10/23 到 10/24，Kimi K3.1 Pro (Max) 进入 Code Arena WebDev 和 Agent Arena。",
+   "NVIDIA Nemotron-3.5-Super-VL 已加入 Agent Arena。",
+   "LiveBench 2.0 在 10/25 更新，Kimi K3.1 Pro 总分 76.7，榜首仍是 Claude Fable 5.1（88.0）。"
+  ],
+  "lessons": [
+   "引用榜单时写上日期和赛道，这次只说明 Kimi 进入了 Code Arena 和 Agent Arena。",
+   "对外比较总分时看 LiveBench 全榜，不要用单条更新代替榜首。"
+  ]
  },
  {
   "topic": "knowledge-base",
@@ -298,7 +379,9 @@
    "agentic-search",
    "graph"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -316,7 +399,9 @@
    "github": "https://github.com/teresaz05/librarian-agents",
    "project": "https://librarian-agents.github.io/",
    "x": "https://x.com/chelseabfinn/status/2113036636586131475"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -330,7 +415,9 @@
    "wiki",
    "personal-kb"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -346,7 +433,9 @@
   ],
   "links": {
    "docs": "https://weknora.weixin.qq.com"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -364,7 +453,9 @@
   "links": {
    "hf": "https://huggingface.co/nvidia/Nemotron-3.5-Parse",
    "docs": "https://docs.nvidia.com/nim/ingestion/parse/latest/getting-started.html"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -379,7 +470,9 @@
   ],
   "links": {
    "docs": "https://www.llamaindex.ai/ocria/ocria-1-technical-report.pdf"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -395,7 +488,9 @@
   "links": {
    "docs": "https://opendatalab.github.io/MinerU/",
    "hf": "https://huggingface.co/opendatalab"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -412,7 +507,9 @@
   "links": {
    "github": "https://github.com/qdrant/qdrant/releases/tag/v1.20.0",
    "x": "https://x.com/qdrant_engine/status/2113284840808460448"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -427,7 +524,9 @@
   ],
   "links": {
    "paper": "https://arxiv.org/abs/2410.05779"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -444,7 +543,9 @@
   "links": {
    "paper": "https://arxiv.org/abs/2606.15971",
    "github-benchmark": "https://github.com/Zleap-AI/SAG-Benchmark"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -459,7 +560,9 @@
   ],
   "links": {
    "x": "https://x.com/jerryjliu0/status/2113008819328700439"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -476,7 +579,9 @@
    "paper": "https://arxiv.org/abs/2610.22273",
    "github": "https://github.com/teresaz05/librarian-agents",
    "project": "https://librarian-agents.github.io/"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -492,7 +597,9 @@
   "links": {
    "blog": "https://qdrant.tech/blog/qdrant-1.20.x/",
    "github": "https://github.com/qdrant/qdrant/releases/tag/v1.20.0"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -505,7 +612,9 @@
   "tags": [
    "vector-db"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -523,7 +632,16 @@
   "links": {
    "blog": "https://www.llamaindex.ai/blog/parse-ocria-1",
    "x": "https://x.com/jerryjliu0/status/2114404538652217370"
-  }
+  },
+  "highlights": [
+   "报告在 ParseBench、olmOCR-bench、PulseBench-Tab 和 fr-bench-pdf2md 上对比了多款开源解析模型。",
+   "公开了文档数据筛选和训练管线，并附了 24 页实验附录。",
+   "解码速度比同类开源模型快 2 到 4 倍。"
+  ],
+  "lessons": [
+   "自研文档解析时，把数据筛选和训练管线对照这份报告，不要只比一个榜的分数。",
+   "选型同时看解码速度和表格、版面类基准。"
+  ]
  },
  {
   "topic": "knowledge-base",
@@ -539,7 +657,13 @@
    "BRIGHT",
    "BrowseComp-Plus"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [
+   "编码 Agent 会按搜索轨迹和奖励，同时改写语料产物、检索工具和使用说明。",
+   "GPT-5.4-nano 上 BrowseComp-Plus 从 71.6% 提到 78.4%，BRIGHT 四个子集的 nDCG@10 从 45.7 提到 55.0。",
+   "工具耗时下降 22% 到 42%，改好的接口可以迁到 Gemini 3.5 Flash-Lite。"
+  ],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -557,7 +681,9 @@
   "links": {
    "docs": "https://docs.cohere.com/docs/rerank-overview",
    "x": "https://x.com/cohere/status/2112923503100125326"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "knowledge-base",
@@ -574,7 +700,9 @@
   ],
   "links": {
    "docs": "https://neo4j.com/books/oreilly-graphrag-definitive-guide/"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "memory",
@@ -592,7 +720,9 @@
   "links": {
    "github": "https://github.com/letta-ai/frontiermemory",
    "docs": "https://frontiermemory.com/"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "memory",
@@ -610,7 +740,9 @@
   "links": {
    "github": "https://github.com/zedong-peng/memorytax",
    "blog": "https://zedongpeng.com/memorytax/"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "memory",
@@ -627,7 +759,9 @@
   "links": {
    "github": "https://github.com/AIGNLAI/TokenWorth",
    "hf": "https://huggingface.co/papers/2610.26453"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "memory",
@@ -641,7 +775,9 @@
    "Mem0",
    "temporal"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "memory",
@@ -657,7 +793,9 @@
   ],
   "links": {
    "hf": "https://huggingface.co/papers/2607.26637"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "memory",
@@ -673,7 +811,9 @@
   ],
   "links": {
    "github": "https://github.com/opanhw/memform-code"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "memory",
@@ -691,7 +831,16 @@
   "links": {
    "github": "https://github.com/Litmeb/RAW-RAG",
    "hf": "https://huggingface.co/papers/2610.30755"
-  }
+  },
+  "highlights": [
+   "只做切窗、稠密检索和交叉编码器重排，不做 LLM 抽取、摘要或建图。",
+   "7 个设置里有 6 个排在所比较的 Agent 记忆系统前面。",
+   "加上原子事实抽取后，MemoryAgentBench 总分下降 19.62；三种记忆管理增强要消耗千万到上亿 token。"
+  ],
+  "lessons": [
+   "上记忆系统之前，先用切窗、检索和重排的朴素 RAG 做对照。",
+   "每加一层抽取或建图，都要同时量准确率和 token 成本，确认没有把原始证据弄丢。"
+  ]
  },
  {
   "topic": "memory",
@@ -708,7 +857,14 @@
   ],
   "links": {
    "github": "https://github.com/xiaoqi-7/tether-fallout"
-  }
+  },
+  "highlights": [
+   "上游失效和下游判定往往不在同一个检索窗口，Agent 因此发布了 62% 已经失效的对象。",
+   "写入时记下判定依赖的版本，读取时撤回失效依赖，不安全发布降到 0.3%，验证调用少 37%。",
+   "作为对照，Mem0 是 42%，A-Mem 和 Graphiti 是 9%。",
+   "依赖如果出现在别的会话里，不安全率会回到 9.4% 至 22.1%。"
+  ],
+  "lessons": []
  },
  {
   "topic": "memory",
@@ -726,7 +882,9 @@
   "links": {
    "docs": "https://supermemory.ai/llms.txt",
    "github": "https://github.com/supermemoryai"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "memory",
@@ -741,7 +899,9 @@
    "markdown",
    "sleep-time"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -759,7 +919,9 @@
   "links": {
    "github": "https://github.com/alibaba/open-code-review",
    "paper": "https://arxiv.org/abs/2608.09290"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -776,7 +938,9 @@
   "links": {
    "paper": "https://arxiv.org/abs/2507.19457",
    "github": "https://github.com/gepa-ai/gepa"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -791,7 +955,9 @@
    "上下文",
    "沙盒"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -806,7 +972,9 @@
    "SAST",
    "benchmark"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -822,7 +990,9 @@
   ],
   "links": {
    "dataset": "https://github.com/ossf-cve-benchmark/ossf-cve-benchmark"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -840,7 +1010,9 @@
    "paper": "https://arxiv.org/abs/2603.26130",
    "github": "https://github.com/FoundryHQ-AI/swe-prbench",
    "hf": "https://huggingface.co/datasets/foundry-ai/swe-prbench"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -856,7 +1028,9 @@
   "links": {
    "github": "https://github.com/withmartian/code-review-benchmark",
    "leaderboard": "https://codereview.withmartian.com"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -870,7 +1044,9 @@
    "范式",
    "形式化验证"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -885,7 +1061,9 @@
   ],
   "links": {
    "docs": "https://www.greptile.com/pricing"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -901,7 +1079,16 @@
    "docs": "https://winnin.github.io/farol/",
    "demo": "https://news.ycombinator.com/item?id=50231349",
    "blog": "https://dev.to/frankchu/farol-scores-your-prs-merge-risk-from-the-call-graph-i-fed-it-four-prs-and-one-invisible-1fl9"
-  }
+  },
+  "highlights": [
+   "不用大模型，用类型检查器和语法树追踪变更影响到的页面、API、RPC 和后台任务。",
+   "结合覆盖率、安全发现和契约破坏给出 0 到 100 分，以及三档审查结论。",
+   "不执行代码，也不挡住合入。有类型的契约破坏识别较准，无类型接口仍是盲区。"
+  ],
+  "lessons": [
+   "AI 审查之后可以加一层不调用模型的风险图，给审批人看影响面，而不是再加一条评论。",
+   "这层不要挡住合入。无类型接口要单独标成盲区，不要当成已经覆盖。"
+  ]
  },
  {
   "topic": "mcp",
@@ -918,7 +1105,9 @@
   ],
   "links": {
    "spec": "https://plan.modelcontextprotocol.io/seps"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -934,7 +1123,9 @@
   ],
   "links": {
    "github": "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/blog/content/posts/2026-07-28-spec-ga/index.md"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -949,7 +1140,9 @@
    "sep",
    "events"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -966,7 +1159,9 @@
   ],
   "links": {
    "spec": "https://plan.modelcontextprotocol.io/seps"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -983,7 +1178,9 @@
   ],
   "links": {
    "spec": "https://plan.modelcontextprotocol.io/seps"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -998,7 +1195,9 @@
   ],
   "links": {
    "x": "https://x.com/UberEng/status/2106072693154120124"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1013,7 +1212,9 @@
   ],
   "links": {
    "blog": "https://www.uber.com/us/en/blog/designing-mcp-gateway/"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1027,7 +1228,9 @@
    "auth",
    "gateway"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1041,7 +1244,9 @@
    "gateway",
    "auth"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1054,7 +1259,9 @@
   "tags": [
    "gateway"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1067,7 +1274,9 @@
   "tags": [
    "mcp-apps"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1082,7 +1291,9 @@
    "gateway",
    "security"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1095,7 +1306,9 @@
   "tags": [
    "mcp-apps"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1110,7 +1323,16 @@
    "spec-2026-07-28",
    "enterprise"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [
+   "10/16 随 Connectivity Link 1.5 正式发布。",
+   "/mcp 会自动协商协议版本，/mcp/stateful 固定走旧协议，新旧服务可以共用一个入口。",
+   "同时补上了网关隔离、无状态会话、prompts/resources、guardrails 和安全加固。"
+  ],
+  "lessons": [
+   "新旧 MCP 服务可以先共用一个入口：/mcp 协商版本，旧客户端走 /mcp/stateful。",
+   "网关清单里同时补上隔离、无状态会话和 guardrails，而不是只做协议转发。"
+  ]
  },
  {
   "topic": "mcp",
@@ -1126,7 +1348,9 @@
   ],
   "links": {
    "spec": "https://plan.modelcontextprotocol.io/seps"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1140,7 +1364,9 @@
    "gateway",
    "community"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1157,7 +1383,9 @@
   ],
   "links": {
    "spec": "https://plan.modelcontextprotocol.io/seps"
-  }
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1175,7 +1403,13 @@
   "links": {
    "github": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-53mr-w429-c597",
    "blog": "https://dropagentic.com/mcp-servers-security-fix-eight-vulnerabilities/"
-  }
+  },
+  "highlights": [
+   "filesystem 在检查通过后如果父目录被换成符号链接，写入、编辑、建目录和移动都能逃出允许目录。",
+   "Linux 和 macOS 已经修好，Windows 只修了一部分。",
+   "路径末尾的引号或空白在检查时被去掉、真正使用时还在，因此可以访问同名的兄弟目录。"
+  ],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -1195,7 +1429,13 @@
   "links": {
    "github": "https://github.com/modelcontextprotocol/inspector/releases/tag/1.0.3",
    "advisory": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-6x67-4w4w-9f3w"
-  }
+  },
+  "highlights": [
+   "1.0.3 修了两处远程代码执行：恶意 OAuth 回调可以把传输切到 stdio 并执行命令。",
+   "放在同源沙箱里的 MCP App 能偷走代理的 auth token，再执行命令（CVSS 9.6）。",
+   "2.12.0 修了 2.0.0 到 2.11.0 的三个漏洞，OAuth 授权地址只允许 http 或 https。"
+  ],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1209,7 +1449,9 @@
    "skills",
    "governance"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1223,7 +1465,9 @@
    "skills",
    "governance"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1237,7 +1481,9 @@
    "skills",
    "sep"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1251,7 +1497,9 @@
    "skills",
    "security"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1265,7 +1513,9 @@
    "skills",
    "eval"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1279,7 +1529,9 @@
    "skills",
    "eval"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1293,7 +1545,9 @@
    "skills",
    "eval"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1307,7 +1561,9 @@
    "skills",
    "eval"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1322,7 +1578,18 @@
    "agent-architecture",
    "eval"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [
+   "多个企业案例里，单 Agent 加上 Skills 的质量往往更好，成本和延迟也更低。",
+   "Claude Code 的系统提示因此缩短了 80% 以上。",
+   "子 Agent 应逐个折成 Skill 和 MCP 工具，用同一套 eval 对比后再决定去留。",
+   "需要并行或隔离上下文时，仍然保留子 Agent。"
+  ],
+  "lessons": [
+   "拆子 Agent 时逐个折成 Skill 和 MCP 工具，用同一套 eval 变好了再删。",
+   "需要并行或隔离上下文的步骤留在子 Agent，不要为了精简一次拆完。",
+   "系统提示变长时，优先把做法写进 Skill，而不是继续堆在主提示里。"
+  ]
  },
  {
   "topic": "skills",
@@ -1337,7 +1604,9 @@
    "eval",
    "build"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1351,7 +1620,9 @@
    "skills",
    "agent-architecture"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1366,7 +1637,13 @@
    "security",
    "SkillSpector"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [
+   "35,878 个技能里，18.5% 被标为恶意，52.9% 带有安全或滥用风险。",
+   "恶意技能中有 62% 不含任何恶意代码，攻击写在自然语言指令里。",
+   "SkillSpector 默认阈值的检出率是 43.1%，误报 46.2%；Cisco Skill Scanner 的检出率是 28.5%。"
+  ],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1382,7 +1659,9 @@
    "benchmark",
    "SkillSpector"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
@@ -1397,6 +1676,8 @@
    "governance",
    "spec"
   ],
-  "links": {}
+  "links": {},
+  "highlights": [],
+  "lessons": []
  }
 ]

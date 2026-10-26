@@ -10,6 +10,7 @@ TOPICS = {
     "code-review": "代码审查",
     "mcp": "MCP",
     "skills": "Skills",
+    "bugfix": "修 Bug",
 }
 # 小写字母、数字、短横线，可以自由扩展，不限于内置图标。
 LINK_TYPE = re.compile(r"^[a-z0-9-]+$")
@@ -18,6 +19,29 @@ BUILTIN_ICONS = (
     "youtube", "reddit", "hn", "pypi", "npm", "dataset", "leaderboard",
     "discord", "spec",
 )
+
+def clean_items(raw):
+    """每个重复参数收成一条。空白丢掉，换行并成空格。"""
+    out = []
+    for c in raw or []:
+        one = " ".join(str(c).split()).strip()
+        if one.startswith("- "):
+            one = " ".join(one[2:].split()).strip()
+        if one:
+            out.append(one)
+    return out
+
+def warn_long(items, label):
+    for one in items:
+        if len(one) > 180:
+            print(f"注意：「{label}」里有一条较长（{len(one)} 字），建议一句说完", file=sys.stderr)
+
+def write_list(fh, label, items):
+    if not items:
+        return
+    fh.write(f"- {label}：\n")
+    for one in items:
+        fh.write(f"  - {one}\n")
 
 def parse_link(raw):
     if "=" not in raw:
@@ -49,6 +73,10 @@ def add(a):
             sys.exit(f"--link 类型「{typ}」重复，每种类型只写一个 URL")
         seen.add(typ)
         links.append((typ, url))
+    highlights = clean_items(a.highlight)
+    lessons = clean_items(a.lesson)
+    warn_long(highlights, "内容精炼总结")
+    warn_long(lessons, "对团队的启发和学习")
     date = a.date or datetime.date.today().isoformat()
     f = ROOT / "topics" / a.topic / f"{date}.md"
     if f.exists() and a.url in f.read_text():
@@ -62,6 +90,8 @@ def add(a):
     src = "据 X 上的报道" if a.source == "x" else "网页/文档"
     with f.open("a") as fh:
         fh.write(f"## {a.title}\n- 来源：{src}　记录者：{a.agent}\n- 链接：{a.url}\n- 要点：{a.summary}\n")
+        write_list(fh, "内容精炼总结", highlights)
+        write_list(fh, "对团队的启发和学习", lessons)
         if a.tags:
             fh.write(f"- 标签：{a.tags}\n")
         if links:
@@ -98,10 +128,14 @@ def main(argv=None):
     s = p.add_subparsers(required=True)
     x = s.add_parser("add", help="写入一条归档")
     x.set_defaults(fn=add)
-    x.add_argument("--topic", required=True, help="eval / knowledge-base / memory / code-review / mcp / skills")
+    x.add_argument("--topic", required=True, help="eval / knowledge-base / memory / code-review / mcp / skills / bugfix")
     x.add_argument("--title", required=True)
     x.add_argument("--url", required=True, help="主链接")
     x.add_argument("--summary", required=True)
+    x.add_argument("--highlight", action="append", default=None, metavar="TEXT",
+                   help="可重复。一条「内容精炼总结」，只写这条内容本身的判断；没有就不要传")
+    x.add_argument("--lesson", action="append", default=None, metavar="TEXT",
+                   help="可重复。一条「对团队的启发和学习」，写可实践的改法；没有就不要传")
     x.add_argument("--source", choices=["x", "web"], default="web")
     x.add_argument("--agent", default="unknown")
     x.add_argument("--date")
