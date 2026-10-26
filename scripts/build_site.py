@@ -14,6 +14,7 @@ TOPICS = {
     "code-review": "代码审查",
     "mcp": "MCP",
     "skills": "Skills",
+    "bugfix": "修 Bug",
 }
 
 def parse_links(raw):
@@ -28,6 +29,58 @@ def parse_links(raw):
         if typ and url:
             links[typ] = url
     return links
+
+# 缩进的「- 」或「* 」。允许普通空格、制表符和全角空格。
+NESTED_BULLET = re.compile(r"^[ \t\u3000]+[-*]\s+(.*)$")
+
+def collect_items(lines, start, inline):
+    """收集一个缩进列表。
+
+    冒号同一行上的文字算一条；后面缩进的列表各算一条。
+    空行不结束列表，只要后面还有缩进条目。下一条顶格内容则停。
+    更深的缩进行并进上一条，避免一句被折行拆开。
+    返回 (条目列表, 下一条待处理行的下标)。
+    """
+    items = []
+    inline = (inline or "").strip()
+    if inline:
+        items.append(inline)
+    i = start
+    while i < len(lines):
+        ln = lines[i]
+        if not ln.strip():
+            j = i + 1
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            if j < len(lines) and NESTED_BULLET.match(lines[j]):
+                i = j
+                continue
+            break
+        m = NESTED_BULLET.match(ln)
+        if m:
+            text = m.group(1).strip()
+            if text:
+                items.append(text)
+            i += 1
+            continue
+        if items and re.match(r"^[ \t\u3000]{2,}\S", ln):
+            items[-1] = (items[-1] + " " + ln.strip()).strip()
+            i += 1
+            continue
+        break
+    return items, i
+
+# 旧稿称呼仍认：关键结论、内容精炼总结并进摘要；对团队的启发和学习并进启示。
+LIST_FIELDS = {
+    "摘要": "highlights",
+    "内容精炼总结": "highlights",
+    "关键结论": "highlights",
+    "启示": "lessons",
+    "对团队的启发和学习": "lessons",
+}
+LIST_HEAD = re.compile(
+    r"^- (内容精炼总结|对团队的启发和学习|关键结论|摘要|启示)\s*[:：]\s*(.*)$"
+)
 
 def parse():
     items = []
@@ -49,8 +102,17 @@ def parse():
                     "agent": "",
                     "tags": [],
                     "links": {},
+                    "highlights": [],
+                    "lessons": [],
                 }
-                for ln in lines[1:]:
+                i = 1
+                while i < len(lines):
+                    ln = lines[i]
+                    m = LIST_HEAD.match(ln)
+                    if m:
+                        extra, i = collect_items(lines, i + 1, m.group(2))
+                        it[LIST_FIELDS[m.group(1)]].extend(extra)
+                        continue
                     if ln.startswith("- 来源："):
                         m = re.match(r"- 来源：(.*?)　记录者：(.*)", ln)
                         if m:
@@ -63,6 +125,7 @@ def parse():
                         it["tags"] = [x.strip() for x in re.split(r"[,，]", ln.removeprefix("- 标签：")) if x.strip()]
                     elif ln.startswith("- 资源：") or ln.startswith("- 资源:"):
                         it["links"] = parse_links(re.sub(r"^- 资源[:：]", "", ln).strip())
+                    i += 1
                 items.append(it)
     return items
 
@@ -92,6 +155,7 @@ HTML = r"""<!doctype html>
   --line: #e3dfd6;
   --chip: #eeece6;
   --accent: #1f4e79;
+  --lesson: #2f6b4a;
   --nav-on: #1f4e79;
   --nav-on-fg: #f7f5f1;
   --nav-hover: rgba(28, 27, 25, .055);
@@ -110,6 +174,7 @@ HTML = r"""<!doctype html>
     --line: #34322c;
     --chip: #2a2824;
     --accent: #9ec4e6;
+    --lesson: #9dccb0;
     --nav-on: #9ec4e6;
     --nav-on-fg: #142028;
     --nav-hover: rgba(243, 240, 234, .06);
@@ -158,7 +223,7 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   border-radius: 8px;
   background: var(--card);
 }
-.search svg, .picker svg { width: 16px; height: 16px; flex: none; stroke: var(--muted); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.search svg, .picker > svg { width: 16px; height: 16px; flex: none; stroke: var(--muted); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .search input {
   flex: 1;
   min-width: 0;
@@ -170,7 +235,7 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   font-size: 14px;
 }
 .search input::placeholder { color: var(--muted); }
-.search:focus-within, .picker select:focus-visible, .iconbtn:focus-visible, .summary a:focus-visible, h3 a:focus-visible {
+.search:focus-within, .picker select:focus-visible, .iconbtn:focus-visible, .summary a:focus-visible, .block a:focus-visible, h3 a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -188,7 +253,37 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   font-size: 14px;
   line-height: 1.35;
 }
-.nav-item .name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nav-item .name { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.nav-item .label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mark {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--mark, var(--muted));
+}
+.nav-item[aria-current="page"] .mark { color: currentColor; }
+[data-topic="eval"] { --mark: #1f4e79; }
+[data-topic="knowledge-base"] { --mark: #2f6b4a; }
+[data-topic="memory"] { --mark: #5c4e86; }
+[data-topic="code-review"] { --mark: #3d6278; }
+[data-topic="mcp"] { --mark: #0e6b6b; }
+[data-topic="skills"] { --mark: #8a5520; }
+[data-topic="bugfix"] { --mark: #8d3b3b; }
+@media (prefers-color-scheme: dark) {
+  [data-topic="eval"] { --mark: #9ec4e6; }
+  [data-topic="knowledge-base"] { --mark: #9dccb0; }
+  [data-topic="memory"] { --mark: #cfc4ea; }
+  [data-topic="code-review"] { --mark: #a9c7d6; }
+  [data-topic="mcp"] { --mark: #8fd0d0; }
+  [data-topic="skills"] { --mark: #e2b98a; }
+  [data-topic="bugfix"] { --mark: #f0b4b0; }
+}
 .nav-item .n {
   flex: none;
   min-width: 1.6em;
@@ -212,7 +307,7 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
 .picker select {
   width: 100%;
   height: 42px;
-  padding: 0 36px 0 12px;
+  padding: 0 36px 0 36px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--card);
@@ -223,12 +318,21 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   appearance: none;
   -webkit-appearance: none;
 }
-.picker svg {
+.picker > svg {
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+}
+.picker-mark {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  pointer-events: none;
+  z-index: 1;
 }
 .main { flex: 1 1 auto; min-width: 0; padding: 14px 32px 88px; }
 .stream { max-width: 720px; min-width: 0; }
@@ -263,18 +367,55 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
 .chip {
   display: inline-flex;
   align-items: center;
+  gap: 5px;
   height: 22px;
-  padding: 0 8px;
+  padding: 0 8px 0 6px;
   border-radius: 999px;
   background: var(--chip);
   color: var(--muted);
   font-size: 12px;
 }
+.chip .mark { width: 14px; height: 14px; }
 .card h3 { font-size: 16px; line-height: 1.45; font-weight: 600; letter-spacing: -0.011em; margin: 0 0 6px; }
 .card h3 a { color: inherit; text-decoration: none; }
 .card h3 a:hover { color: var(--accent); }
 .summary { margin: 0; font-size: 14.5px; line-height: 1.65; }
-.summary a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+.summary a, .block a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+.block {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+.block h4 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 4px;
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.block h4::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.lessons h4::before { background: var(--lesson); }
+.block ul { margin: 0; padding: 0 0 0 1.15em; }
+.block li {
+  margin: 0;
+  padding: 1px 0;
+  font-size: 14px;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+.highlights li::marker { color: var(--accent); }
+.lessons li::marker { color: var(--lesson); }
+.block-first { margin-top: 8px; padding-top: 0; border-top: 0; }
 .meta {
   display: flex;
   flex-wrap: wrap;
@@ -353,11 +494,18 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
 }
 @media (max-width: 640px) {
   .card { padding: 13px 13px 12px; }
+  .block { margin-top: 8px; padding-top: 7px; }
+  .block-first { margin-top: 8px; padding-top: 0; border-top: 0; }
   .iconbtn { width: 44px; height: 44px; }
 }
 @media (forced-colors: active) {
   .nav-item[aria-current="page"] { background: Highlight; color: HighlightText; outline: 2px solid CanvasText; }
   .nav-item[aria-current="page"] .n { color: HighlightText; }
+  .block { border-top-color: CanvasText; }
+  .block h4, .block li::marker { color: CanvasText; }
+  .block h4::before { background: CanvasText; }
+  .mark { color: CanvasText; }
+  .nav-item[aria-current="page"] .mark { color: HighlightText; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; }
@@ -373,10 +521,11 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   </header>
   <label class="search">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-    <input id="q" type="search" placeholder="搜索当前专题" aria-label="搜索当前专题的标题、要点、标签" autocomplete="off">
+    <input id="q" type="search" placeholder="搜索当前专题" aria-label="搜索当前专题的标题、要点、摘要、启示、标签" autocomplete="off">
   </label>
   <nav class="nav" id="nav" aria-label="专题"></nav>
   <label class="picker">
+    <span id="topic-mark" class="picker-mark" aria-hidden="true"></span>
     <select id="topic" aria-label="专题"></select>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
   </label>
@@ -393,6 +542,21 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
 const T = __TOPICS__;
 const D = __DATA__;
 const ORDER = ["all", ...Object.keys(T)];
+const TOPIC_ICON = {
+  all: '<path d="M9 7h11M9 12h11M9 17h11"/><path d="M4.5 7h.01M4.5 12h.01M4.5 17h.01"/>',
+  eval: '<rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4.5h6M9 12.5l2 2 4-4"/>',
+  "knowledge-base": '<path d="M5 5.2A2.2 2.2 0 0 1 7.2 3H19v16H7.2A2.2 2.2 0 0 0 5 21.2z"/><path d="M5 5.2A2.2 2.2 0 0 1 7.2 7.4H19"/>',
+  memory: '<path d="M12 4 3.5 8.5 12 13l8.5-4.5L12 4z"/><path d="M3.5 12 12 16.5 20.5 12M3.5 15.5 12 20l8.5-4.5"/>',
+  "code-review": '<path d="M8 8 4 12l4 4M16 8l4 4-4 4"/>',
+  mcp: '<circle cx="6" cy="12" r="2.2"/><circle cx="17" cy="7" r="2.2"/><circle cx="17" cy="17" r="2.2"/><path d="M8.1 12H12l2.6-3.6M12 12l2.6 3.6"/>',
+  skills: '<path d="M4 9h16v10H4z"/><path d="M9 9V7.2A3 3 0 0 1 15 7.2V9M4 13h16"/>',
+  bugfix: '<path d="M9 10.2a3 3 0 0 1 6 0V14a3 3 0 0 1-6 0z"/><path d="M12 10.2V14M9 12H5.5M15 12h3.5"/><path d="M9.2 14.6 6.8 17M14.8 14.6l2.4 2.4M9.2 10.2 7 7.2M14.8 10.2 17 7.2"/>'
+};
+function topicIcon(k) {
+  const body = TOPIC_ICON[k];
+  if (!body) return "";
+  return `<svg class="mark" viewBox="0 0 24 24" aria-hidden="true">${body}</svg>`;
+}
 
 const LABEL = {
   github: "GitHub", hf: "Hugging Face", paper: "论文", arxiv: "arXiv", x: "X",
@@ -536,7 +700,8 @@ function paintNav() {
       a.className = "nav-item";
       a.href = "#" + k;
       a.dataset.key = k;
-      a.innerHTML = `<span class="name">${esc(name)}</span><span class="n">${n}</span>`;
+      if (k !== "all") a.dataset.topic = k;
+      a.innerHTML = `<span class="name">${topicIcon(k)}<span class="label">${esc(name)}</span></span><span class="n">${n}</span>`;
       nav.appendChild(a);
       const opt = document.createElement("option");
       opt.value = k;
@@ -549,18 +714,24 @@ function paintNav() {
     else a.removeAttribute("aria-current");
   }
   if (sel.value !== cur) sel.value = cur;
+  const mark = document.getElementById("topic-mark");
+  if (cur === "all") mark.removeAttribute("data-topic");
+  else mark.dataset.topic = cur;
+  mark.innerHTML = topicIcon(cur);
   document.title = topicName(cur) + " · AI 雷达 - 社区";
 }
 function render() {
   const q = document.getElementById("q").value.trim().toLowerCase();
   const name = cur === "all" ? "全部" : T[cur];
-  const xs = D.filter(x => (cur === "all" || x.topic === cur) && (!q || (x.title + "\n" + x.summary + "\n" + (x.tags || []).join(" ")).toLowerCase().includes(q)));
+  const hay = x => [x.title, x.summary, ...(x.highlights || []), ...(x.lessons || []), ...(x.tags || [])].join("\n").toLowerCase();
+  const xs = D.filter(x => (cur === "all" || x.topic === cur) && (!q || hay(x).includes(q)));
   xs.sort((a, b) => a.date === b.date ? 0 : (a.date < b.date ? 1 : -1));
   const hint = document.getElementById("hint");
   hint.textContent = q ? `在「${name}」中 ${xs.length} 条匹配` : "";
   const list = document.getElementById("list");
   if (!xs.length) {
-    list.innerHTML = '<p class="empty">没有匹配的内容</p>';
+    const msg = q || cur === "all" ? "没有匹配的内容" : "这个专题还没有条目";
+    list.innerHTML = `<p class="empty">${msg}</p>`;
     return;
   }
   const groups = [];
@@ -573,18 +744,32 @@ function render() {
     return `<section><h2 class="day"><span>${esc(g.date)}</span><span class="c">${g.items.length} 条</span></h2>${cards}</section>`;
   }).join("");
 }
+function bulletBlock(items, title, kind, divided) {
+  const xs = (Array.isArray(items) ? items : []).map(s => String(s).trim()).filter(Boolean);
+  if (!xs.length) return "";
+  const cls = divided ? `block ${kind}` : `block ${kind} block-first`;
+  return `<section class="${cls}"><h4>${title}</h4><ul>${xs.map(t => `<li>${linkify(t)}</li>`).join("")}</ul></section>`;
+}
 function card(x) {
   const icons = resources(x).map(r => iconLink(r.type, r.url)).join("");
   const title = safeHttp(x.url) ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>` : esc(x.title);
   const chips = [];
-  if (cur === "all") chips.push(`<span class="chip">${esc(T[x.topic] || x.topic)}</span>`);
+  if (cur === "all") chips.push(`<span class="chip">${topicIcon(x.topic)}${esc(T[x.topic] || x.topic)}</span>`);
   const kicker = chips.length ? `<div class="kicker">${chips.join("")}</div>` : "";
   const tags = (x.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join("");
+  const prose = String(x.summary || "").trim();
+  const highlightItems = Array.isArray(x.highlights) ? x.highlights : [];
+  const hasHighlights = highlightItems.some(s => String(s).trim());
+  const summary = prose && !hasHighlights ? `<p class="summary">${linkify(prose)}</p>` : "";
+  const highlights = bulletBlock(x.highlights, "摘要", "highlights", !!summary);
+  const lessons = bulletBlock(x.lessons, "启示", "lessons", !!(summary || highlights));
   const actions = icons ? `<div class="actions"><div class="icons">${icons}</div></div>` : "";
   return `<article class="card" data-topic="${esc(x.topic)}">
     ${kicker}
     <h3>${title}</h3>
-    <p class="summary">${linkify(x.summary)}</p>
+    ${summary}
+    ${highlights}
+    ${lessons}
     <div class="meta"><time datetime="${esc(x.date)}">${esc(x.date)}</time>${tags}</div>
     ${actions}
   </article>`;
@@ -621,7 +806,9 @@ def main():
     (out / ".nojekyll").write_text("")
     counts = Counter(i["topic"] for i in items)
     linked = sum(1 for i in items if i["links"])
-    print(f"站点已生成：{len(items)} 条，其中 {linked} 条带资源行")
+    highlighted = sum(1 for i in items if i["highlights"])
+    taught = sum(1 for i in items if i["lessons"])
+    print(f"站点已生成：{len(items)} 条，其中 {linked} 条带资源行，{highlighted} 条带摘要，{taught} 条带启示")
     for key, name in TOPICS.items():
         print(f"  {key} {name}: {counts[key]}")
 
