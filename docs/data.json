@@ -869,7 +869,9 @@
    "skills",
    "sep"
   ],
-  "links": {}
+  "links": {
+   "spec": "https://plan.modelcontextprotocol.io/seps"
+  }
  },
  {
   "topic": "mcp",
@@ -883,7 +885,9 @@
    "mcp",
    "spec"
   ],
-  "links": {}
+  "links": {
+   "github": "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/blog/content/posts/2026-07-28-spec-ga/index.md"
+  }
  },
  {
   "topic": "mcp",
@@ -913,7 +917,9 @@
    "sep",
    "auth"
   ],
-  "links": {}
+  "links": {
+   "spec": "https://plan.modelcontextprotocol.io/seps"
+  }
  },
  {
   "topic": "mcp",
@@ -928,7 +934,9 @@
    "sep",
    "auth"
   ],
-  "links": {}
+  "links": {
+   "spec": "https://plan.modelcontextprotocol.io/seps"
+  }
  },
  {
   "topic": "mcp",
@@ -941,7 +949,9 @@
   "tags": [
    "gateway"
   ],
-  "links": {}
+  "links": {
+   "x": "https://x.com/UberEng/status/2106072693154120124"
+  }
  },
  {
   "topic": "mcp",
@@ -954,7 +964,9 @@
   "tags": [
    "gateway"
   ],
-  "links": {}
+  "links": {
+   "blog": "https://www.uber.com/us/en/blog/designing-mcp-gateway/"
+  }
  },
  {
   "topic": "mcp",
