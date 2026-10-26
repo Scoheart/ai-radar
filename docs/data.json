@@ -312,7 +312,11 @@
    "agentic-search",
    "rl"
   ],
-  "links": {}
+  "links": {
+   "github": "https://github.com/teresaz05/librarian-agents",
+   "project": "https://librarian-agents.github.io/",
+   "x": "https://x.com/chelseabfinn/status/2113036636586131475"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -340,7 +344,9 @@
    "platform",
    "wiki"
   ],
-  "links": {}
+  "links": {
+   "docs": "https://weknora.weixin.qq.com"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -355,7 +361,10 @@
    "embedding",
    "rerank"
   ],
-  "links": {}
+  "links": {
+   "hf": "https://huggingface.co/nvidia/Nemotron-3.5-Parse",
+   "docs": "https://docs.nvidia.com/nim/ingestion/parse/latest/getting-started.html"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -368,7 +377,9 @@
   "tags": [
    "parsing"
   ],
-  "links": {}
+  "links": {
+   "docs": "https://www.llamaindex.ai/ocria/ocria-1-technical-report.pdf"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -381,7 +392,10 @@
   "tags": [
    "parsing"
   ],
-  "links": {}
+  "links": {
+   "docs": "https://opendatalab.github.io/MinerU/",
+   "hf": "https://huggingface.co/opendatalab"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -395,7 +409,10 @@
    "hybrid-search",
    "vector-db"
   ],
-  "links": {}
+  "links": {
+   "github": "https://github.com/qdrant/qdrant/releases/tag/v1.20.0",
+   "x": "https://x.com/qdrant_engine/status/2113284840808460448"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -408,7 +425,9 @@
   "tags": [
    "graphrag"
   ],
-  "links": {}
+  "links": {
+   "paper": "https://arxiv.org/abs/2410.05779"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -422,7 +441,10 @@
    "graphrag",
    "local-first"
   ],
-  "links": {}
+  "links": {
+   "paper": "https://arxiv.org/abs/2606.15971",
+   "github-benchmark": "https://github.com/Zleap-AI/SAG-Benchmark"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -450,7 +472,11 @@
   "tags": [
    "agentic-search"
   ],
-  "links": {}
+  "links": {
+   "paper": "https://arxiv.org/abs/2610.22273",
+   "github": "https://github.com/teresaz05/librarian-agents",
+   "project": "https://librarian-agents.github.io/"
+  }
  },
  {
   "topic": "knowledge-base",
@@ -463,7 +489,10 @@
   "tags": [
    "hybrid-search"
   ],
-  "links": {}
+  "links": {
+   "blog": "https://qdrant.tech/blog/qdrant-1.20.x/",
+   "github": "https://github.com/qdrant/qdrant/releases/tag/v1.20.0"
+  }
  },
  {
   "topic": "knowledge-base",
