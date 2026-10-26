@@ -7,6 +7,7 @@
 
 ## 知识库
 
+- [2026-10-26](topics/knowledge-base/2026-10-26.md)（4 条）
 - [2026-10-24](topics/knowledge-base/2026-10-24.md)（14 条）
 
 ## 记忆
