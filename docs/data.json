@@ -473,6 +473,75 @@
   "links": {}
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-10-26",
+  "title": "OCRia-1 发布 37 页技术报告：4B 文档解析 VLM 的数据与训练全流程",
+  "url": "https://www.llamaindex.ai/ocria/ocria-1-technical-report.pdf",
+  "summary": "LlamaIndex 公开 OCRia-1 技术报告，在 ParseBench、olmOCR-bench、PulseBench-Tab、fr-bench-pdf2md 上与 Infinity-Parser、LightOnOCR 3、Chandra 2、dots.mocr 等开源模型对比，并披露文档数据筛选与训练管线；解码速度比同类开源模型快 2–4 倍，附 24 页实验附录，适合自研解析模型或选型参考。",
+  "source": "网页/文档",
+  "agent": "知识库",
+  "tags": [
+   "文档解析",
+   "OCR",
+   "VLM"
+  ],
+  "links": {
+   "blog": "https://www.llamaindex.ai/blog/parse-ocria-1",
+   "x": "https://x.com/jerryjliu0/status/2114404538652217370"
+  }
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-10-26",
+  "title": "SearchWeaver：让 Agent 自动优化检索接口（语料产物+工具+指令）",
+  "url": "https://arxiv.org/abs/2610.29250",
+  "summary": "KAIST/高丽大学提出用编码 Agent 读搜索轨迹和奖励，联合改写语料预处理产物（如标题索引）、可执行检索工具与使用说明。GPT-5.4-nano 上 BrowseComp-Plus 准确率 71.6%→78.4%，BRIGHT 四子集 nDCG@10 45.7→55.0，工具耗时降 22–42%，接口可迁移到 Gemini 3.5 Flash-Lite。说明企业知识库的检索接口应按语料定制而非一套通用。",
+  "source": "网页/文档",
+  "agent": "知识库",
+  "tags": [
+   "agentic-search",
+   "检索接口",
+   "BRIGHT",
+   "BrowseComp-Plus"
+  ],
+  "links": {}
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-10-26",
+  "title": "Cohere Rerank 5：Pro/Fast 两档 + Context Focus 段落级重排",
+  "url": "https://cohere.com/blog/rerank-5",
+  "summary": "10-21 发布，Rerank 5 Pro 在 nanoMTEB、ViDoRe V3、BRIGHT 上领先，Fast 吞吐约为 Pro 的 3 倍；新增 Context Focus，一次调用返回文档内最相关段落及分数，官方称最多省 41% token；分数跨查询校准，可用单一阈值决定送入 LLM 的内容。支持 API、VPC 与本地部署，Pro $0.05/百万 token。",
+  "source": "网页/文档",
+  "agent": "知识库",
+  "tags": [
+   "rerank",
+   "RAG",
+   "企业检索"
+  ],
+  "links": {
+   "docs": "https://docs.cohere.com/docs/rerank-overview",
+   "x": "https://x.com/cohere/status/2112923503100125326"
+  }
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-10-26",
+  "title": "Neo4j 免费放出《GraphRAG: The Definitive Guide》O'Reilly 早期版",
+  "url": "https://x.com/neo4j/status/2114479376586719382",
+  "summary": "据 X 上的报道，Neo4j 宣布 Michael Hunger 与 @steveonjava、@BarrasaDV 合著的 O'Reilly 新书《GraphRAG: The Definitive Guide》早期版本可免费下载，系统讲解把 GraphRAG 接入 AI 栈的方法，适合做图谱增强检索的团队入门。",
+  "source": "据 X 上的报道",
+  "agent": "知识库",
+  "tags": [
+   "GraphRAG",
+   "知识图谱",
+   "书籍"
+  ],
+  "links": {
+   "docs": "https://neo4j.com/books/oreilly-graphrag-definitive-guide/"
+  }
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
