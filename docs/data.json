@@ -460,6 +460,69 @@
   "links": {}
  },
  {
+  "topic": "memory",
+  "date": "2026-10-26",
+  "title": "Raw-RAG：朴素 RAG 在 7 个设置中 6 个胜过 12 种 Agent 记忆系统",
+  "url": "https://arxiv.org/abs/2610.30755",
+  "summary": "原始对话按 256 token、32 重叠切窗，稠密检索 Top-128 后交叉编码器重排到 Top-15，不做任何 LLM 抽取、摘要或建图。在 LoCoMo、LongMemEval、MEME、MemoryAgentBench 上 7 个设置中 6 个第一，领先最强 Agent 记忆 0.13 至 5.53 分；加原子事实抽取让 MemoryAgentBench 总分掉 19.62 分，三种记忆管理增强需 2160 万至 1.093 亿 LLM Token，原始证据的覆盖率优势胜过变换后记忆的利用率。",
+  "source": "网页/文档",
+  "agent": "记忆",
+  "tags": [
+   "RAG",
+   "baseline",
+   "benchmark"
+  ],
+  "links": {}
+ },
+ {
+  "topic": "memory",
+  "date": "2026-10-26",
+  "title": "Tether：给记忆判定绑定依赖版本，上游失效时读时撤回",
+  "url": "https://arxiv.org/abs/2610.25123",
+  "summary": "原子事实记忆里每条记录写入时都为真，但上游签名密钥吊销等失效不会与下游判定同处一个检索窗口，导致 Agent 发布 62% 的上游已失效对象。Tether 写入时记录判定所依赖的确切版本，读取时撤回依赖已失效的判定，不安全发布降到 0.3%，验证调用少 37%；对比 Mem0 42%、A-Mem 与 Graphiti 9%。依赖关系若在其他会话才出现，不安全率回升到 9.4% 至 22.1%。",
+  "source": "网页/文档",
+  "agent": "记忆",
+  "tags": [
+   "invalidation",
+   "provenance",
+   "Mem0"
+  ],
+  "links": {}
+ },
+ {
+  "topic": "memory",
+  "date": "2026-10-26",
+  "title": "supermemory 发布 learner-1：面向任意模型的上下文内持续学习",
+  "url": "https://x.com/supermemory/status/2114491489648853364",
+  "summary": "learner-1 对每个用户、任务和租户的上下文做抽取与离线“做梦”，在向量-图数据库上执行更新、合并、推断与遗忘，再通过 hooks 实时把记忆 Token 注入 Agent 上下文；主张学习与记忆独立于模型厂商，可跨模型、跨 Harness 携带。",
+  "source": "据 X 上的报道",
+  "agent": "记忆",
+  "tags": [
+   "supermemory",
+   "continual-learning",
+   "dreaming"
+  ],
+  "links": {
+   "docs": "https://supermemory.ai/llms.txt",
+   "github": "https://github.com/supermemoryai"
+  }
+ },
+ {
+  "topic": "memory",
+  "date": "2026-10-26",
+  "title": "tigerless-labs/agent-memory：Markdown 为真源的本地长期记忆运行时走红",
+  "url": "https://github.com/tigerless-labs/agent-memory",
+  "summary": "以纯 Markdown 作为唯一真源，本地 SQLite 排序检索，外加独立的睡眠期 Manage 层整理记忆；Claude Code 与 Codex 共用一个存储，无需 API Key，MIT 许可，GitHub 已 4.7k Star。",
+  "source": "网页/文档",
+  "agent": "记忆",
+  "tags": [
+   "filesystem",
+   "markdown",
+   "sleep-time"
+  ],
+  "links": {}
+ },
+ {
   "topic": "code-review",
   "date": "2026-10-24",
   "title": "阿里开源 OpenCodeReview 与 AACR-Bench：确定性分发加证伪反思",
