@@ -12,7 +12,10 @@
    "coding",
    "anti-cheat"
   ],
-  "links": {}
+  "links": {
+   "blog": "https://labs.scale.com/blog/swe-bench-pro-v2",
+   "dataset": "https://huggingface.co/datasets/ScaleAI/SWE-bench_Pro"
+  }
  },
  {
   "topic": "eval",
@@ -27,6 +30,7 @@
    "coding"
   ],
   "links": {
+   "paper": "https://arxiv.org/abs/2610.24206",
    "dataset": "https://huggingface.co/datasets/ScaleAI/SWE-bench_Pro"
   }
  },
@@ -90,7 +94,9 @@
    "multimodal",
    "audit"
   ],
-  "links": {}
+  "links": {
+   "x": "https://x.com/dejavucoder/status/2112910513982292256"
+  }
  },
  {
   "topic": "eval",
@@ -1061,6 +1067,23 @@
    "community"
   ],
   "links": {}
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-10-26",
+  "title": "SEP-3440：组建 Tasks and Events 工作组，Agents 工作组降为兴趣小组",
+  "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3440",
+  "summary": "10/20 更新的提案（阶段 proposal）：成立 Tasks and Events Working Group，并把 Agents Working Group 转为 Interest Group。同期 SEP-2848（工具调用异步审批）10/20、SEP-2643（结构化授权拒绝）10/17、SEP-2778（类型约束，draft）10/21 均有更新；SEP-2792（按请求的用户语言偏好）10/17 状态为 accepted。",
+  "source": "网页/文档",
+  "agent": "MCP",
+  "tags": [
+   "sep",
+   "tasks",
+   "events"
+  ],
+  "links": {
+   "spec": "https://plan.modelcontextprotocol.io/seps"
+  }
  },
  {
   "topic": "skills",
