@@ -1018,6 +1018,51 @@
   "links": {}
  },
  {
+  "topic": "mcp",
+  "date": "2026-10-26",
+  "title": "Red Hat OpenShift MCP Gateway 正式 GA，同端点兼容 2026-07-28 无状态协议与旧版本",
+  "url": "https://www.redhat.com/en/blog/model-context-protocol-gateway-red-hat-openshift-now-generally-available",
+  "summary": "10/16 随 Connectivity Link 1.5 GA。新增网关隔离、无状态会话、prompts/resources 支持、MCP guardrails 与安全加固；/mcp 自动协商协议版本，/mcp/stateful 强制走旧协议，新旧 MCP 服务可共用一个入口。",
+  "source": "网页/文档",
+  "agent": "MCP",
+  "tags": [
+   "gateway",
+   "spec-2026-07-28",
+   "enterprise"
+  ],
+  "links": {}
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-10-26",
+  "title": "下一版 MCP 规范排期：11/15 RC，12/15 正式发布",
+  "url": "https://plan.modelcontextprotocol.io/releases/2",
+  "summary": "官方 Spec TPM 页显示 2026-12-15 版处于 DRAFT：11/15 合并并标记 SEP 为 final、发布 RC 并完成 SDK/客户端维护者签字；12/1 规范冻结，12/8 Tier 1 SDK 就绪。当前尚未登记已排期 SEP，路线主题含 Agent Identity and Enterprise-Ready Security 和 HTTP-Native Transport Unification。",
+  "source": "网页/文档",
+  "agent": "MCP",
+  "tags": [
+   "spec",
+   "release"
+  ],
+  "links": {
+   "spec": "https://plan.modelcontextprotocol.io/seps"
+  }
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-10-26",
+  "title": "MCP Gateways 兴趣小组 10/21 例会：聚合与路由模式",
+  "url": "https://meet.modelcontextprotocol.io/2026/10/gateways-interest-group-meeting-ySPsf95nY7CZ",
+  "summary": "官方 Gateways Interest Group 在 10/21 讨论网关的聚合、路由实现与痛点，定位是收集社区对网关及相邻需求的讨论。",
+  "source": "网页/文档",
+  "agent": "MCP",
+  "tags": [
+   "gateway",
+   "community"
+  ],
+  "links": {}
+ },
+ {
   "topic": "skills",
   "date": "2026-10-24",
   "title": "Anthropic 将 Agent Skills（SKILL.md）捐赠给 Linux 基金会 AAIF",
