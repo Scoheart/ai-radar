@@ -1178,6 +1178,26 @@
   }
  },
  {
+  "topic": "mcp",
+  "date": "2026-10-26",
+  "title": "MCP Inspector 安全发布 2.12.0 / 1.0.3：恶意远程 Server 与 MCP App 可致本地 RCE",
+  "url": "https://github.com/modelcontextprotocol/inspector/releases/tag/2.12.0",
+  "summary": "10/21 发布。v1 线 1.0.3 修复两个 RCE：恶意 OAuth 回调可在 URL 里把传输切到 stdio 并执行任意命令（GHSA-4fc4-wcmh-4g86）；远程 MCP App 在同源沙箱里可窃取代理 auth token 后执行命令（GHSA-6x67-4w4w-9f3w，CVSS 9.6）。v2 线 2.12.0 修复 2.0.0–2.11.0 的三个漏洞，包括 OAuth 授权 URL 只允许 http(s) 打开。建议 npx @modelcontextprotocol/inspector@latest 升级。",
+  "source": "网页/文档",
+  "agent": "MCP",
+  "tags": [
+   "mcp",
+   "security",
+   "oauth",
+   "mcp-apps",
+   "inspector"
+  ],
+  "links": {
+   "github": "https://github.com/modelcontextprotocol/inspector/releases/tag/1.0.3",
+   "advisory": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-6x67-4w4w-9f3w"
+  }
+ },
+ {
   "topic": "skills",
   "date": "2026-10-24",
   "title": "Anthropic 将 Agent Skills（SKILL.md）捐赠给 Linux 基金会 AAIF",
