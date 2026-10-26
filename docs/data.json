@@ -710,7 +710,8 @@
    "benchmark"
   ],
   "links": {
-   "github": "https://github.com/alibaba/open-code-review"
+   "github": "https://github.com/alibaba/open-code-review",
+   "paper": "https://arxiv.org/abs/2608.09290"
   }
  },
  {
@@ -725,7 +726,10 @@
    "误报抑制",
    "生产实践"
   ],
-  "links": {}
+  "links": {
+   "paper": "https://arxiv.org/abs/2507.19457",
+   "github": "https://github.com/gepa-ai/gepa"
+  }
  },
  {
   "topic": "code-review",
@@ -769,7 +773,9 @@
    "安全",
    "benchmark"
   ],
-  "links": {}
+  "links": {
+   "dataset": "https://github.com/ossf-cve-benchmark/ossf-cve-benchmark"
+  }
  },
  {
   "topic": "code-review",
@@ -783,7 +789,11 @@
    "上下文",
    "benchmark"
   ],
-  "links": {}
+  "links": {
+   "paper": "https://arxiv.org/abs/2603.26130",
+   "github": "https://github.com/FoundryHQ-AI/swe-prbench",
+   "hf": "https://huggingface.co/datasets/foundry-ai/swe-prbench"
+  }
  },
  {
   "topic": "code-review",
@@ -796,7 +806,10 @@
   "tags": [
    "benchmark"
   ],
-  "links": {}
+  "links": {
+   "github": "https://github.com/withmartian/code-review-benchmark",
+   "leaderboard": "https://codereview.withmartian.com"
+  }
  },
  {
   "topic": "code-review",
@@ -823,7 +836,9 @@
   "tags": [
    "产品动态"
   ],
-  "links": {}
+  "links": {
+   "docs": "https://www.greptile.com/pricing"
+  }
  },
  {
   "topic": "code-review",
