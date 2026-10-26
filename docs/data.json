@@ -1160,6 +1160,24 @@
   }
  },
  {
+  "topic": "mcp",
+  "date": "2026-10-26",
+  "title": "官方 MCP servers v2.1.0 安全发布：修复 3 个参考服务器的 8 个漏洞",
+  "url": "https://github.com/modelcontextprotocol/servers/releases/tag/v2.1.0",
+  "summary": "10/25 发布。server-filesystem、server-everything 升到 2.0.1，mcp-server-fetch 升到 2026.10.24。最重要的是 filesystem 的符号链接竞态：检查后把父目录换成 symlink 可让写入、编辑、建目录和 move 目标逃出允许目录；Linux/macOS 已修，Windows 仅部分修复。另修了路径末尾引号/空白被检查时剥离、实际使用时保留导致可访问同名兄弟目录的问题。",
+  "source": "网页/文档",
+  "agent": "MCP",
+  "tags": [
+   "mcp",
+   "security",
+   "servers"
+  ],
+  "links": {
+   "github": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-53mr-w429-c597",
+   "blog": "https://dropagentic.com/mcp-servers-security-fix-eight-vulnerabilities/"
+  }
+ },
+ {
   "topic": "skills",
   "date": "2026-10-24",
   "title": "Anthropic 将 Agent Skills（SKILL.md）捐赠给 Linux 基金会 AAIF",
