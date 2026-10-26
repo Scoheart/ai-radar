@@ -70,14 +70,16 @@ def collect_items(lines, start, inline):
         break
     return items, i
 
-# 「关键结论」是旧稿称呼，并进内容精炼总结。
+# 旧稿称呼仍认：关键结论、内容精炼总结并进摘要；对团队的启发和学习并进启示。
 LIST_FIELDS = {
+    "摘要": "highlights",
     "内容精炼总结": "highlights",
     "关键结论": "highlights",
+    "启示": "lessons",
     "对团队的启发和学习": "lessons",
 }
 LIST_HEAD = re.compile(
-    r"^- (内容精炼总结|对团队的启发和学习|关键结论)\s*[:：]\s*(.*)$"
+    r"^- (内容精炼总结|对团队的启发和学习|关键结论|摘要|启示)\s*[:：]\s*(.*)$"
 )
 
 def parse():
@@ -519,7 +521,7 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   </header>
   <label class="search">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-    <input id="q" type="search" placeholder="搜索当前专题" aria-label="搜索当前专题的标题、要点、内容精炼总结、团队启发、标签" autocomplete="off">
+    <input id="q" type="search" placeholder="搜索当前专题" aria-label="搜索当前专题的标题、要点、摘要、启示、标签" autocomplete="off">
   </label>
   <nav class="nav" id="nav" aria-label="专题"></nav>
   <label class="picker">
@@ -759,8 +761,8 @@ function card(x) {
   const highlightItems = Array.isArray(x.highlights) ? x.highlights : [];
   const hasHighlights = highlightItems.some(s => String(s).trim());
   const summary = prose && !hasHighlights ? `<p class="summary">${linkify(prose)}</p>` : "";
-  const highlights = bulletBlock(x.highlights, "内容精炼总结", "highlights", !!summary);
-  const lessons = bulletBlock(x.lessons, "对团队的启发和学习", "lessons", !!(summary || highlights));
+  const highlights = bulletBlock(x.highlights, "摘要", "highlights", !!summary);
+  const lessons = bulletBlock(x.lessons, "启示", "lessons", !!(summary || highlights));
   const actions = icons ? `<div class="actions"><div class="icons">${icons}</div></div>` : "";
   return `<article class="card" data-topic="${esc(x.topic)}">
     ${kicker}
@@ -806,7 +808,7 @@ def main():
     linked = sum(1 for i in items if i["links"])
     highlighted = sum(1 for i in items if i["highlights"])
     taught = sum(1 for i in items if i["lessons"])
-    print(f"站点已生成：{len(items)} 条，其中 {linked} 条带资源行，{highlighted} 条带内容精炼总结，{taught} 条带团队启发")
+    print(f"站点已生成：{len(items)} 条，其中 {linked} 条带资源行，{highlighted} 条带摘要，{taught} 条带启示")
     for key, name in TOPICS.items():
         print(f"  {key} {name}: {counts[key]}")
 

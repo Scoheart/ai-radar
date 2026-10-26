@@ -75,8 +75,8 @@ def add(a):
         links.append((typ, url))
     highlights = clean_items(a.highlight)
     lessons = clean_items(a.lesson)
-    warn_long(highlights, "内容精炼总结")
-    warn_long(lessons, "对团队的启发和学习")
+    warn_long(highlights, "摘要")
+    warn_long(lessons, "启示")
     date = a.date or datetime.date.today().isoformat()
     f = ROOT / "topics" / a.topic / f"{date}.md"
     if f.exists() and a.url in f.read_text():
@@ -90,8 +90,8 @@ def add(a):
     src = "据 X 上的报道" if a.source == "x" else "网页/文档"
     with f.open("a") as fh:
         fh.write(f"## {a.title}\n- 来源：{src}　记录者：{a.agent}\n- 链接：{a.url}\n- 要点：{a.summary}\n")
-        write_list(fh, "内容精炼总结", highlights)
-        write_list(fh, "对团队的启发和学习", lessons)
+        write_list(fh, "摘要", highlights)
+        write_list(fh, "启示", lessons)
         if a.tags:
             fh.write(f"- 标签：{a.tags}\n")
         if links:
@@ -133,9 +133,9 @@ def main(argv=None):
     x.add_argument("--url", required=True, help="主链接")
     x.add_argument("--summary", required=True)
     x.add_argument("--highlight", action="append", default=None, metavar="TEXT",
-                   help="可重复。一条「内容精炼总结」，只写这条内容本身的判断；没有就不要传")
+                   help="可重复。一条「摘要」，只写这条内容本身的判断；没有就不要传")
     x.add_argument("--lesson", action="append", default=None, metavar="TEXT",
-                   help="可重复。一条「对团队的启发和学习」，写可实践的改法；没有就不要传")
+                   help="可重复。一条「启示」，写可实践的改法；没有就不要传")
     x.add_argument("--source", choices=["x", "web"], default="web")
     x.add_argument("--agent", default="unknown")
     x.add_argument("--date")

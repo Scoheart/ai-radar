@@ -253,7 +253,7 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   margin: 0 0 4px;
   color: var(--fg);
   font-size: 13px;
-  font-weight: 650;
+  font-weight: 600;
   line-height: 1.4;
 }
 .block h4::before {
@@ -381,7 +381,7 @@ h1 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02
   </header>
   <label class="search">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-    <input id="q" type="search" placeholder="搜索当前专题" aria-label="搜索当前专题的标题、要点、内容精炼总结、团队启发、标签" autocomplete="off">
+    <input id="q" type="search" placeholder="搜索当前专题" aria-label="搜索当前专题的标题、要点、摘要、启示、标签" autocomplete="off">
   </label>
   <nav class="nav" id="nav" aria-label="专题"></nav>
   <label class="picker">
@@ -621,8 +621,8 @@ function card(x) {
   const highlightItems = Array.isArray(x.highlights) ? x.highlights : [];
   const hasHighlights = highlightItems.some(s => String(s).trim());
   const summary = prose && !hasHighlights ? `<p class="summary">${linkify(prose)}</p>` : "";
-  const highlights = bulletBlock(x.highlights, "内容精炼总结", "highlights", !!summary);
-  const lessons = bulletBlock(x.lessons, "对团队的启发和学习", "lessons", !!(summary || highlights));
+  const highlights = bulletBlock(x.highlights, "摘要", "highlights", !!summary);
+  const lessons = bulletBlock(x.lessons, "启示", "lessons", !!(summary || highlights));
   const actions = icons ? `<div class="actions"><div class="icons">${icons}</div></div>` : "";
   return `<article class="card" data-topic="${esc(x.topic)}">
     ${kicker}
