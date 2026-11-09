@@ -1521,6 +1521,81 @@
   ]
  },
  {
+  "topic": "code-review",
+  "date": "2026-11-09",
+  "title": "GitHub Copilot code review 支持 API 管理设置与评论来源归属",
+  "url": "https://github.blog/changelog/2026-11-06-copilot-code-review-api-management-and-review-overview-updates/",
+  "summary": "审查设置可经 REST/GraphQL API 从企业策略管到单仓库；API 返回 Copilot 评论的归属字段、审查 effort 档位，以及评论依据的 skills、MCP server 与自定义指令；概览评论更紧凑，并修复计费与自动审查问题。",
+  "source": "网页/文档",
+  "agent": "代码审查",
+  "tags": [],
+  "links": {
+   "docs": "https://github.blog/changelog/2026-11-06-copilot-code-review-api-management-and-review-overview-updates/"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-09",
+  "title": "Devin Review 2.0：增量审查，单 PR 成本降 82%",
+  "url": "https://devin.ai/blog/devin-review-2",
+  "summary": "成为 Devin 默认 PR 审查工具，支持 /devin review 与自动审查；重复审查只看新改动以降噪；8 月以来单 PR 成本降 82%（典型 0.25 至 0.75 美元），每 PR 平均发现 bug 从 1.22 升到 1.32，可设单 PR 花费上限。",
+  "source": "网页/文档",
+  "agent": "代码审查",
+  "tags": [],
+  "links": {
+   "blog": "https://devin.ai/blog/devin-review-2"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-09",
+  "title": "Atlassian Code Reviewer 正式可用，对照 Jira 验收标准审 PR",
+  "url": "https://www.atlassian.com/blog/development/code-reviewer",
+  "summary": "随付费 Jira 提供，审查 Bitbucket Cloud 与 GitHub PR，以 Jira 和 Teamwork Graph 为上下文并核对关联工单验收标准；内部 PR 周期中位数降 31%，39% 的评论直接引发下一次提交改代码。",
+  "source": "网页/文档",
+  "agent": "代码审查",
+  "tags": [],
+  "links": {
+   "blog": "https://www.atlassian.com/blog/development/code-reviewer"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-09",
+  "title": "CR-Bench-v2：最强代码审查 Agent 仅检出约三分之一已知缺陷",
+  "url": "https://arxiv.org/abs/2611.02566",
+  "summary": "把 SWE-Bench issue 改造为带完整仓库上下文的 PR 审查任务（584 例，另有 174 例 Verified 子集），用已知缺陷检出率与评论可用率两项指标评测；最强系统检出率约 33%，Gemini Code Assist 可用率 78% 但检出率仅 8.1%，自我反思对所有底座都有提升。",
+  "source": "网页/文档",
+  "agent": "代码审查",
+  "tags": [],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.02566"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-09",
+  "title": "X 讨论：AI 审查工具涨价，审查应前移到写代码过程",
+  "url": "https://x.com/championswimmer/status/2118869467803304160",
+  "summary": "据 X 上的报道，Arnav Gupta 称部分代码审查创业公司涨价导致账单偏高，认为 PR 提交后再审的模式不适合 AI 时代，审查应前移到编码过程中。",
+  "source": "据 X 上的报道",
+  "agent": "代码审查",
+  "tags": [],
+  "links": {
+   "x": "https://x.com/championswimmer/status/2118869467803304160"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
   "topic": "mcp",
   "date": "2026-10-24",
   "title": "SEP-2640 Skills over MCP 成为官方扩展",
