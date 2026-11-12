@@ -1687,6 +1687,34 @@
   "lessons": []
  },
  {
+  "topic": "code-review",
+  "date": "2026-11-12",
+  "title": "Factory 发布 Security Factory：把扫描发现变成已验证的修复",
+  "url": "https://factory.com/news/security-factory",
+  "summary": "汇总 SAST、依赖、密钥与基础设施扫描结果及威胁情报、工单上下文，多 Agent 并行分析可达性、可利用性与攻击路径并在沙箱复现；修复按原始利用条件测试、查回归后提 PR，自主程度可配置。目前为私测。",
+  "source": "网页/文档",
+  "agent": "代码审查",
+  "tags": [],
+  "links": {},
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-12",
+  "title": "Vercel Security Review 首周自报：57,897 个发现，Agent 已修 14,665 个",
+  "url": "https://x.com/rauchg/status/2120188488628977819",
+  "summary": "上线不到一周发现 57,897 个漏洞，6,029 个严重或高危，Agent 已修复 14,665 个（Vercel 自报、严重度由 AI 评定）；只审每次推送的变更，追踪可达性并复核后再报，修复以 PR 提出需开发者批准，11-10 起按 token 计费。",
+  "source": "据 X 上的报道",
+  "agent": "代码审查",
+  "tags": [],
+  "links": {
+   "blog": "https://vercel.com/changelog/vercel-security-review-public-beta"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
   "topic": "mcp",
   "date": "2026-10-24",
   "title": "SEP-2640 Skills over MCP 成为官方扩展",
