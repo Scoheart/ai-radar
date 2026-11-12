@@ -20,7 +20,7 @@
 
 ## 代码审查
 
-- [2026-11-12](topics/code-review/2026-11-12.md)（2 条）
+- [2026-11-12](topics/code-review/2026-11-12.md)（3 条）
 - [2026-11-11](topics/code-review/2026-11-11.md)（3 条）
 - [2026-11-10](topics/code-review/2026-11-10.md)（3 条）
 - [2026-11-09](topics/code-review/2026-11-09.md)（5 条）

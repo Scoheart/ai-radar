@@ -1715,6 +1715,21 @@
   "lessons": []
  },
  {
+  "topic": "code-review",
+  "date": "2026-11-12",
+  "title": "CodeRabbit 上线按合并风险上限自动批准 PR",
+  "url": "https://x.com/coderabbitai/status/2120660381047902427",
+  "summary": "开启自动批准后，CodeRabbit 有可执行意见时请求修改，意见解决、最新提交审完且预合并检查不失败才批准，批准可计入分支保护要求但不会合并；可设 max_merge_risk / max_security_risk 上限（minimal 到 critical 五级），超过上限留给人工，也可按团队或路径关闭。",
+  "source": "据 X 上的报道",
+  "agent": "代码审查",
+  "tags": [],
+  "links": {
+   "docs": "https://docs.coderabbit.ai/pr-reviews/approval-risk-limits"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
   "topic": "mcp",
   "date": "2026-10-24",
   "title": "SEP-2640 Skills over MCP 成为官方扩展",
