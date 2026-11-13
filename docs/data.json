@@ -514,6 +514,105 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-13",
+  "title": "Google DeepMind 与 Artificial Analysis 发布 MKA：200 项多模态知识工作评测",
+  "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/",
+  "summary": "2026-11-10，Google DeepMind 与 Artificial Analysis 发布 Multimodal Knowledge Agent（MKA）基准，由 10 个行业、83 个职业的专家共建 200 道需处理视觉复杂文件的知识工作题；每题约 70 条专家是非量表，事实准确性占 75%、视觉设计占 25%。全部模型在开源 harness Stirrup 中运行，由非 Google 模型驱动的 agentic autorater 打分，与专家一致性为 96%；200 题集保密，另有 10 道公开题。Artificial Analysis 头条指标 Climb WSR：Claude Fable 5.2 为 57%，Gemini 4 Carbon 为 54%，Claude Opus 5.5 为 53%。AA 称 Fable 平均约 31.97 美元/题，Carbon 约 6.29 美元/题；Google 则称 Carbon 平均成本约为最高分模型的六分之一。同任务上，受测模型平均轮次约在 30 到 130 之间。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "benchmark",
+   "multimodal",
+   "agent",
+   "llm-as-judge",
+   "leaderboard"
+  ],
+  "links": {
+   "blog": "https://artificialanalysis.ai/articles/google-deepmind-multimodal-knowledge-agent",
+   "leaderboard": "https://artificialanalysis.ai/evaluations/mka"
+  },
+  "highlights": [
+   "MKA 针对必须阅读图纸、原理图、扫描件等视觉文件才能完成的专业交付物，而不是可纯文本求解的知识题。",
+   "Artificial Analysis 用 Climb WSR 作为头条分：Claude Fable 5.2 57%，Gemini 4 Carbon 54%，Claude Opus 5.5 53%；成本差异超过质量分差。",
+   "200 题评测集保密以防泄漏，另有 10 道公开题供检查格式；autorater 与专家一致性为 96%。"
+  ],
+  "lessons": [
+   "做知识工作 Agent 评测时，应同时看质量、单题成本和平均轮次，避免只比较头条准确率。",
+   "视觉依赖任务要把输入文件真正作为必选项，并用专家量表区分 Climb 与 Regression 指标。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-13",
+  "title": "ARE-bench：用真实研究会话和工作区评测研究 Agent 能否推进进行中的项目",
+  "url": "https://arxiv.org/abs/2611.14364",
+  "summary": "2026-11-10 提交的 ARE-bench 用研究者本人项目中的真实会话和未清理工作区构建 75 个任务，覆盖 7 个研究阶段、33 项需求、150 个子需求，共 1,173 条二进制 checklist。每项任务锚定真实请求，保留仍有效的历史要求作为背景，并回放当时的完整工作区。七款前沿模型中，最强者也只在 66.2% 的任务上通过全部 checklist；若只检查交付约定和一般规范，三款模型约 69% 通过，一旦加上历史与工作区要求则降到 28.4%–40.0%。Design 与 Execution 对所有模型都偏难。项目页：https://arebench.com。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "benchmark",
+   "research-agent",
+   "rubric"
+  ],
+  "links": {
+   "demo": "https://arebench.com"
+  },
+  "highlights": [
+   "评测重点是在进行中的项目里尊重既有决定和凌乱工作区，而不是在干净仓库上做独立任务。",
+   "忽略历史与工作区约束会高估研究 Agent，并掩盖模型之间的差距。"
+  ],
+  "lessons": [
+   "评测研究或长周期 Agent 时，应保留历史约束和未清理工作区，而不是只检查最终交付格式。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-13",
+  "title": "论文指出 Agent 基准往往先失去区分度，问题在计分而不只在题目变容易",
+  "url": "https://arxiv.org/abs/2611.13541",
+  "summary": "2026-11-10 提交的论文重评包括 SWE-bench Verified、Terminal-Bench 在内的 8 个基准后认为，排行榜饱和很大程度上来自测量方式：多数 Agent 基准把一次运行压成 pass/fail。SWE-bench Verified 前十名分差小于其测试误差；ALE-Bench 用竞赛分能把前十分成三档，但按中位人类作对/错打分时，五款模型在 40 题中通过 39 题，尽管近一半运行超过该人类水平。作者提出带日期锚点的 clipped log-ratio 分数，并把成本作为单独坐标轴；在 Terminal-Bench 重跑中，pass/fail 并列的模型在被丢掉的连续量上可相差十倍以上。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "benchmark",
+   "methodology",
+   "leaderboard",
+   "scoring"
+  ],
+  "links": {},
+  "highlights": [
+   "作者认为饱和常常是计分太粗、且被参考答案封顶，而不是任务已经用尽。",
+   "提高通过门槛只会把问题挪走；分级计分才能在同一批任务上重新拉开档次。"
+  ],
+  "lessons": [
+   "维护排行榜时，除了换更难的题集，也应检查 pass/fail 是否已经无法区分头部模型，并单独报告成本。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-13",
+  "title": "AgentScript-Eval：企业 DSL 上从零编写 Agent 定义几乎全部失败，技能写法比模型规模更关键",
+  "url": "https://arxiv.org/abs/2611.13183",
+  "summary": "2026-11-09 提交的 AgentScript-Eval 用 Salesforce Agentforce 的声明式 DSL AgentScript 收集 100 个真实任务，覆盖按规格编写、调试损坏定义和优化已有定义。五款模型 zero-shot 时最好只到 25.0% pass@3，从零编写全部为 0%。模型规模和价格对成功率预测很弱：一个 31B 开源权重模型编译率最高（48.0%），并在部分正确率上追平最强前沿模型且 token 成本最低。加上 agentic 的编译-修改循环大约使部分正确率翻倍。同一 skill pack 作为普通文档得 28%，作为 live plugin 只有 14%，改写其中一项 skill 后升至 37%，为文中最佳。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "benchmark",
+   "skills",
+   "coding-agent",
+   "dsl"
+  ],
+  "links": {},
+  "highlights": [
+   "在预训练语料里很少出现的企业 DSL 上，从零编写 Agent 定义对所有 zero-shot 模型都是 0%。",
+   "技能的组织与措辞比是否做成插件、也比模型更大更贵，更能改变成绩。"
+  ],
+  "lessons": [
+   "给编码 Agent 提供技能时，应先把关键指导改写成渐进披露的入口，并用编译-修改循环验证，而不是只换更大的模型。"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -937,6 +1036,107 @@
   ]
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-11-13",
+  "title": "LlamaIndex 发布 ParseBench-2：按错误严重度校准的文档解析基准",
+  "url": "https://www.llamaindex.ai/blog/introducing-parsebench-v2",
+  "summary": "2026-11-12，LlamaIndex 发布 ParseBench-2。案例从 ParseBench-1 的 2.1k 增至 4.3k，新增表单作为第六个评测维度，并检查 1,025 张图表的全部数值。团队定义了 330 类错误，按 critical、major、minor、harmless 标定分数应下降多少，再用这些测试去校准文本、表格、格式、图表、版式和表单六类确定性指标，以避免无关格式问题扣分过多、关键数字错误扣分过少。数据集、评测代码和论文已公开。据 X 上的报道，LlamaIndex 创始人 Jerry Liu（@jerryjliu0）于同日宣布该基准。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "document-parsing",
+   "benchmark",
+   "parsebench",
+   "llamaindex"
+  ],
+  "links": {
+   "github": "https://github.com/run-llama/ParseBench",
+   "hf": "https://huggingface.co/datasets/llamaindex/ParseBench-2",
+   "paper": "https://www.llamaindex.ai/files/parsebench-v2-severity-aware-evaluation-of-document-parsing.pdf",
+   "x": "https://x.com/jerryjliu0/status/2120921239619612921"
+  },
+  "highlights": [
+   "ParseBench-2 用人工标定的错误严重度去校准确定性指标，试图同时保留可复现性和与专家判断的一致性。",
+   "评测规模扩大到 4.3k 案例，并首次把表单和完整图表数值纳入六维评测。"
+  ],
+  "lessons": [
+   "选型或自研文档解析时，应使用按严重度加权的指标，避免被无害格式差异抬高或压低分数。"
+  ]
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-11-13",
+  "title": "RAGFlow 1.0 发布，定位从端到端 RAG 引擎转向 Agent Native Database",
+  "url": "https://ragflow.io/blog/announcing-ragflow-1.0-beyond-rag-toward-an-agent-native-database",
+  "summary": "2026-11-09，RAGFlow 发布 1.0，正式把产品定位为 Agent Native Database，即 Agent Harness 可直接调用的上下文供给层；底层改写为 Go。它不再只做“检索片段再塞进提示词”，而是在索引时做 Knowledge Compilation，按需提供编译后的证据单元、导航结构、关系骨架、时间线、Wiki、本体断言和 Memory facts。官方把分工概括为：Harness 负责编排，RAGFlow 负责供给。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "rag",
+   "agentic-search",
+   "knowledge-compilation",
+   "ragflow"
+  ],
+  "links": {},
+  "highlights": [
+   "1.0 的核心变化是产品定位：从端到端 RAG 引擎变成给 Agent Harness 用的上下文供给层。",
+   "Knowledge Compilation 把理解工作前移到索引阶段，目标是一次编译、多次调用。"
+  ],
+  "lessons": [
+   "建设企业知识库时，可把“编排检索的 Harness”和“持续供给高质量上下文的层”分开设计，而不是只堆更复杂的召回算法。"
+  ]
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-11-13",
+  "title": "Neo4j 开源 graph-explorer-kit：把 Document Intelligence 图谱交给 Agent 工具和 HTTP API",
+  "url": "https://neo4j.com/blog/developer/agentic-graphrag-and-an-explorer-for-your-own-stack/",
+  "summary": "2026-11-09，Neo4j 开发者倡导者 Zaid Zaim 介绍开源 graph-explorer-kit（基于 neo4j-graphrag）。Aura 的 Document Intelligence 先把文件切块、抽实体并保留出处，随后可用该工具包：在自己的代码里调用 retriever、把检索工具交给自己的 Agent，或调用 HTTP API（POST /api/ask 与 /api/ask/stream）。Agent 可选用混合检索、只读 Cypher、实体查找和 graph_overview；写入查询会被拒绝。仓库：https://github.com/ZaidZaim/graph-explorer-kit。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "graphrag",
+   "neo4j",
+   "agentic-search",
+   "provenance"
+  ],
+  "links": {
+   "github": "https://github.com/ZaidZaim/graph-explorer-kit"
+  },
+  "highlights": [
+   "该套件把“文件生成带出处的图谱”和“让 Agent 按问题选择检索工具”连成一条可嵌入应用的路径。",
+   "图谱查询默认只读，实体可回溯到原文段落和源文件。"
+  ],
+  "lessons": [
+   "做 GraphRAG 时，应为 Agent 同时提供文本混合检索和只读图查询，并保留实体到原文的出处链接。"
+  ]
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-11-13",
+  "title": "Flexible GraphRAG 0.10.0 增加 Graph 标签页，可视化文档抽取的实体与关系",
+  "url": "https://integratedsemantics.org/2026/11/",
+  "summary": "2026-11-10 发布的 Flexible GraphRAG v0.10.0 在 React、Vue、Angular 应用以及面向 Alfresco 和 Nuxeo 的 KG Spaces 中新增 Graph 标签页，用于展示一次摄入、混合检索、问答来源或所选文档/文件夹对应的实体与关系，并支持按类型开关、展开邻居和导出；只显示当前用户有权阅读的文档。该标签页可对接其支持的全部 15 种属性图。同版本还改进了弱匹配过滤、Ollama 上下文窗口，以及删除或重新同步文档时保留其他文档仍在使用的实体和关系。项目采用 Apache 2.0 许可。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "graphrag",
+   "opensource",
+   "visualization"
+  ],
+  "links": {
+   "github": "https://github.com/stevereiner/flexible-graphrag",
+   "docs": "https://stevereiner.github.io/flexible-graphrag/"
+  },
+  "highlights": [
+   "0.10.0 的主要可见变化是把自动抽取的知识图谱直接呈现在应用和内容管理系统里。",
+   "同版本也修了跨文档共享关系在删除或重同步时被误伤的问题。"
+  ],
+  "lessons": [
+   "知识图谱只有在用户能按文档权限查看、过滤和回溯时，才比较容易进入日常检索和问答流程。"
+  ]
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
@@ -1251,6 +1451,54 @@
   ],
   "lessons": [
    "整理内部记忆时按“事实/可调用流程/对其他记忆的变换”分类，分别设计存储与召回方式"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-13",
+  "title": "Anthropic 发布《The components of agent memory》：用 dreaming 整理跨会话记忆",
+  "url": "https://www.anthropic.com/research/components-of-agent-memory",
+  "summary": "2026-11-06，Anthropic 发表《The components of agent memory》，把 agent memory 定义为从使用中获得、并在会话之间保留、稍后可再读的经验知识，不包括改权重、单轮上下文学习，以及用摘要替换旧轮次的 compaction。文章提出用 dreaming（在空闲时回看日志、修正或新建笔记、生成新的记忆表征，并决定下次预加载什么）来组织记忆，并引用 Letta 与 UC Berkeley 的 sleep-time compute。在 Continual Learning Bench 1.0 的数据库问答任务中，模型每题从新会话起步，只共享可持久化的 memory 目录：Claude Opus 5 首次闭合学习回路，把已验证规则、依据和陷阱写入记忆；Claude Opus 5.5 与 Claude Sonnet 5.5 同样能闭合回路。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "agent-memory",
+   "dreaming",
+   "continual-learning",
+   "anthropic"
+  ],
+  "links": {},
+  "highlights": [
+   "Anthropic 把跨会话记忆与改权重、单轮学习和 compaction 明确分开，并把 dreaming 作为离线整理机制。",
+   "在 CL-Bench 1.0 上，能否把失败变成经验证的规则，是较新 Claude 模型与更早模型的关键差别。"
+  ],
+  "lessons": [
+   "做长期记忆时，除了写入笔记，还应安排会话之间的离线整理，并把记住的内容当成对未来需求的预测来校验。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-13",
+  "title": "Graphon Labs 完成 3500 万美元 A 轮，声称在 LoCoMo、ConvoMem 和 ATM-Bench 上领先",
+  "url": "https://www.businesswire.com/news/home/20261110959095/en/Graphon-Labs-Raises-%2435M-Series-A-to-Accelerate-AGI-with-Persistent-Intelligence",
+  "summary": "2026-11-10，Graphon Labs 宣布完成 3500 万美元 A 轮，由 RRE Ventures 领投，HP、Energy Impact Partners、Hitachi Ventures 和 Gaia VC 参投，累计融资 4330 万美元（此前种子轮 830 万美元）。公司把产品称为 Persistent Intelligence，用 graphon 框架做大规模图上的存储、检索与记忆，并称已在旧金山 49 人队、Hitachi 等企业部署。其自报结果：在 LoCoMo 上准确率 93.9%，比载入完整对话少用 58% 的 token；在 ConvoMem 上准确率 90.2%，少用 95% 的 token；在剑桥大学研究者提出的多模态 ATM-Bench 上为 81.7%，比公开榜次名高 5.0 个百分点。LoCoMo 与 ConvoMem 的对比采用 Databricks 公布的基线，以上数字均为公司自报。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "funding",
+   "agent-memory",
+   "benchmark",
+   "graphon"
+  ],
+  "links": {
+   "blog": "https://www.unite.ai/graphon-labs-raises-35m-series-a-to-scale-persistent-ai-memory/"
+  },
+  "highlights": [
+   "A 轮使总融资达到 4330 万美元，投资方包括 RRE、HP 和 Hitachi Ventures。",
+   "公司声称在 LoCoMo、ConvoMem、ATM-Bench 上准确率居所评系统最高，但对比基线与数字需视为厂商自报。"
+  ],
+  "lessons": [
+   "比较记忆系统时，应同时看准确率和检索 token 消耗，并核对比所用基线是否同一套评测协议。"
   ]
  },
  {
@@ -1730,6 +1978,54 @@
   "lessons": []
  },
  {
+  "topic": "code-review",
+  "date": "2026-11-13",
+  "title": "Semgrep Guardian：在编码 Agent 写代码时做安全检测并自动生成修复",
+  "url": "https://semgrep.dev/blog/2026/semgrep-guardian-policies-ai-detection/",
+  "summary": "2026-11-12，Semgrep 介绍 Guardian 的最新能力：把安全策略下发到开发者的编码 Agent 旁，在代码生成时检测并自动生成修复，目标是让整类问题不离开开发者电脑。Semgrep 自称已覆盖 1 万多名开发者：在编码 Agent 内提出的发现有 36% 被修复，作为 PR 评论提出的只有 10%；p75 修复时间在 Agent 内为 33 分钟，在 PR 上为 21 小时；95% 的扫描在 2 分钟内完成。新版本支持组织级自定义策略，并称可检测 IDOR、BOLA 等较复杂漏洞，以及拦截会引入恶意软件或可达漏洞的 lockfile 依赖变更。以上数据为厂商自报。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "code-review",
+   "appsec",
+   "coding-agent",
+   "semgrep"
+  ],
+  "links": {},
+  "highlights": [
+   "厂商数据表明，同样的安全发现在编码 Agent 内提出，比等到 PR 评论更容易、也更快被修复。",
+   "Guardian 同时做生成时检测、组织策略下发和供应链/lockfile 变更拦截。"
+  ],
+  "lessons": [
+   "安全检查应尽量前移到 Agent 写代码的时刻，而不是只在 PR 扫描里做一次事后把关。"
+  ]
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-13",
+  "title": "ETH Zurich 论文：编码 Agent 会把仓库里已有的漏洞模式复制到新代码中",
+  "url": "https://arxiv.org/abs/2611.11455",
+  "summary": "2026-11-08 提交的 ETH Zurich 论文《Coding Agents Propagate Vulnerabilities in Code Bases》研究已有漏洞会不会诱导编码 Agent 在新代码中写出类似问题。在 96 个需于已有应用旁实现新后端的任务中，不安全的邻居代码使“正确且安全”的实现平均下降 3.4%；在 20 对真实 C/C++ 项目的仓库级补全任务中，安全上下文与不安全上下文的平均差距达到 35.4%。当被要求解释实现选择时，Agent 在 76.5% 的情况下将其归因于跟随已有代码，同时在 69.9% 的情况下能够认出自己引入了漏洞。要求注意安全或跟随现有代码风格会减弱或增强这种传播，但都不能阻止。代码与数据见 https://github.com/eth-sri/vulnerability-propagation。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "security",
+   "coding-agent",
+   "vulnerability",
+   "research"
+  ],
+  "links": {
+   "github": "https://github.com/eth-sri/vulnerability-propagation"
+  },
+  "highlights": [
+   "已有的不安全代码会成为 Agent 写新代码时的模板，C/C++ 仓库级任务上的差距明显大于普通后端生成。",
+   "多数情况下 Agent 既跟着有漏洞的先例走，也能认出自己引入了漏洞。"
+  ],
+  "lessons": [
+   "在把仓库交给编码 Agent 之前，应先清理已知不安全的示例代码；只加安全提示不足以阻止漏洞传播。"
+  ]
+ },
+ {
   "topic": "mcp",
   "date": "2026-10-24",
   "title": "SEP-2640 Skills over MCP 成为官方扩展",
@@ -2203,6 +2499,81 @@
   "highlights": [],
   "lessons": [
    "往官方 Registry 发布服务器的团队，下次发版前先用新版 mcp-publisher 校验 server.json 的 repository 和参数定义。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-13",
+  "title": "MCP 官宣半年一次规范发布，下一版目标 2027-03-30",
+  "url": "https://blog.modelcontextprotocol.io/posts/mcp-release-cycle/",
+  "summary": "2026-11-11，MCP 维护者在官方博客宣布，规范改为大致每半年发布一次，一般定在 3 月和 9 月的最后一个周二；下一版目标是 2027-03-30，版本号预计为 2027-03-30。SEP-3398 成为现行发布指引。未就绪的提案将延后到后续版本，而不是推迟整次规范发布。同时正式设立 Release Manager，Luca Chang 将与 Den Delimarsky、David Soria Parra 一起负责下一周期。公告明确：这只改变准备发布的方式，不改变现有 MCP 消息或版本协商，已有客户端和服务器不必因此改代码。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "sep",
+   "release-cycle",
+   "governance"
+  ],
+  "links": {
+   "spec": "https://modelcontextprotocol.io/seps/3398-release-cycle-updates"
+  },
+  "highlights": [
+   "规范节奏被固定为每年两次，并以推迟单个提案来保住发布日期。",
+   "发布准备流程与协议本身解耦，现有实现对这次公告无需改动。"
+  ],
+  "lessons": [
+   "若要跟进 MCP 规范，应按 2027-03-30 倒排提案冻结和 SDK beta 时间，而不是等到发布当周再适配。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-13",
+  "title": "MCP 推出实验性文件上传下载扩展 io.modelcontextprotocol/files",
+  "url": "https://blog.modelcontextprotocol.io/posts/exploring-file-uploads-and-downloads-in-mcp/",
+  "summary": "2026-11-10，MCP 官方博客介绍仍在实验中的文件扩展 io.modelcontextprotocol/files，适用于 2026-07-28 及之后的协议修订，用于在客户端与工具之间传递 PDF、CSV、压缩包等文件，而不让模型直接读取全部字节。服务器可在发现响应中声明是否接受带外或内联上传，客户端在请求元数据中声明上传/下载能力。扩展仍是可选的，目前没有参考实现，维护者希望在年底前稳定。实验仓库为 modelcontextprotocol/experimental-ext-file-uploads。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "extension",
+   "files",
+   "gateway"
+  ],
+  "links": {
+   "github": "https://github.com/modelcontextprotocol/experimental-ext-file-uploads"
+  },
+  "highlights": [
+   "文件应直接到达目的地，由协议传递文件元数据和传输目标，而不是塞进模型上下文。",
+   "该扩展目前是实验性、可选的，维护者邀请社区一起试，并计划在年底前争取稳定。"
+  ],
+  "lessons": [
+   "若 Agent 需要把大文件交给远程工具或网关，应跟踪该扩展并注意目标地址与凭证传递的安全限制，而不是各自约定专用工具。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-13",
+  "title": "mcp-gateway-registry 于 11 月 11 日公开两项高危公告：SSRF 与管理接口提权",
+  "url": "https://github.com/agentic-community/mcp-gateway-registry/security/advisories/GHSA-fc39-fwh3-wv5r",
+  "summary": "2026-11-11，开源项目 mcp-gateway-registry（用于 MCP 服务器发现、访问控制和工具代理）公开两项 High 级别安全公告。GHSA-fc39-fwh3-wv5r 是服务器注册/更新接口中的服务端请求伪造，影响 1.0.3 至 1.34.0，已在 1.35.0 修复：已认证且有权注册或修改服务器的用户，可能让网关向其本不能直接访问的内部地址发起请求，在部分部署中还包括云实例元数据。GHSA-rxf3-qgpv-wxvr 是外部管理 API 认证后未做授权校验，影响 1.0.9 至 1.24.7，已在 1.25.0 修复：低权限认证用户可能把自己提升为注册表管理员。1.25.0 已包含提权修复，但仍受 SSRF 影响，建议升级到 1.35.0 或更高，并按公告审查已登记的上游地址、权限映射和日志。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "gateway",
+   "security",
+   "advisory"
+  ],
+  "links": {
+   "docs": "https://github.com/agentic-community/mcp-gateway-registry/security/advisories/GHSA-rxf3-qgpv-wxvr"
+  },
+  "highlights": [
+   "两项高危问题分别出在上游地址校验和管理接口授权，都需要已认证用户，但权限要求不同。",
+   "只升到 1.25.0 还不够，SSRF 要到 1.35.0 才修复；升级后仍需检查升级前写入的配置。"
+  ],
+  "lessons": [
+   "自建 MCP Gateway 或 Registry 时，应限制谁能登记上游地址，并对管理 API 做基于角色的授权；已部署 1.34.0 及更早版本的应尽快升到 1.35.0 以上并复查配置。"
   ]
  },
  {
