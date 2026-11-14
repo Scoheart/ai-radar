@@ -613,6 +613,95 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-14",
+  "title": "Artificial Analysis 发布 Coding Agent Index v2.1：升级 FrontierCode-AA 2.0 与 Terminal-Bench 4.1",
+  "url": "https://x.com/ArtificialAnlys/status/2121393821955334328",
+  "summary": "Coding Agent Index 衡量模型在 agent harness 中的编码能力。v2.1 把 FrontierCode 升到 2.0（132 个真实任务，以仓库维护者是否会合并为评分标准），Terminal-Bench 升到 4.1（同 66 题，验证器更抗 reward hacking）。Claude Fable 5.2 与 Claude Opus 5.5 并列 58 分领先；整体分数平均下降约 5 分。",
+  "source": "据 X 上的报道",
+  "agent": "AI前沿者",
+  "tags": [
+   "coding-agent",
+   "leaderboard",
+   "terminal-bench"
+  ],
+  "links": {},
+  "highlights": [
+   "以“维护者是否会合并”作为评分口径，比单测通过更接近真实代码质量",
+   "得分 48+ 的配置间单任务成本相差约 30 倍（$1.51 到 $44.22）"
+  ],
+  "lessons": [
+   "内部 Coding Agent 评测应同时报告分数与单任务成本，并定期升级验证器以防 reward hacking"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-14",
+  "title": "Deepnote 开源 Agent Initiative Benchmark：测 Agent 何时该主动发言、何时该沉默",
+  "url": "https://deepnote.com/research/benchmark",
+  "summary": "在虚构公司 PageMantle（11 个服务、6 年记录、10GB 数据）的 Slack 中设 50 个工作情境，12 个前沿模型需自行调查并决定是否发言、发给谁、发在哪。双 LLM 评审 0–10 分，GPT-6 Astra 8.97 居首，GPT-6.1 Sol 8.65，Claude Fable 5.2 8.17。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "proactive-agent",
+   "benchmark",
+   "llm-as-judge"
+  ],
+  "links": {
+   "github": "https://github.com/deepnote/agent-initiative-benchmark"
+  },
+  "highlights": [
+   "把“该说还是该沉默”的判断与跨系统取证、投递位置合在一起评测，是主动式 Agent 的首个综合基准",
+   "工具调用更多并不带来更高分，最重的两个模型 50 次中有 27/18 次超时"
+  ],
+  "lessons": [
+   "主动式/常驻 Agent 要设调查预算并强制在发言与沉默之间做决定",
+   "评测需固定 harness，再单独评 harness"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-14",
+  "title": "Mercor 发布 OWE-Bench：26 个长周期工程/科研任务，连续打分",
+  "url": "https://www.mercor.com/blog/introducing-owe-bench/",
+  "summary": "OpenWorldEngineer 覆盖软件工程、物理工程、机器学习与科学计算，从 GPU kernel 到飞机设计，在未见用例上连续打分。Claude Fable 5.2 以 54.6% 领先（每次尝试约 2.11 亿 token），GPT-6 Astra 44.2%，Claude Opus 5.5 41.6%，无模型接近上限。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "long-horizon",
+   "coding",
+   "benchmark"
+  ],
+  "links": {},
+  "highlights": [
+   "连续评分而非 pass/fail，能区分“做到一半”的长周期进展"
+  ],
+  "lessons": [
+   "长周期任务评测可借鉴连续得分与 token 成本并报"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-14",
+  "title": "Singularity-Bench：Agent 能否从零构建 AI 系统（预训练到集群编排）",
+  "url": "https://arxiv.org/abs/2611.16591",
+  "summary": "CMU、NVIDIA 等提出 6 个端到端任务（预训练、中训练、后训练、推理、agent harness、集群编排），与成熟人类基线在相同硬件上比较；红队发现常规 Harbor 框架存在 reward hacking 漏洞，并提出 Breakwater 扩展。Opus 5.5 + Claude Code 的 Singularity-Index 为 1.25，其余 agent 平均 0.58。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "agent",
+   "benchmark",
+   "reward-hacking"
+  ],
+  "links": {},
+  "highlights": [
+   "评测框架自身可被 reward hack，需要专门加固（Breakwater）"
+  ],
+  "lessons": [
+   "自建 Agent 评测沙箱应按 OWASP Agentic Top 10 做红队检查"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -1137,6 +1226,23 @@
   ]
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-11-14",
+  "title": "DigitalOcean 知识库原生接入 LlamaIndex",
+  "url": "https://www.digitalocean.com/blog/ai-platform-llamaindex-integration",
+  "summary": "发布 llama-index-retrievers-digitalocean 与 llama-index-llms-digitalocean 两个包，可把 DigitalOcean Knowledge Base 作为 LlamaIndex retriever，支持混合检索、元数据过滤与异步，配合 Gradient AI Platform LLM 组成托管 RAG 管线。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "rag",
+   "llamaindex",
+   "managed-kb"
+  ],
+  "links": {},
+  "highlights": [],
+  "lessons": []
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
@@ -1499,6 +1605,52 @@
   ],
   "lessons": [
    "比较记忆系统时，应同时看准确率和检索 token 消耗，并核对比所用基线是否同一套评测协议。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-14",
+  "title": "ClickHouse 开源 Loom：把 Agent 记忆与代码索引放进同一数据库",
+  "url": "https://clickhouse.com/blog/introducing-loom-agent-memory-that-keeps-up-with-your-code",
+  "summary": "ClickHouse 为自家自主贡献者 GroeneAI（3000+ 已合并 PR）构建 Loom：记忆与代码索引共存于 ClickHouse，同一权限体系，笔记关联到所描述的代码以判断是否过期，并记录每次运行。经 MCP、HTTP API、Python/TS SDK 接入，Apache-2.0。在其 ClickHouse 代码问答基准上平均答案质量从 0.78 升到 0.84。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "agent-memory",
+   "coding-agent",
+   "mcp"
+  ],
+  "links": {
+   "github": "https://github.com/ClickHouse/loom"
+  },
+  "highlights": [
+   "此前评估的两款记忆工具只记得 Agent 写下的内容、看不到代码本身，这是 Loom 的出发点"
+  ],
+  "lessons": [
+   "编码 Agent 的记忆应与代码索引绑定，记录来源以检测记忆是否随代码变更而失效"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-14",
+  "title": "AstroMemBench：航天具身 Agent 记忆基准，跨会话重启后 Mem0 胜 RAG 12.25 分",
+  "url": "https://arxiv.org/abs/2611.16590",
+  "summary": "覆盖 16 个记忆子挑战、140 个模板、2240 个实例，9 个任务涉及行星表面作业、在轨服务与深空探测，确定性环境评分。同会话内 Mem0、Chain-of-Memory、LightMem 与 RAG 都优于原生 Pi Agent，但三种记忆系统并不明显优于 RAG；会话重启后 Mem0 领先 RAG 12.25 分。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory-benchmark",
+   "mem0",
+   "rag"
+  ],
+  "links": {
+   "github": "https://github.com/flyingView/AstroMemBench-v1"
+  },
+  "highlights": [
+   "记忆系统的优势主要体现在跨会话场景，同会话内与 RAG 差距不明显"
+  ],
+  "lessons": [
+   "记忆评测要显式包含会话重启场景，否则会低估记忆系统价值"
   ]
  },
  {
@@ -2024,6 +2176,25 @@
   "lessons": [
    "在把仓库交给编码 Agent 之前，应先清理已知不安全的示例代码；只加安全提示不足以阻止漏洞传播。"
   ]
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-14",
+  "title": "Cohere 收购 AI 代码审查初创 Cubic 与安全公司 Aisle",
+  "url": "https://betakit.com/cohere-buys-ai-code-review-startup-cubic-as-acquisition-spree-continues/",
+  "summary": "Cohere 于 11 月 13 日宣布完成对伦敦代码审查公司 Cubic 与捷克网安公司 Aisle 的收购，金额未披露。Cubic 团队全员加入组建“安全编码”垂直部门，Aisle 专注自主漏洞发现与修复，布拉格办公室成为其 AI 网安中心。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "ai-code-review",
+   "acquisition",
+   "security"
+  ],
+  "links": {},
+  "highlights": [
+   "AI 代码审查正被大模型厂商并入安全编码能力栈"
+  ],
+  "lessons": []
  },
  {
   "topic": "mcp",
@@ -2575,6 +2746,45 @@
   "lessons": [
    "自建 MCP Gateway 或 Registry 时，应限制谁能登记上游地址，并对管理 API 做基于角色的授权；已部署 1.34.0 及更早版本的应尽快升到 1.35.0 以上并复查配置。"
   ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-14",
+  "title": "MCP 官方 servers v2.4.0 修复 filesystem/git/fetch 六个漏洞",
+  "url": "https://github.com/modelcontextprotocol/servers/releases/tag/v2.4.0",
+  "summary": "server-filesystem 升至 2.3.0（修 TOCTOU 符号链接竞争、move_file 越界），mcp-server-git 与 mcp-server-fetch 升至 2026.11.11（仓库 .git/config 不再能让只读调用执行程序；alternates/worktree 越界；IPv6 site-local 视为私有；robots.txt 路径归一化）。注意日期版本号的 npm 包管理器不会自动升级到 2.3.0，需显式安装。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "security",
+   "servers"
+  ],
+  "links": {},
+  "highlights": [
+   "git server 的只读调用曾可因不可信仓库的 core.fsmonitor 等配置执行命令",
+   "Windows 上符号链接竞争与目录 junction 仍未完全修复"
+  ],
+  "lessons": [
+   "检查本机 MCP 配置中的 filesystem/git/fetch 版本，日期版本需手动安装 2.3.0"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-14",
+  "title": "Sitecore Developer MCP Server 进入 Beta",
+  "url": "https://doc.sitecore.com/changelog/sitecoreai/13112026/sitecore-developer-mcp-server-released-in-beta",
+  "summary": "提供 13 个工具覆盖组件开发、内容建模、站点发现与内容创建，支持 VS Code、Cursor、Claude Code、Codex、OpenCode，通过 MCP OAuth 认证。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "oauth",
+   "ecosystem"
+  ],
+  "links": {},
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "skills",
