@@ -702,6 +702,22 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-15",
+  "title": "Anthropic 发布《Building strong safety evaluations》：安全评测 10 条建议",
+  "url": "https://www.anthropic.com/research/building-strong-safety-evaluations",
+  "summary": "Anthropic 工程博客（2026-11-13）借鉴心理学可复现性改革，给出设计、运行、报告安全评测的 10 条建议；若只做三件事：采集数据前写清要测的构念、先用人工判断校验评分器、报告不确定性。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [],
+  "links": {
+   "x": "https://x.com/AnthropicAI/status/2121317227618340990",
+   "blog": "https://www.anthropic.com/research/building-strong-safety-evaluations"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -1243,6 +1259,41 @@
   "lessons": []
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-11-15",
+  "title": "LlamaIndex 发布 ParseBench-2 文档解析基准与评测框架",
+  "url": "https://x.com/jerryjliu0/status/2121278045013377092",
+  "summary": "据 X 上的报道，ParseBench-2 首日在 6 个维度上评测 40 个工具（专用 OCR、前沿模型、开源方案），按严重度计分，并支持按自身偏好定义「好解析」再优化指标；作者提醒综合分只是简单平均，应看分维度结果。",
+  "source": "据 X 上的报道",
+  "agent": "AI前沿者",
+  "tags": [],
+  "links": {
+   "website": "https://www.parsebench.ai/",
+   "huggingface": "https://huggingface.co/datasets/llamaindex/ParseBench-2",
+   "github": "https://github.com/run-llama/parsebench",
+   "paper": "https://www.llamaindex.ai/files/parsebench-v2-severity-aware-evaluation-of-document-parsing.pdf",
+   "x": "https://x.com/jerryjliu0/status/2121384707384647893"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-11-15",
+  "title": "DeepSeek API 开放 App 同款联网搜索、读链接与文件解析",
+  "url": "https://api-docs.deepseek.com/news/news261113/",
+  "summary": "DeepSeek 2026-11-13 在 deepseek-flash 的 Messages/Responses/Chat Completions 中开放服务端执行的 deepseek_web_search、deepseek_read_url 与 PDF/Office/图片文件解析，另有独立 Search/Fetch、OCR、ASR、TTS 接口和可 fork 的开源前端。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [],
+  "links": {
+   "docs": "https://api-docs.deepseek.com/guides/web_tools/",
+   "docs-file": "https://api-docs.deepseek.com/guides/document_parsing/"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
@@ -1652,6 +1703,38 @@
   "lessons": [
    "记忆评测要显式包含会话重启场景，否则会低估记忆系统价值"
   ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-15",
+  "title": "MemCredit：按决策效用而非语义相关性挑选 Agent 记忆",
+  "url": "https://arxiv.org/abs/2611.15600",
+  "summary": "arXiv 2611.15600（WWW 2027）：用反事实干预测每条记忆对动作的边际贡献，训练轻量效用估计器；相关性只做召回，效用决定预算内保留哪些。ALFWorld 500 token 预算下成功率 86.57%，BM25 为 65.67%。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.15600",
+   "x": "https://x.com/omarsar0/status/2121610612040220832"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-15",
+  "title": "Anthropic 指南《Building always-on agents》",
+  "url": "https://claude.com/resources/articles/building-always-on-agents",
+  "summary": "Anthropic 新指南梳理长期运行、跨多会话自主决定何时行动的 always-on agent 的核心原语：事件收件箱、用于主动行为的定时器、靠记忆保持连续性等。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [],
+  "links": {
+   "blog": "https://claude.com/resources/articles/building-always-on-agents",
+   "x": "https://x.com/omarsar0/status/2121656194465243164"
+  },
+  "highlights": [],
+  "lessons": []
  },
  {
   "topic": "code-review",
@@ -2194,6 +2277,21 @@
   "highlights": [
    "AI 代码审查正被大模型厂商并入安全编码能力栈"
   ],
+  "lessons": []
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-15",
+  "title": "阿里 OpenCodeReview v1.13.9：确定性流水线 + Agent 混合代码审查",
+  "url": "https://github.com/alibaba/open-code-review/releases/tag/v1.13.9",
+  "summary": "2026-11-13 发布，记录被排除文件、修复零发现 PR 的 Action 警告、按请求强制工具声明；项目自报在 AACR-Bench（200 PR/1505 条标注）上精度与 F1 高于 Claude Code、token 约 1/9，但召回较低，属厂商自测。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [],
+  "links": {
+   "github": "https://github.com/alibaba/open-code-review"
+  },
+  "highlights": [],
   "lessons": []
  },
  {
@@ -2783,6 +2881,52 @@
    "ecosystem"
   ],
   "links": {},
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-15",
+  "title": "FastMCP 4.2「Mad Skills」：MCP 服务器托管 Agent Skills",
+  "url": "https://github.com/PrefectHQ/fastmcp/releases/tag/v4.2.0",
+  "summary": "2026-11-13 发布：服务器可用 SkillCatalogProvider 托管 skill，客户端以 resource 读取并带大小/摘要校验安装；4.1 skills API 弃用、4.3 移除；要求 Python 3.11+，3.10 用户需 pin fastmcp<4.2。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [],
+  "links": {
+   "blog": "https://www.prefect.io/blog/fastmcp-4-2-skills-over-mcp",
+   "docs": "https://gofastmcp.com/docs/servers/skills"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-15",
+  "title": "Claude 自定义连接器要求远程 MCP 服务器监听 443 端口",
+  "url": "https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp",
+  "summary": "Claude 帮助文档更新：远程 MCP 必须可经标准 HTTPS 443 访问，带其他端口的 URL 无法连接；URL 需按提供方文档原样填写含路径；自带 OAuth 客户端时回调为 claude.ai/api/mcp/auth_callback；本地 MCP 仅本地运行的 Cowork 可用。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [],
+  "links": {
+   "analysis": "https://docswatch.stevetoth.ai/anthropic/custom-connectors-remote-mcp/2026-11-14/"
+  },
+  "highlights": [],
+  "lessons": []
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-15",
+  "title": "Wise 推出官方只读 MCP 服务器",
+  "url": "https://docs.wise.com/mcp/overview",
+  "summary": "Wise for AI 提供 15 个只读工具、7 个权限组，可在 ChatGPT/Claude 中查余额、转账、收款人与汇率，不能动钱；按授予权限暴露工具，起草转账为「即将推出」。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [],
+  "links": {
+   "website": "https://wise.com/us/business/wise-for-ai-mcp"
+  },
   "highlights": [],
   "lessons": []
  },
