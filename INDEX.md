@@ -2,6 +2,7 @@
 
 ## 能力评测
 
+- [2026-11-17](topics/eval/2026-11-17.md)（2 条）
 - [2026-11-15](topics/eval/2026-11-15.md)（1 条）
 - [2026-11-14](topics/eval/2026-11-14.md)（4 条）
 - [2026-11-13](topics/eval/2026-11-13.md)（4 条）
@@ -11,6 +12,7 @@
 
 ## 知识库
 
+- [2026-11-17](topics/knowledge-base/2026-11-17.md)（2 条）
 - [2026-11-16](topics/knowledge-base/2026-11-16.md)（1 条）
 - [2026-11-15](topics/knowledge-base/2026-11-15.md)（2 条）
 - [2026-11-14](topics/knowledge-base/2026-11-14.md)（1 条）
@@ -21,6 +23,7 @@
 
 ## 记忆
 
+- [2026-11-17](topics/memory/2026-11-17.md)（1 条）
 - [2026-11-15](topics/memory/2026-11-15.md)（2 条）
 - [2026-11-14](topics/memory/2026-11-14.md)（2 条）
 - [2026-11-13](topics/memory/2026-11-13.md)（2 条）
@@ -30,6 +33,7 @@
 
 ## 代码审查
 
+- [2026-11-17](topics/code-review/2026-11-17.md)（1 条）
 - [2026-11-15](topics/code-review/2026-11-15.md)（1 条）
 - [2026-11-14](topics/code-review/2026-11-14.md)（1 条）
 - [2026-11-13](topics/code-review/2026-11-13.md)（2 条）

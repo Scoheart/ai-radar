@@ -718,6 +718,61 @@
   "lessons": []
  },
  {
+  "topic": "eval",
+  "date": "2026-11-17",
+  "title": "WebArena-Pro：20 个自托管站点、含音视频的可复现 Web Agent 基准",
+  "url": "https://arxiv.org/abs/2611.17955",
+  "summary": "McGill / Mila 等在 11-16 公布 WebArena-Pro（arXiv 2611.17955，NeurIPS 2026 E&D）：300 个任务覆盖 20 个自托管 Web 应用、6 类领域（生产力、沟通、分析、业务运营、设计与媒体、旅行），把音频和视频作为与文本、视觉并列的核心观察，并提供 transcribe()、extract_frames() 等动作。任务在隔离环境中运行，支持可复现的并行评测。论文报告最佳成绩为 Codex + GPT 6.1 Sol 与 Claude Code + Claude Opus 5.5 同为 62.3%，OpenCode + Kimi 3.1 Pro 为 60.7%；GenericAgent 最强配置（Gemini 3.1 Pro omni 与 Gemma4 31B）均为 30.3%。未做独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "webarena",
+   "web-agent",
+   "multimodal",
+   "benchmark"
+  ],
+  "links": {
+   "github": "https://github.com/McGill-NLP/webarena-pro",
+   "dataset": "https://huggingface.co/datasets/WebArena-Pro/WebArena-Pro",
+   "demo": "https://webarena-pro.github.io/"
+  },
+  "highlights": [
+   "300 个任务覆盖 20 个自托管应用、6 类领域，把音频和视频作为与文本/视觉并列的核心观察，并提供 transcribe / extract_frames 等动作；任务在隔离环境中可并行、可复现。",
+   "论文报告最佳成绩为 Codex + GPT 6.1 Sol 与 Claude Code + Claude Opus 5.5 同为 62.3%，OpenCode + Kimi 3.1 Pro 为 60.7%；GenericAgent 最强配置仅 30.3%。"
+  ],
+  "lessons": [
+   "评测 Web Agent 时，站点覆盖面和可复现性常常冲突；可用自托管多站点基准同时测异构界面与音视频，把会漂移的 live 站点留给补充检验。",
+   "专用编码 Agent（Codex / Claude Code）明显强于通用 Agent 配置，比较时应分开报告，不要混成一张总表。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-17",
+  "title": "Amazon 开源 BenchProofer，并把 SWE-Bench Verified 500 题做成形式化验证基准 SWE-Proof",
+  "url": "https://www.amazon.science/blog/benchproofer-formally-verified-coding-benchmarks-on-demand",
+  "summary": "Amazon Science 于 11-16 发文并开源 BenchProofer：把已有编码基准的参考补丁形式化为规范、可验证实现和机器检查证明，再用测试与对抗审计核对实现是否与仓库补丁一致。同期发布 SWE-Proof，为 SWE-Bench Verified 全部 500 题补充规范、实现和证明。博客称 Claude Opus 4.8 在原测试上通过 425/500（85.0%），但审计用参考规范生成的补测让其中 134 题失败；人工抽查 41 个被标记补丁中 21 个确有缺陷。在 Lean 后端、给定 BenchProofer 规范时，验证通过率为 Opus 4.8 的 84.6%→93.6%、GPT-5.5 的 79.6%→94.4%（分母均为 500）。仓库许可为 CC BY-NC 4.0，声明仅供学术复现且不接受 PR。论文正文更早见于 arXiv 2609.21190。未做独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "swe-bench",
+   "formal-verification",
+   "benchmark",
+   "coding-agent"
+  ],
+  "links": {
+   "github": "https://github.com/amazon-science/BenchProofer",
+   "paper": "https://arxiv.org/abs/2609.21190"
+  },
+  "highlights": [
+   "工具把已有测试基准形式化为规范、可验证实现和机器检查证明；同期发布 SWE-Proof，覆盖 SWE-Bench Verified 全部 500 题（CC BY-NC 4.0，仅供学术复现，不接受 PR）。",
+   "博客称 Opus 4.8 在原测试上通过 425/500（85.0%），审计补测使其中 134 题失败；人工抽查 41 个被标记补丁中 21 个确有缺陷。给定官方规范后，Lean 验证通过率为 Opus 4.8 的 84.6%→93.6%、GPT-5.5 的 79.6%→94.4%。"
+  ],
+  "lessons": [
+   "只看测试通过率会高估编码 Agent：应同时报告「原测试通过」和「形式化验证 / 对抗补测通过」。",
+   "把规范交给 Agent 能明显提高验证通过率，但让 Agent 自写规范仍然困难，评测需分开报告「自写规范」与「给定规范」两档。"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -1324,6 +1379,58 @@
   ]
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-11-17",
+  "title": "Amazon Bedrock 托管知识库新增表格搜索：在沙箱中对整表跑代码再与文档一起作答",
+  "url": "https://aws.amazon.com/blogs/machine-learning/get-answers-from-tables-with-tabular-search-in-amazon-bedrock-managed-knowledge-base/",
+  "summary": "AWS 于 11-16 宣布 Amazon Bedrock Managed Knowledge Base 支持 tabular search。当问题需要 CSV、XLSX 或 XLS 中的数据时，检索先定位到表格文件，再在无网络沙箱中对原文件执行模型生成的代码，把计算结果与相关文档一起作答；该流程走已有的 AgenticRetrieveStream，无需单独开启或预先定义 schema。因为至少多一轮 Agent 周转，含表格的回答会比纯文本更慢。官方明确它不替代受治理的指标、定期看板和数仓级关联。未做独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "bedrock",
+   "rag",
+   "tabular",
+   "agentic-retrieval"
+  ],
+  "links": {
+   "docs": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html"
+  },
+  "highlights": [
+   "对 CSV / XLSX / XLS，检索只需命中表格文件，随后在无网络沙箱中对原文件执行模型生成的代码，再与相关文档一起回答分析性问题；走已有 AgenticRetrieveStream，无需单独开启或预定义 schema。",
+   "该路径至少多一轮 Agent 周转，延迟高于纯文本检索；官方明确不替代受治理的指标、定期看板和数仓级关联。"
+  ],
+  "lessons": [
+   "表格问答应把「定位到哪张表」和「对整表计算」拆开，避免只靠切片检索去拼总数或做阈值判断。",
+   "审计应看 trace 里读了哪些文件，而不是指望系统返回生成代码（官方因可能回显单元格而不返回代码）。"
+  ]
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-11-17",
+  "title": "Amazon S3 Vectors 支持向量与全文混合检索，用于 RAG 与 Agent 记忆",
+  "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/s3-vectors-hybrid-search/",
+  "summary": "AWS 于 11-16 宣布 Amazon S3 Vectors 支持混合检索：同一 QueryVectors 请求同时做向量相似与全文检索，再用 Reciprocal Rank Fusion 合成一份 Top-K。可检索文本作为元数据字段随 PutVectors 写入，系统按 BM25 建索引；也支持分开查询后自排，并可为已有数据就地启用全文检索。官方称偶发查询仍为亚秒级，频繁查询延迟约 100 毫秒或更低，适用 RAG、Agent 记忆和搜索。已在所有提供 S3 Vectors 的商业区域及 AWS 中国区域上线。未做独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "s3-vectors",
+   "hybrid-search",
+   "rag",
+   "agent-memory"
+  ],
+  "links": {
+   "docs": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors.html"
+  },
+  "highlights": [
+   "同一 QueryVectors 请求同时做向量相似与 BM25 全文检索，再用 RRF 合成一份 Top-K；可把可检索文本作为元数据字段写入，也支持分开查询后自排。",
+   "官方称偶发查询仍为亚秒级，频繁查询延迟约 100 毫秒或更低；已在所有提供 S3 Vectors 的商业区域及 AWS 中国区域上线。"
+  ],
+  "lessons": [
+   "新建 RAG 或 Agent 记忆检索时，可先验证同一存储内的混合检索，而不是只上向量、事后再补关键字通道。",
+   "已有 S3 Vectors 数据可就地为文本字段建全文索引，迁移前应按官方 API 先做一次对照。"
+  ]
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
@@ -1765,6 +1872,32 @@
   },
   "highlights": [],
   "lessons": []
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-17",
+  "title": "Session-rekindling：会话中断后 Agent 常能读到当前时间，却仍按过期日程给建议",
+  "url": "https://arxiv.org/abs/2611.17806",
+  "summary": "11-16 出现的论文《Can Agents Keep Up with Time?》（arXiv 2611.17806）关注长期助手在会话中断后，能否感知时间流逝并据此更新建议。作者把该能力定义为 temporal state perception and use，并设计 session-rekindling 任务：先前对话固定，只改变回访日期以及时间信息的供给方式。五个模型路径、五种时间信息条件下，Agent 常常能查询时钟、甚至在推理中写明预约日期已过，却仍让用户为已过期事件做准备。补充显式时间上下文可降低这类错误，直接给出已计算的日期关系则可消除。作者据此发布了评测代码。未做独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "agent-memory",
+   "temporal",
+   "long-horizon",
+   "benchmark"
+  ],
+  "links": {
+   "github": "https://github.com/Adoreu2/session-rekindling-benchmark"
+  },
+  "highlights": [
+   "论文把「感知当前时间并用来解释带日期的旧记录」定义为 temporal state perception，并设计只改变回访日期与时间信息供给方式的 session-rekindling 任务。",
+   "在五个模型路径、五种时间信息条件下，Agent 常能查时钟、甚至在推理中写明日期已过，却仍建议用户为已过期事件做准备；补充显式时间上下文可降低该错误，直接给出日期关系则可消除。"
+  ],
+  "lessons": [
+   "长期助手的记忆评测不能只测事实能否召回，还要测「时间已经过去之后，建议是否更新」。",
+   "只把当前日期塞进上下文还不够，应把「事件相对今天已过期 / 未到期」这类计算关系写入记忆或工具返回。"
+  ]
  },
  {
   "topic": "code-review",
@@ -2323,6 +2456,30 @@
   },
   "highlights": [],
   "lessons": []
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-17",
+  "title": "GitHub 组织级可批量启动最多 20 个仓库的 AI Scan（公开预览）",
+  "url": "https://github.blog/changelog/2026-11-16-bulk-start-ai-scan-for-repositories/",
+  "summary": "GitHub 于 11-16 宣布，可一次为最多 20 个仓库启动 AI Scan。该功能在仓库默认分支上寻找安全漏洞：覆盖 CodeQL 不支持的语言，并在 CodeQL 已分析的语言上发现额外问题；结果进入 code scanning 待办，与 CodeQL 告警并列。可在开启组织级设置时选择仓库，或从组织 code scanning 告警页、单个仓库告警页启动。批量启动处于公开预览，适用于 github.com 与带数据驻留的 GitHub Enterprise Cloud，不需要 Copilot 许可证。未做独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "github",
+   "ai-scan",
+   "security",
+   "code-scanning"
+  ],
+  "links": {},
+  "highlights": [
+   "AI Scan 在默认分支寻找安全漏洞，覆盖 CodeQL 不支持的语言，并在 CodeQL 已覆盖语言上找额外问题；发现进入 code scanning 待办，与 CodeQL 告警并列。",
+   "11-16 起可一次对最多 20 个仓库启动扫描（开启组织设置时或从组织/仓库告警页选择）；公开预览，适用于 github.com 与带数据驻留的 GHEC，不需要 Copilot 许可证。"
+  ],
+  "lessons": [
+   "组织落地 AI 漏洞扫描时，可用批量启动做首轮覆盖，但仍应把结果放进与 CodeQL 同一条 backlog 里统一分诊。",
+   "该功能不要求 Copilot 许可证，评估成本时应与 Copilot 代码审查功能分开计算。"
+  ]
  },
  {
   "topic": "mcp",
