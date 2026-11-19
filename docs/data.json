@@ -773,6 +773,79 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-19",
+  "title": "SWE-CoWork：模拟工程组织里的编码 Agent 基准",
+  "url": "https://arxiv.org/abs/2611.20218",
+  "summary": "TokenWave AI 发布 SWE-CoWork：101 个真实仓库开发任务，把 Agent 放进有 26 位职责和知识都有边界的同事的模拟工程组织。Agent 要从简短交接出发，向同事和工作记录收集并核对需求，再用未公开的可执行测试验收。Claude Opus 5.5 与 GPT-6 Astra 分别通过 63.84% 和 62.91% 的 fail-to-pass 测试，但完整完成任务只有 6.93% 和 7.92%；其余 9 个模型完整完成率最高 0.99%。事先给全需求能把前两者的 F2P 提高约 16 个百分点，完整完成率不变。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "benchmark",
+   "coding-agent",
+   "SWE-CoWork"
+  ],
+  "links": {
+   "github": "https://github.com/TokenWave-AI/swe-cowork-bench",
+   "paper": "https://arxiv.org/abs/2611.20218"
+  },
+  "highlights": [
+   "通过单项新行为测试，不等于把任务完整做完：领先模型 F2P 约 63%，完整完成率不到 8%。",
+   "把完整需求提前给模型，只能提高部分测试通过率，改变不了完整完成率。"
+  ],
+  "lessons": [
+   "评测编码 Agent 时，除了看测试通过率，还要单独统计任务是否全部完成、需求是否跟进到底。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-19",
+  "title": "GitHub Copilot 评测站新增科学工作流基准和 Harness 对比",
+  "url": "https://github.blog/changelog/2026-11-17-github-copilot-benchmarks-site-adds-harness-comparisons/",
+  "summary": "GitHub 于 11 月 17 日宣布 Copilot 评测站进入公开预览的两项更新：加入 Terminal-Bench-Science 0.1，由生命、物理、地球、数学和工程科学领域专家出题并审题，用来评测研究工作流而不只是写代码；新增 Harnesses 视图，在同一模型和同一中等推理强度下对比 GitHub Copilot CLI、Claude Code 和 Codex CLI 的解决率与单任务平均成本，并给出约 95% 的自助抽样区间。只比较完全匹配的模型对，Copilot Fusion 等无法配对的配置不纳入对比。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "leaderboard",
+   "Terminal-Bench",
+   "harness",
+   "GitHub"
+  ],
+  "links": {
+   "blog": "https://github.blog/changelog/2026-11-17-github-copilot-benchmarks-site-adds-harness-comparisons/",
+   "leaderboard": "https://benchmarks.github.com/"
+  },
+  "highlights": [
+   "同一模型换一套 Agent 脚手架，解决率和成本也会变，评测站把这个差异单独展示出来。",
+   "Terminal-Bench-Science 0.1 把评测范围从写代码扩展到科研工作流。"
+  ],
+  "lessons": [
+   "对比模型时，应固定脚手架和推理强度，并把成本和解决率放在一起看。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-19",
+  "title": "Omni-Workspace：多模态工作区深度研究基准",
+  "url": "https://arxiv.org/abs/2611.19202",
+  "summary": "Omni-Workspace 包含 380 个深度研究风格任务，覆盖四种多模态工作区类型和两个难度，要求 Agent 查看并处理工作区文件、必要时检索外部信息、跨文件和跨模态整合证据，并产出符合明确要求的制品。作者评测了 18 个代表性模型，最好的平均分只有 65.93，并指出多模态上下文膨胀和任务状态漂移是反复出现的问题。论文还提出了结合多模态工作记忆管理的轻量方法 OmniFocus。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "benchmark",
+   "multimodal",
+   "workspace"
+  ],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.19202"
+  },
+  "highlights": [
+   "18 个模型里最好的平均分只有 65.93，现有模型在长程多模态工作区任务上仍有明显缺口。",
+   "作者把常见失败归结为上下文膨胀和任务状态漂移。"
+  ],
+  "lessons": []
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -1431,6 +1504,56 @@
   ]
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-11-19",
+  "title": "GraphRAG Zero：索引和查询都可以不调用 LLM",
+  "url": "https://www.microsoft.com/en-us/research/story/the-evolution-of-graphrag-advancing-systems-and-evaluation-together/",
+  "summary": "微软研究院介绍 GraphRAG Zero：相对最初的 GraphRAG，它在建索引时不再调用 LLM，也可以配成查询时同样不调用 LLM，只靠文本嵌入的几何结构做检索，延迟到亚秒级。该方案已作为选项进入 Foundry IQ（Azure AI Search）；Microsoft Discovery 计划通过 Foundry IQ 采用它。GitHub Next 的 Repo Mind Light 用 GraphRAG Zero 检索 issues 和 pull request，再配合代码与文档的实时检索，供人和编码 Agent 了解架构、归属和先前决策。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "GraphRAG",
+   "Foundry-IQ",
+   "retrieval"
+  ],
+  "links": {
+   "blog": "https://www.microsoft.com/en-us/research/story/the-evolution-of-graphrag-advancing-systems-and-evaluation-together/",
+   "demo": "https://githubnext.com/projects/repo-mind-light/"
+  },
+  "highlights": [
+   "GraphRAG 可以做成建索引和查询都不调用 LLM，把延迟压到亚秒级，适合交互式检索。",
+   "同一套轻量图检索已经接到 Foundry IQ，并出现在 Repo Mind Light 的仓库理解工具里。"
+  ],
+  "lessons": [
+   "如果主要需求是快速找出相关证据，可以优先试不在索引或查询阶段调用 LLM 的图检索，而不是默认上完整 GraphRAG。"
+  ]
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-11-19",
+  "title": "Foundry IQ 上线知识图谱和检索规划模型",
+  "url": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/foundry-iq-introducing-knowledge-graphs-engineered-for-agents/4572683",
+  "summary": "微软 11 月 17 日宣布 Foundry IQ 多项更新：知识图谱进入公开预览，可在索引时按本体抽取实体，或接入已有图谱，再用自然语言或 GQL 查询并带来源引用；SharePoint 知识源按使用者的 Entra 组和站点组权限过滤，已正式可用；Microsoft Retriever 1 进入公开预览，在现有索引上规划每次检索，不必再为此部署一个前沿模型。Foundry IQ 计划在 2026 年 12 月内置进每个新的 Foundry 项目，Serverless 也将在当月正式商用并提供生产 SLA。官方强调，目标是让 Agent 用更少的搜索轮次找到答案。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "Foundry-IQ",
+   "knowledge-graph",
+   "SharePoint",
+   "retriever"
+  ],
+  "links": {
+   "blog": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/foundry-iq-introducing-knowledge-graphs-engineered-for-agents/4572683"
+  },
+  "highlights": [
+   "企业知识库开始把图谱、权限过滤和专门的检索规划模型放在一起，给 Agent 用，而不是只做关键词或向量搜索。",
+   "SharePoint 权限在查询时强制生效；Retriever 1 规划检索时不用再另外部署一个前沿模型。"
+  ],
+  "lessons": [
+   "给 Agent 接企业文档时，应同时检查权限是否随查询执行，以及能否减少反复搜索。"
+  ]
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
@@ -1897,6 +2020,85 @@
   "lessons": [
    "长期助手的记忆评测不能只测事实能否召回，还要测「时间已经过去之后，建议是否更新」。",
    "只把当前日期塞进上下文还不够，应把「事件相对今天已过期 / 未到期」这类计算关系写入记忆或工具返回。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-19",
+  "title": "HEAMS：从性能、隐私、安全和用户主权全面评测 Agent 记忆",
+  "url": "https://arxiv.org/abs/2611.20144",
+  "summary": "Mila 等提出 HEAMS，把记忆系统的责任写成性能、效率、安全、隐私和用户主权五类行为要求，并用统一的 retain/recall/delete/consolidate 接口比较不同系统，同时提供原型 MilaMem 和可套在任意记忆系统上的治理层。作者发现没有一个系统在所有性能基准上都领先，而且性能分数高的系统，隐私、用户主权和安全分数可能很差。召回策略能减少不当披露，但会牺牲有用性；召回和保留策略都能提高对记忆投毒的抵抗。框架、文档和代码已开源。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory-eval",
+   "HEAMS",
+   "privacy",
+   "governance"
+  ],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.20144",
+   "github": "https://github.com/milatechtransfer/heams",
+   "docs": "https://milatechtransfer.github.io/heams/"
+  },
+  "highlights": [
+   "只看任务成功率和效率，看不出记忆系统是否尊重隐私、安全和用户对删除与保留的控制。",
+   "治理层（召回/保留策略）会明显改变结果：减少泄密往往要牺牲有用性，但有助于抵抗投毒。"
+  ],
+  "lessons": [
+   "接入或自建记忆系统时，除了 LoCoMo 等成绩，还应测不当披露、投毒、过期记忆和按请求删除是否真的生效。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-19",
+  "title": "极简 RAG 记忆就能打平常见基准，真正差距在能不能把规则用上",
+  "url": "https://arxiv.org/abs/2611.22179",
+  "summary": "芝加哥大学和伯克利等的 NeurIPS 2026 主会论文提出 Bridge：链式观察笔记、BM25 与余弦混合检索、按时间顺序呈现的极简 RAG 记忆。它在 LongMemEval-S 和 BEAM 上与此前最好成绩在自助抽样置信区间内持平，在 EverMemBench 上比最好的记忆基线高出 5.7 到 6.3 分，每次摄入或查询只调用一次模型，阅读提示约 5 千到 7 千 token。作者认为现有基准测的是检索到了什么，不是记忆能否让 Agent 在用户不再提起时应用规则或惯例，并为此设计了五类对抗探测。在 5 类探测、20 个场景里，没有一种架构全面领先：原子事实抽取（LangMem）更擅长套用规则，块摘要记忆更擅长归纳模式。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "RAG",
+   "benchmark",
+   "NeurIPS"
+  ],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.22179",
+   "github": "https://github.com/Jingyu6/rag-in-a-trenchcoat"
+  },
+  "highlights": [
+   "在常用记忆回忆基准上，极简 RAG 已能与更复杂的记忆原语打平，复杂抽取和图谱并不自动更值。",
+   "真正分出高下的是：记住的规则或模式，能不能在后续动作里被用上；没有一种架构在这类探测上全面领先。"
+  ],
+  "lessons": [
+   "评测 Agent 记忆时，不要只看回忆题，还要测未再提及的规则能否被执行。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-19",
+  "title": "StaleBench：检索排第一，也不等于用的是最新事实",
+  "url": "https://arxiv.org/abs/2611.19752",
+  "summary": "StaleBench 专门测过期检索：同一事实有多个版本时，相似度检索无法判断哪条是当前值。基准包含 892 条真实更新事实，新旧标记来自 Wikidata 有效年份（经 TempLAMA），不来自检索分数。核心结果是：检索指标可能把策略排反——某保留策略和全部保留的对照，对每个测试问题都返回同一条作为第一名，但在不显示日期时，两个阅读器的准确率分别相差 29.5 和 65.6 分。作者提出的 Contamination@5 能排对，current@1 和 current@5 则不能。论文比较了 Mem0、Graphiti、LangMem 和复现的 ERASE，没有一种打分约定能描述全部四个系统。数据、冻结的评测器和基线已发布。该文已被 EACL 2027 Findings 接收。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "staleness",
+   "StaleBench",
+   "Mem0"
+  ],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.19752",
+   "github": "https://github.com/thenexuslab/stalebench-release"
+  },
+  "highlights": [
+   "检索第一名完全相同的两种策略，阅读器准确率可以相差几十个百分点，因为相似度分不出哪条是现在的事实。",
+   "Mem0、Graphiti、LangMem 和 ERASE 处理事实被替换的方式各不相同，不能用同一种检索分数来比较。"
+  ],
+  "lessons": [
+   "记忆评测要单独报告是否取到了当前版本，不能只看召回或相似度排名。"
   ]
  },
  {
@@ -2479,6 +2681,32 @@
   "lessons": [
    "组织落地 AI 漏洞扫描时，可用批量启动做首轮覆盖，但仍应把结果放进与 CodeQL 同一条 backlog 里统一分诊。",
    "该功能不要求 Copilot 许可证，评估成本时应与 Copilot 代码审查功能分开计算。"
+  ]
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-19",
+  "title": "Copilot code review 增加自适应深度、跨仓库上下文和密钥检测",
+  "url": "https://github.blog/changelog/2026-11-17-copilot-code-review-adaptive-effort-secret-detection-and-more/",
+  "summary": "GitHub 于 11 月 17 日宣布 Copilot code review 三项公开预览能力，面向 Copilot Pro、Pro+、Max、Business 和 Enterprise。Adaptive 会按每个 PR 的复杂度和风险，自动在 Lite、Balanced、Max 中选择审查深度，并在结果中标明所选级别，且不会超过组织或仓库设置的上限，默认仍是 Balanced。跨仓库上下文可在审查时读取相关公开仓库中的依赖代码、文档、自定义说明和 skills。密钥检测会把暴露的凭据写进审查评论：既覆盖与 150 多家合作方共建的 500 多种已知格式（正则等确定方法），也用模型和专用检测器找没有固定格式的密钥。功能以公开预览为准，后续可能调整。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "code-review",
+   "GitHub",
+   "Copilot",
+   "secret-detection"
+  ],
+  "links": {
+   "blog": "https://github.blog/changelog/2026-11-17-copilot-code-review-adaptive-effort-secret-detection-and-more/",
+   "docs": "https://github.blog/changelog/2026-11-17-copilot-code-review-adaptive-effort-secret-detection-and-more/"
+  },
+  "highlights": [
+   "审查深度不必再人手指定，系统会按 PR 风险自动选择，并且不能超过管理员设下的上限。",
+   "密钥检测同时覆盖已知格式和没有固定形态的凭据，结果直接出现在审查评论里。"
+  ],
+  "lessons": [
+   "开启自动审查时，把默认改成按风险自适应，并单独打开密钥检测，避免只依赖合并后的 secret scanning。"
   ]
  },
  {
@@ -3116,6 +3344,57 @@
   },
   "highlights": [],
   "lessons": []
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-19",
+  "title": "Code mode 可比普通 MCP 少用七到九成 token，额外路由层未证实更优",
+  "url": "https://arxiv.org/abs/2611.19123",
+  "summary": "论文在受控环境里比较普通 MCP、Code mode（对工具桩写脚本）和决策层（先用便宜路由器筛选工具子集）。实验覆盖 12 个服务器、最多 1,958 个干扰工具，以及 Qwen、Gemma、Nemotron 三个开权模型，并在预先登记的密封测试集上评测。Code mode 明显好于普通 MCP，token 用量减少 70% 到 90%，效用也显著提高。在代码桩里声明返回值结构是一阶因素，对较弱模型的成功率最大可相差 39.5 个百分点，影响超过再加一层路由器。作者预先假设的“决策层加 Code mode 优于单独 Code mode”未被证实：对较弱模型只有不显著的小幅提升，对最强模型还略增成本。工具选择微调模型、评测工具和全部轨迹已公开。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "MCP",
+   "code-mode",
+   "gateway",
+   "tool-use"
+  ],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.19123",
+   "github": "https://github.com/abhishek085/mcp-decision-layer"
+  },
+  "highlights": [
+   "让 Agent 对工具桩写代码，比直接在 MCP 目录里挑工具更省 token，也更容易成功。",
+   "桩上的返回值结构说明很关键；在 Code mode 前再加一层决策路由，并没有被证实更好。"
+  ],
+  "lessons": [
+   "MCP 网关若工具很多，可优先尝试 Code mode 和清晰的返回值约定，而不是先上复杂的路由层。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-19",
+  "title": "MCP 工具名不等于提供者身份，同名或更像权威的描述会造成误绑定",
+  "url": "https://arxiv.org/abs/2611.21577",
+  "summary": "新不伦瑞克大学加拿大网络安全研究所的论文把这类问题称作 tool-provider misbinding：请求本该打到合法提供者，却被解析到攻击者控制的工具。攻击者不必攻破主机、模型、合法服务器或网络，只需再运行一个 MCP 服务器并自行撰写工具元数据。作者在受控 MCP 环境中评测了五个基于 LLM 的客户端。最严重的失败出现在工具名完全相同、描述贴合任务、参数结构也兼容同时成立时；即便没有同名，只靠看起来更权威的描述加上兼容 schema，也可能造成错误执行，或让客户端无法确定该用哪一家。不同模型暴露同一弱点的方式不同，包括直接选中攻击者、发起澄清，以及提供者解析不稳定。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "MCP",
+   "security",
+   "tool-identity",
+   "misbinding"
+  ],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.21577"
+  },
+  "highlights": [
+   "MCP 用来做发现和选择的工具元数据，本身并不必然绑定到经过验证的提供者身份。",
+   "攻击者只要再挂一个同名或描述更像权威的服务器，就可能把调用抢走，不必攻破原有系统。"
+  ],
+  "lessons": [
+   "接入多个 MCP 服务器时，应对工具名和来源做身份约束，不能只靠名字或描述来决定调用谁。"
+  ]
  },
  {
   "topic": "skills",
