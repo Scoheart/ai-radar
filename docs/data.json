@@ -846,6 +846,79 @@
   "lessons": []
  },
  {
+  "topic": "eval",
+  "date": "2026-11-20",
+  "title": "Arena.ai 推出 Agent Arena Index，并改用可跨期比较的分数刻度",
+  "url": "https://arena.ai/blog/introducing-the-agent-arena-index",
+  "summary": "Arena.ai 于 2026-11-18 发布博客，用 Agent Arena Index 作为新的头条排行榜，覆盖超过 290 万次真实用户会话，并同时推出 Agentic Work、Agentic Coding、Agentic Chat、Task Outcome、Steering 和 Tool Use 六个分项指数；Alignment Index 仍作为并列指标保留。方法上取消 Tool Hallucination 信号（作者认为前沿模型已很少调用不存在的工具），把 Confirmed Success 改名为 Task Completion 但测量方式不变；新分数是对原净改进分数做 1000 倍缩放再加锚点，不改变排名，用于避免模型绝对表现上升却因对照池变强而掉分。官方把 7 月模型均分初始化为约 1000，1 个指数点对应信号标准差的千分之一。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "leaderboard",
+   "Agent-Arena",
+   "arena.ai"
+  ],
+  "links": {
+   "x": "https://x.com/arena/status/2123126646983332177",
+   "docs": "https://arena.ai/resources/agent-arena-signals"
+  },
+  "highlights": [
+   "新刻度不改变原有排名，但让同一模型的分数可以跨期比较，不再随对照池平均水平被动升降。",
+   "Tool Hallucination 信号被退役；头条指数综合 Task Completion、Praise vs Complaint、Steerability 和 Bash Reliability。"
+  ],
+  "lessons": [
+   "看 Agent 排行榜时，要分清相对对照池的净改进和锚定后的跨期分数，避免把对照池变化误当成模型退步。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-20",
+  "title": "ExecJudges：用可执行程序代替逐篇 LLM Judge 做相关性标注",
+  "url": "https://arxiv.org/abs/2611.24849",
+  "summary": "arXiv 2611.24849 提出 ExecJudges：由前沿模型按检索主题写成可读、可执行的判定程序，用词面匹配、常规 NLP 库和候选池统计代替对每篇文档调用一次 LLM Judge。在 7 个 TREC 集合上，ExecJudges 与 NIST 评估员的一致性在 TREC DL 2019-2021 上达到 Claude Sonnet 5.5 作为 LLM Judge 的水平。若每个主题再提供少量人工标签，ExecJudges-L 在全部 7 个集合上与 NIST 的一致性都高于同样标签训练的逐主题分类器，并超过或与同条件 LLM Judge 相差约 0.05 的 Krippendorff’s alpha。程序给出的标签对官方 TREC DL 系统排序的 Kendall’s tau 为 0.87–0.94；每个主题一次性写程序花费 0.17–0.49 美元，之后不再产生判定费用。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "LLM-as-a-Judge",
+   "TREC",
+   "relevance",
+   "ExecJudges"
+  ],
+  "links": {},
+  "highlights": [
+   "在 TREC DL 2019-2021 上，主题级可执行程序与 Claude Sonnet 5.5 逐篇判定的人工一致性相当。",
+   "写程序是一次性成本（每主题 0.17–0.49 美元），之后判定可复现、可检查，且不再调用前沿模型。"
+  ],
+  "lessons": [
+   "大规模检索评测若要降低 LLM-as-a-Judge 的费用并提高可复现性，可先尝试把判定规则编译成可检查的程序，而不是对每条结果都调用一次模型。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-20",
+  "title": "3D GameDev Arena：108 个从零开发 3D 浏览器游戏的超长程编码基准",
+  "url": "https://arxiv.org/abs/2611.24073",
+  "summary": "arXiv 2611.24073 发布 3D GameDev Arena：108 个从零开始的游戏开发任务，覆盖 14 种类型。Agent 只得到文本规格和 UI/UX 参考图，由自动的规划—实现—测试—修复流水线生成可独立运行的浏览器游戏。一次运行平均约 1,000 次模型调用，最长一次达到 14,407 次调用、21.3 亿 token 和 608 个资产。评测包括对照规格的代码功能验收、针对 3D 呈现和可玩性的 Agent 质检，以及公开 Arena 上的盲测成对人类偏好（Bradley-Terry）。作者初步结论是超长程 3D 游戏开发远未被解决，而且代码层面正确并不决定玩家偏好。公开 Arena 见 https://baibizhe.github.io/gamearena/ 。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "benchmark",
+   "coding-agent",
+   "game-dev",
+   "long-horizon"
+  ],
+  "links": {
+   "demo": "https://baibizhe.github.io/gamearena/"
+  },
+  "highlights": [
+   "任务规模远超常见写代码基准：平均约 1,000 次调用，最长一次超过 1.4 万次调用和 21 亿 token。",
+   "作者指出代码功能验收通过，并不等于玩家更喜欢这款游戏。"
+  ],
+  "lessons": [
+   "评测要做完整产品而不只是修仓库时，应同时看功能验收和人类偏好，不要只用测试通过率下结论。"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -1554,6 +1627,54 @@
   ]
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-11-20",
+  "title": "KnowledgeClaw 与 OmniKE-Bench：全模态超图上的智能体知识工程",
+  "url": "https://arxiv.org/abs/2611.24294",
+  "summary": "arXiv 2611.24294 把全模态知识工程（OmniKE）形式化，并发布 OmniKE-Bench：6 项任务、1,829 条不依赖特定模型的题目，覆盖 3,960 个真实文件和五种模态。作者提出 KnowledgeClaw，用智能体构建带类型的全模态超图，以闭环生命周期代理保持知识库更新，并按查询所需粒度路由。对比 30 个基线，它在全部 6 项任务上排名第一，总体 OKE 为 55.9，比最强基线高 14.6。代码和数据在 https://github.com/LHRLAB/KnowledgeClaw 。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "KnowledgeClaw",
+   "OmniKE",
+   "knowledge-engineering",
+   "hypergraph"
+  ],
+  "links": {
+   "github": "https://github.com/LHRLAB/KnowledgeClaw"
+  },
+  "highlights": [
+   "现有系统很难同时满足全模态、闭环生命周期和多粒度应用；该基准按这三项一起衡量。",
+   "KnowledgeClaw 在 30 个基线中六项全第一，总体 OKE 55.9，领先最强基线 14.6。"
+  ],
+  "lessons": [
+   "建设 Agent 知识库时，应同时评测多模态入库、更新闭环，以及查询能否路由到合适粒度，而不是只看一次检索准确率。"
+  ]
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-11-20",
+  "title": "MIRAGE 与 NEXUS：在冲突更新和全新知识注入下评测多跳推理",
+  "url": "https://arxiv.org/abs/2611.24058",
+  "summary": "arXiv 2611.24058 指出，多跳问答里的知识更新评测过去多只改已有事实，较少同时处理冲突更新（K2）和全新信息（K3）。论文发布 NEXUS 基准覆盖这两种注入，并提出无需训练的 MIRAGE 框架：核心是感知相关性的双路径推理器，用 P(True) 置信度决定信任参数记忆还是注入知识，再用轻量模板纠正残留结构偏差。作者称在四个模型系列和两个基准上，最终答案和跳级推理准确率都有提升。摘要未给出具体分数。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "MIRAGE",
+   "NEXUS",
+   "knowledge-injection",
+   "multi-hop"
+  ],
+  "links": {},
+  "highlights": [
+   "多跳错误常常是信源选错：该信注入知识时仍抓住过时参数记忆，或面对全新事实无法作答。",
+   "NEXUS 把冲突更新和增量新知识分开考查，而不是只做简单事实改写。"
+  ],
+  "lessons": [
+   "知识库更新后的回归测试应分别覆盖“与旧记忆冲突”和“全新事实”两类问题，并检查模型到底采信了哪条来源。"
+  ]
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
@@ -2099,6 +2220,55 @@
   ],
   "lessons": [
    "记忆评测要单独报告是否取到了当前版本，不能只看召回或相似度排名。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-20",
+  "title": "Amazon OpenSearch Memory 正式商用，为 Agent 提供无服务器长期记忆",
+  "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/amazon-opensearch-memory-generally-available/",
+  "summary": "AWS 于 2026-11-18 宣布 Amazon OpenSearch Memory 正式商用。它是 OpenSearch Service 中的无服务器能力：把 Agent 交互按原文存成可搜索事件（官方称数秒内可检索），再异步抽取结构化记忆，并完成提取、嵌入、索引、合并（新增、更新或跳过）以及关键词、语义和混合检索。访问控制使用 IAM，可按记忆库、行动者和会话授权，也可为事件和记忆设置过期时间。目前在弗吉尼亚北部、俄亥俄、俄勒冈、法兰克福和东京区域上线。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "OpenSearch",
+   "AWS",
+   "agent-memory",
+   "GA"
+  ],
+  "links": {
+   "blog": "https://aws.amazon.com/blogs/big-data/introducing-amazon-opensearch-memory-persistent-memory-for-ai-agents/",
+   "docs": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/memory.html"
+  },
+  "highlights": [
+   "记忆服务代管提取、合并和检索，不必自建一套抽取和索引流水线。",
+   "原文事件与派生记忆分开保存，并支持按行动者和会话做访问控制与过期。"
+  ],
+  "lessons": [
+   "给 Agent 加长期记忆时，应同时设计原文事件可检索、结构化记忆可合并，以及按行动者/会话隔离和过期策略。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-20",
+  "title": "ARISE：企业 Agent 从失败中自演化记忆，不改模型权重和工具",
+  "url": "https://arxiv.org/abs/2611.23588",
+  "summary": "arXiv 2611.23588 提出 ARISE：Agent 记忆从自身失败中迭代演化，不更新模型权重、工具或工作流逻辑。它用部署模型或教师模型归因失败并给出纠正，先存为可检索的微观记忆，再合并成宏观规则，只有在留出集准确率上升时才接受规则更新。在 SOP-Bench 和 τ²-bench 的 14 个企业工作流域、5 个模型上，用 Claude Opus 4.6 做归因和合并的 ARISE-Teacher 相对基线分别提高 10.9 和 5.8 个百分点，并比 GEPA 高 4.5 和 1.4 个百分点；由部署模型自己归因的 ARISE-Self 在 SOP-Bench 上也提高 10.0 个百分点。ARISE-Teacher 的模型调用少 4.0%、输出 token 少 5.2%，单任务成本大致持平（-1.0%）。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "ARISE",
+   "agent-memory",
+   "SOP-Bench",
+   "enterprise"
+  ],
+  "links": {},
+  "highlights": [
+   "不改模型、工具和工作流，只靠失败归因和规则验收，就能在企业工作流基准上取得约 6–11 个百分点的准确率提升。",
+   "规则更新以留出集准确率为门槛，避免把未经验证的纠正直接写进长期记忆。"
+  ],
+  "lessons": [
+   "企业 Agent 记忆更新应设验收门槛：先把失败纠正写成可检索条目，再在留出集上确认有效后才提升为稳定规则。"
   ]
  },
  {
@@ -2707,6 +2877,52 @@
   ],
   "lessons": [
    "开启自动审查时，把默认改成按风险自适应，并单独打开密钥检测，避免只依赖合并后的 secret scanning。"
+  ]
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-20",
+  "title": "REVAL：代码审查关闭意见需要随修订再验证的证据",
+  "url": "https://arxiv.org/abs/2611.23275",
+  "summary": "arXiv 2611.23275 认为，关闭讨论串或改掉被评论的那一行，并不能证明审查意见已经修好，后续修订还可能让已修复问题再次出现。作者把审查意见建模为持续的验证义务，并提出轻量流程 REVAL。在覆盖 441 条意见、1,284 次评估和 12 类缺陷的合成修订历史上，用“过期行仍视为已解决”的黏性代理会把 72.9% 的未解决状态误标为已解决；一旦首次检查通过就停止，则会漏掉全部复发。用 3 个由 oracle 抽样的见证时，REVAL 的误关闭率为 0.11（95% CI 0.06–0.16），复发检出率 80.4%；只用审查评论生成见证并在留出检查上评估时，这两个数字是 0.13 和 88.3%。在 6,420 对比较中，它与穷尽再评估一致，同时把评论后的测试执行量减少 34%。该结果限于受控合成历史，作者另给出了在真实审查历史上评估普适性的预注册方案。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "code-review",
+   "REVAL",
+   "verification",
+   "review-resolution"
+  ],
+  "links": {},
+  "highlights": [
+   "仅凭行被改过或讨论被关闭，会把七成以上未解决状态误判为已修好，且会漏掉全部复发。",
+   "在合成历史上，带依赖门控的再验证能与穷尽再评估一致，并把后续测试执行量减少约三分之一。"
+  ],
+  "lessons": [
+   "自动或人工关闭审查意见时，应保存可再跑的验证证据，并在相关代码再次变动时重新检查，而不是把“该行已改”当成修复完成。"
+  ]
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-20",
+  "title": "单智能体代码审查并不弱于复杂的多智能体系统",
+  "url": "https://arxiv.org/abs/2611.23283",
+  "summary": "arXiv 2611.23283 系统比较了用于审查意见生成（RCG）和代码改进（CR）的多智能体与单智能体设计，对象包括 Hydra Reviewer 及其单智能体对照 C-ChatGPT，以及按质量维度拆分的 ReAct 多智能体与对应的单智能体 ReAct。结果显示，单智能体在两项任务上与多智能体相当，有时还更好，同时系统更简单、token 消耗更低；例如 C-ChatGPT 在 RCG 上的平均 token 为 1,610。作者据此质疑“复杂软件工程任务默认应上多智能体”的常见假设。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "code-review",
+   "multi-agent",
+   "single-agent",
+   "Hydra-Reviewer"
+  ],
+  "links": {},
+  "highlights": [
+   "在审查意见生成和代码改进上，更简单的单智能体可以达到与多智能体相当甚至更好的效果。",
+   "多智能体带来更高架构复杂度和计算开销，但并不自动转化成更好的审查质量。"
+  ],
+  "lessons": [
+   "上线审查 Agent 时，应先拿同样的提示和工具集对比单智能体基线，不要默认拆成多角色系统。"
   ]
  },
  {
@@ -3394,6 +3610,57 @@
   ],
   "lessons": [
    "接入多个 MCP 服务器时，应对工具名和来源做身份约束，不能只靠名字或描述来决定调用谁。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-20",
+  "title": "Amazon Cognito 为 MCP 客户端增加 CIMD 和动态客户端注册",
+  "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/cognito-client-id-metadata-documents/",
+  "summary": "AWS 于 2026-11-19 宣布 Amazon Cognito 支持 OAuth 客户端标识元数据文档（CIMD）和动态客户端注册（DCR，RFC 7591），面向为 MCP 服务器做授权的场景。有了 CIMD，MCP 客户端可用 HTTPS URL 作为 client ID 并在该地址发布 JSON 元数据，Cognito 在登录时拉取并校验；运营方用 URL 模式策略把它映射到已有应用客户端，且只授予应用客户端和元数据文档共同允许的 scope 与授权类型，从而不必为每个外部助手单独创建和清理应用客户端。DCR 则在授权服务器元数据中公布注册端点，MCP 客户端可在运行时注册并获得 client ID；可要求带注册 scope 的访问令牌，也可开放注册。动态注册的客户端带有可筛选的 ID 前缀和类型。两项能力均在 Essentials 和 Plus 套餐、Cognito 全部可用区域提供。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "MCP",
+   "Cognito",
+   "CIMD",
+   "DCR",
+   "auth"
+  ],
+  "links": {
+   "blog": "https://aws.amazon.com/about-aws/whats-new/2026/11/cognito-dynamic-client-registration/",
+   "docs": "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-client-id-metadata.html",
+   "dcr-docs": "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-dynamic-client-registration.html"
+  },
+  "highlights": [
+   "CIMD 让 MCP 客户端用自己的 HTTPS 身份登录，服务方不必为每个助手预创建应用客户端。",
+   "Cognito 同时提供 DCR，便于仍按运行时注册方式实现的 MCP 客户端接入，并可限制谁能注册。"
+  ],
+  "lessons": [
+   "用 Cognito 保护远程 MCP 服务器时，优先评估 CIMD 策略映射；若必须兼容动态注册，应关闭完全开放注册或加上注册 scope。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-20",
+  "title": "SEP-3567 提案：已获赞助但长期停更的 draft SEP 将进入休眠",
+  "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3567",
+  "summary": "MCP 维护者 dend 于 2026-11-18 提交、11-19 仍有更新的治理提案 SEP-3567，目前为 draft，赞助人为 localden。提案规定：处于 draft 的 SEP 若连续 180 天没有作者或赞助人的提交、评论或评审，将标记为 dormant 并关闭其 PR，90 天时提醒一次。没有赞助人的既有规则不变，in-review 和 accepted 的 SEP 不受影响。动机是：目前只有 180 天找不到赞助人才会休眠；在 #3535 去掉 proposal 状态后，自动化已不再把任何 SEP 标为 dormant，于是已获赞助但实际停更的草案会一直开着。这只是草案，尚未被核心维护者接受。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "MCP",
+   "SEP",
+   "governance",
+   "SEP-3567"
+  ],
+  "links": {},
+  "highlights": [
+   "草案尚未接受，只是补上“已有赞助人但长期没有实质推进”这一类 SEP 的休眠规则。",
+   "in-review 和 accepted 的 SEP 明确不在此次休眠范围内。"
+  ],
+  "lessons": [
+   "跟踪 MCP SEP 时，要把新的治理草案和已经 accepted 的协议变更分开，避免把开 PR 当成规范已生效。"
   ]
  },
  {
