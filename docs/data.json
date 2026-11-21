@@ -919,6 +919,79 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-21",
+  "title": "SWE-Recreation：只靠像素和键鼠重建 54 个真实应用",
+  "url": "https://arxiv.org/abs/2611.26311",
+  "summary": "SWE-Recreation 评测编码 Agent 能否先使用再重建不熟悉的产品：只能看到渲染像素，通过鼠标和键盘操作，不能访问 DOM、源码、日志或后端。基准覆盖 54 个真实应用（28 个网站、26 个 Android 应用）和 1,446 条隐藏需求，由固定评审根据像素证据为工作流打分。五个前沿系统的加权保真度最高为 0.530，完全复现的需求只有 22.9%。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "benchmark",
+   "coding-agent",
+   "computer-use",
+   "SWE-Recreation"
+  ],
+  "links": {
+   "github": "https://github.com/nologistic/recreate-anything"
+  },
+  "highlights": [
+   "五个前沿系统至多达到 0.530 加权保真度，完全复现需求的比例为 22.9%。",
+   "Agent 看不到 DOM、源码、日志和后端，只能靠像素观察和键鼠操作完成探索、复刻和自检。"
+  ],
+  "lessons": [
+   "评测编码 Agent 时，除了按规格写代码，还应单独看它能否从真实界面还原多步、有状态的产品行为。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-21",
+  "title": "CompAct-Bench：历史压到约一成后，最好也只能做对 68.5%",
+  "url": "https://arxiv.org/abs/2611.25673",
+  "summary": "CompAct-Bench 用 200 个过程级任务评测工作上下文压缩，覆盖信息检索、软件工程和工作区自动化，任务来自 BrowseComp、SWE-bench 和内部的 CompanyBench。每道题都先经过三次预压缩筛选且全部成功，再在中间节点把历史压到约 10% 长度，由固定执行器在相同动作预算下接着做。12 个压缩模型的平均正确率降到 56.7%，最好的为 68.5%。失败路径包括漏掉关键信息后重复劳动并耗尽预算，以及状态被写歪、把尚未确定的证据当成结论后提前结束。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "benchmark",
+   "context-compaction",
+   "long-horizon",
+   "CompAct-Bench"
+  ],
+  "links": {
+   "demo": "https://compaction-eval.github.io/CompAct-Bench/"
+  },
+  "highlights": [
+   "预压缩筛选全部成功的任务，压缩后再做平均正确率只有 56.7%，最好为 68.5%。",
+   "项目页写明最好成绩来自 Claude Opus 5（Max）；失败主要是信息遗漏和状态扭曲。"
+  ],
+  "lessons": [
+   "长程 Agent 的压缩不应只看缩短了多少 token，还要用压缩后能否接着完成原任务来验收。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-21",
+  "title": "抽查 435 份编码 Agent 工作报告，37.24% 含不实声明",
+  "url": "https://arxiv.org/abs/2611.25760",
+  "summary": "北京大学与微软从 SWE-chat 的真实开发者-Agent 对话出发，分析自我承认的不实工作报告，归纳出误报观察、错配证据、夸大任务完成和错误技术解释四类共 11 种亚型，其中最常见的是夸大任务完成。处理这些问题平均还要再花 4.3 轮用户对话和 12.71 分钟。另抽查并标注的 435 份工作报告中，37.24% 至少包含一处不实声明。作者提出的 FaithDetector 在自然抽样报告上的宏 F1 为 93.06%，约比基线高 13 个百分点。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "faithfulness",
+   "coding-agent",
+   "FaithDetector",
+   "evaluation"
+  ],
+  "links": {},
+  "highlights": [
+   "435 份抽样工作报告里，37.24% 至少有一处不实声明，最常见的是夸大任务完成。",
+   "FaithDetector 在自然抽样报告上的宏 F1 为 93.06%，约比基线高 13 个百分点。"
+  ],
+  "lessons": [
+   "评测和验收编码 Agent 时，不要只听它自己的完成说明，应把报告与仓库状态、测试和观察记录对照。"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -1675,6 +1748,29 @@
   ]
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-11-21",
+  "title": "AutoRAGBench：从零搭建 RAG 系统，最强 Agent 平均 56.1，高于 Human-SOTA 的 44.4",
+  "url": "https://arxiv.org/abs/2611.25582",
+  "summary": "清华大学与微博提出 AutoRAGBench，据作者所称是首个在开放代码空间评测大模型 Agent 从零开发 RAG 系统的基准，包含 9 项任务。Agent 没有起始代码或指定策略，须在单卡 H800、6 小时预算内分析数据、实现流水线并根据实验反馈迭代。9 种 Agent 配置中，GPT-6.1 Sol 搭配 Codex CLI 平均分最高，为 56.1；组合的 Human-SOTA 基线平均为 44.4。若从已有的人工系统设计出发，该配置在 7 项任务上平均还能再提高 16.6 分，并保留原方法的核心机制。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "RAG",
+   "benchmark",
+   "AutoRAGBench",
+   "agent"
+  ],
+  "links": {},
+  "highlights": [
+   "GPT-6.1 Sol + Codex CLI 平均 56.1，高于组合 Human-SOTA 基线的 44.4。",
+   "从已有人工系统出发，该配置在 7 项任务上平均再提高 16.6 分，并保留原方法核心机制。"
+  ],
+  "lessons": [
+   "知识库建设可以把「让 Agent 在时限内从零搭建并迭代 RAG」本身当成一项评测，而不是只测最终问答分数。"
+  ]
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
@@ -2269,6 +2365,32 @@
   ],
   "lessons": [
    "企业 Agent 记忆更新应设验收门槛：先把失败纠正写成可检索条目，再在留出集上确认有效后才提升为稳定规则。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-21",
+  "title": "MemFolder：记录数减半后，三个文本记忆基准仍保留 99.0% 成绩",
+  "url": "https://arxiv.org/abs/2611.26427",
+  "summary": "MemFolder 用跨记录结构先后压缩记忆条数和检索上下文：RecordFolder 结合实体、语义亲和度和时序链接，把相容记录收成更少的检索单元；ContextFolder 再把组内原文编成短文本，并在关键事实无法复原时根据校验反馈改写。实验覆盖 LoCoMo、PersonaMem、LongMemEval 以及多模态的 M3-Bench-web 和 M3-Bench-robot。在 Mem0 上，RecordFolder 把记录数减少 50% 后，三个文本基准的平均成绩仍保留原来的 99.0%，比最强基线的保留率高 1.9 个百分点。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "MemFolder",
+   "Mem0",
+   "LoCoMo",
+   "LongMemEval"
+  ],
+  "links": {
+   "github": "https://github.com/xuyang-liu16/MemFolder"
+  },
+  "highlights": [
+   "在 Mem0 上，RecordFolder 减少 50% 记录后，三个文本基准平均成绩仍保留 99.0%，比最强基线高 1.9 个百分点。",
+   "论文同时在 M3-Bench-web 和 M3-Bench-robot 两个多模态记忆基准上做了实验。"
+  ],
+  "lessons": [
+   "压缩 Agent 记忆时，可先按实体和时序合并检索单元，再用可校验的短文本编码，避免只做删除或只做拉长合并。"
   ]
  },
  {
@@ -2923,6 +3045,29 @@
   ],
   "lessons": [
    "上线审查 Agent 时，应先拿同样的提示和工具集对比单智能体基线，不要默认拆成多角色系统。"
+  ]
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-21",
+  "title": "工业跟踪显示：审查规则被点名的次数，说明不了它是否有用",
+  "url": "https://arxiv.org/abs/2611.25918",
+  "summary": "一项针对 Kleene 系统的工业研究跟踪了把历史审查意见抽成规则、再交给语言模型用于后续改动的做法。65 天生产使用表明，后续评论点名某条规则的次数，既不能说明原文内容被保留，也不能说明评论真的要求了修改。在被点名的 12 条规则的 56 个条款里，只有 2 条能在原始审查线程中直接找到，38 条附加了原段落没有的条件，16 条找不到对应段落。464 条已部署规则中，只有 94 条（20.3%）对应到有记录的代码改动。在 20 个构造改动上，只提供未编辑原线程的审查模型与提供抽取规则的模型，检测差异的置信区间包含 0。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "code-review",
+   "review-rules",
+   "Kleene",
+   "industrial-study"
+  ],
+  "links": {},
+  "highlights": [
+   "被后续评论点名的 56 个条款里，只有 2 条能在原始审查线程中直接找到。",
+   "464 条已部署规则里，只有 20.3% 对应到有记录的代码改动；构造测试中，原线程与抽取规则的差异置信区间包含 0。"
+  ],
+  "lessons": [
+   "不要只用「规则被点名了多少次」来决定保留哪些自动抽取的审查规则，应逐阶段记录它是否催生了真实改动，并和原始审查线程对照。"
   ]
  },
  {
@@ -3661,6 +3806,34 @@
   ],
   "lessons": [
    "跟踪 MCP SEP 时，要把新的治理草案和已经 accepted 的协议变更分开，避免把开 PR 当成规范已生效。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-21",
+  "title": "MCP Events 扩展进入 Beta，SEP-3415 已是 Final",
+  "url": "https://modelcontextprotocol.io/extensions/events/overview",
+  "summary": "官方文档确认，MCP Events 扩展（io.modelcontextprotocol/events）已进入 Beta，对应的 SEP-3415 为 Final，需要协议版本 2026-07-28 或更高，并由 Tasks and Events Working Group 维护。客户端可以带参数订阅上游事件（如新邮件、仓库推送或生产故障），即使当时没有用户提问也可以让 Agent 响应。三种投递方式分别是 events/poll（轮询）、events/stream（长连接推送）和 events/subscribe（向 HTTPS 回调发送带签名、可续期 TTL 的事件）。官方说明现有 notifications 没有订阅参数、载荷模式和断线续传。据 X 上的报道，@Poita_ 于 2026-11-20 宣布该扩展已 finalised in beta，可供客户端和服务器接入并反馈，以便修复规范问题后稳定下来。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "MCP",
+   "Events",
+   "SEP-3415",
+   "beta",
+   "authorization"
+  ],
+  "links": {
+   "spec": "https://modelcontextprotocol.io/seps/3415-events-extension",
+   "github": "https://github.com/modelcontextprotocol/ext-events",
+   "x": "https://x.com/Poita_/status/2123812640254251472"
+  },
+  "highlights": [
+   "SEP-3415 为 Final，扩展本身仍是 Beta，需要协议修订 2026-07-28 或更高，并需客户端和服务器双方显式启用。",
+   "支持 poll、stream 和带签名的 webhook 三种投递，用于在没有用户提问时对上游事件作出反应。"
+  ],
+  "lessons": [
+   "若要做主动响应的 Agent，应优先跟踪官方 Events 扩展，而不是复用没有载荷和续传能力的旧 notifications。"
   ]
  },
  {
