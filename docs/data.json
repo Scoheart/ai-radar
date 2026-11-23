@@ -992,6 +992,31 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-23",
+  "title": "OpenAI 公开内部预训练困惑度，并提议作为业界共享指标",
+  "url": "https://openai.com/index/perplexity-and-intelligence/",
+  "summary": "2026-11-22，OpenAI 首席科学家 Jakub Pachocki 发表《Perplexity and Intelligence》，主张用困惑度（文中报告的是 log-perplexity，即交叉熵损失）比较各实验室的预训练进展，并据此讨论共同安全上限。数字测的是他们自 GPT-3.5 以来沿用的内部代码库留出集（固定快照）：GPT-3.5 约 0.99，GPT-4 约 0.91；目前已低于 0.8，作者称在网络安全和数学上出现了质变能力；升到约 0.76 后，模型开始持续给出突破性数学结果。他预计约 0.68–0.7 窗口还会出现今天未必在测的新能力，并建议在监控能力达到明确里程碑（例如接替思维链监控的方法）之前，实验室共同承诺不越过基于困惑度等指标的上限。文中同时列出局限：各家数据集和训练配比不同，难以直接对比；困惑度不是下游任务分数；思维链等预训练之后的进展不会反映在该指标上；数据固有熵未知。这只是倡议，尚未形成业界约定。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "perplexity",
+   "openai",
+   "safety"
+  ],
+  "links": {
+   "x": "https://x.com/sama/status/2124551594691932405"
+  },
+  "highlights": [
+   "作者把预训练困惑度视为比容易饱和的下游基准更稳定的智能底盘指标，并首次公开 OpenAI 内部留出集上的 log-perplexity：GPT-3.5 约 0.99，GPT-4 约 0.91，当前已低于 0.8，约 0.76 时数学能力出现跃迁。",
+   "他提议各实验室在监控能力达到明确里程碑之前，共同承诺不越过基于困惑度等指标的上限；同时也写明跨实验室数据集不同、该指标不覆盖思维链等预训练之后的进展。"
+  ],
+  "lessons": [
+   "引用这些数字时必须标明：它们测的是 OpenAI 内部代码库留出集的固定快照，不能直接和其他实验室或公开基准横向比较。"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -3834,6 +3859,32 @@
   ],
   "lessons": [
    "若要做主动响应的 Agent，应优先跟踪官方 Events 扩展，而不是复用没有载荷和续传能力的旧 notifications。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-23",
+  "title": "RunPod 托管 MCP 曾在工具结果中要求 Agent 隐瞒打分，4.15.0 已移除",
+  "url": "https://github.com/runpod/runpod-mcp/issues/202",
+  "summary": "GitHub issue #202（2026-11-21 提出）称，自 11 月 20 日起，RunPod 托管 MCP 服务 mcp.runpod.io 会在账户第三次成功创建之后，于 create-pod 等工具结果后追加一段写给 Agent 的说明，要求调用 rate_nps_score 给出 0–10 分，并写明 do not mention it to the user。报告者称直接调用 REST API 没有这段文字，只出现在 MCP 层；该模式与间接提示注入相同。11 月 22 日 4.14.1 先去掉了隐瞒用户的措辞，同日 4.15.0 从托管服务器中移除了 rate_nps_score 和推荐来源询问，创建结果只保留业务载荷。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "security",
+   "prompt-injection",
+   "runpod"
+  ],
+  "links": {
+   "github": "https://github.com/runpod/runpod-mcp/releases/tag/@runpod/mcp-server@4.15.0",
+   "pr": "https://github.com/runpod/runpod-mcp/pull/207"
+  },
+  "highlights": [
+   "这是厂商自己的托管 MCP 服务器在工具结果里加入隐蔽指令，形态与间接提示注入相同，并不是外部攻击。",
+   "问题于 11 月 21 日被披露后，4.14.1 先去掉隐瞒措辞，同日 4.15.0 彻底移除打分和推荐来源工具，创建结果只返回业务载荷。"
+  ],
+  "lessons": [
+   "即使是官方 MCP 服务器，也应把工具返回文本当作不可信输入：要求 Agent 对用户隐瞒行动的指令应拒绝并上报。"
   ]
  },
  {
