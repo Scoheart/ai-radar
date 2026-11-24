@@ -1017,6 +1017,57 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-24",
+  "title": "Kotlin Benchmark 2.0：加入闭源任务并限制网络，防止查找已公开修复",
+  "url": "https://blog.jetbrains.com/kotlin/2026/11/kotlin-benchmark-2-0-how-ai-coding-agents-handle-harder-tasks-and-closed-source-code/",
+  "summary": "2026-11-23，JetBrains 发布 Kotlin Benchmark 2.0。任务集改为 100 道中高复杂度、需跨文件修改的仓库级题目：70 道来自 25 个开源仓库（Android 30、后端 20、Kotlin Multiplatform 10、库与工具 10），30 道来自 JetBrains 内部服务端 Kotlin 项目。开源任务在更严格的沙箱中求解，只允许访问模型本身，依赖预先缓存，仓库历史被隐藏，以减少查找已公开修复的刷分；闭源任务仍可联网，因其修复并未公开。每套配置限时 30 分钟、全量跑三遍。完整套件最高分为 Claude Code + Opus 5.5，通过率 75.3%，平均每题约 0.84 美元；其余 12 套配置通过率为 54.3%–73.7%，平均每题约 0.02–3.14 美元。开源子集上 Claude Code + Fable 5.1 为 86.2%（约 2.38 美元），Claude Code + Opus 5.5 为 84.8%（约 0.68 美元）。闭源子集上 Antigravity CLI + Gemini 3.8 Flash 为 60%（约 1.74 美元），OpenCode + DeepSeek V4.1 Flash 为 58.9%（约 0.08 美元）。官方写明新套件更难，分数不可与上一版直接比较；限制联网不能排除开源修复进入训练数据，这也是保留 30 道闭源题的原因。排行榜还给出平均费用、token 数、延迟和步数。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "kotlin",
+   "coding-agent",
+   "benchmark",
+   "jetbrains"
+  ],
+  "links": {
+   "leaderboard": "https://kotlinlang.org/benchmark/",
+   "github": "https://github.com/Kotlin/kotlin-swe-bench"
+  },
+  "highlights": [
+   "2.0 共 100 题：70 道开源、30 道 JetBrains 闭源；开源任务限制联网并隐藏仓库历史，以减少查找已公开修复。",
+   "完整套件最高为 Claude Code + Opus 5.5，通过率 75.3%、平均每题约 0.84 美元；闭源子集上 Antigravity CLI + Gemini 3.8 Flash 为 60%，OpenCode + DeepSeek V4.1 Flash 为 58.9%、约 0.08 美元。",
+   "官方写明新套件更难，分数不可与上一版直接比较；限制联网并不能排除开源修复进入训练数据。"
+  ],
+  "lessons": [
+   "评测公开仓库级任务时，应默认考虑“查找已有修复”这类刷分路径，并用断网沙箱、隐藏提交历史或闭源题来对照。",
+   "选择编程 Agent 配置时，应同时看通过率、费用和开源/闭源拆分，而不是只看总分。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-24",
+  "title": "Hugging Face 发布构建与维护智能体评测的指南",
+  "url": "https://huggingface.co/blog/agentic-evals",
+  "summary": "2026-11-23，Avijit Ghosh、ben burtenshaw 和 Irene Solaiman 在 Hugging Face 博客发布《How to build and maintain an agentic evaluation》。文章把评测分成问答、智能体、多智能体/群体三个阶段，并按一个任务走完从主张到报告分数的八个步骤；同时讨论任务和打分器出错后如何发现与修正，以及评测各组件哪些应公开、哪些可以保留。文中称 Hub 上约有 3500 个评测排行榜，过去一年评测数据集约增至 17000（约 16 倍），并提到近期加入的 Traces、Benchmarks、Environments 等与智能体评测相关的抽象。这是方法与平台指南，不是新的基准或排行榜结果。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "huggingface",
+   "agentic-evals",
+   "methodology"
+  ],
+  "links": {},
+  "highlights": [
+   "指南把智能体评测拆成从主张到报告分数的步骤，并讨论打分器错误与开源策略；同时提到 Hub 上约 3500 个评测排行榜，以及 Traces、Benchmarks、Environments 等抽象。"
+  ],
+  "lessons": [
+   "自建智能体评测时，应把任务、环境、轨迹和打分器一并设计，并预先考虑哪些部分必须公开才能被复核。"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -1796,6 +1847,34 @@
   ]
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-11-24",
+  "title": "LlamaIndex 发布 OCRia-nano-1：810 万参数的本地 CPU 文档解析模型",
+  "url": "https://www.llamaindex.ai/blog/introducing-ocria-nano-1",
+  "summary": "2026-11-23，LlamaIndex 开源 OCRia-nano-1 权重。该模型共 810 万参数，由 7 个专用文档模型组成，面向文本识别、表格结构和版面恢复，在本地 CPU 上作为开源解析器 LiteParse 的可选引擎运行。官方称，在其所评的轻量解析器中，它在表格和版面准确率上优于 Marker、PP-OCRv6 tiny 和 Tesseract，速度比默认 Tesseract OCR 快 2–5 倍以上，单核约 426 毫秒/页，并处于准确率-速度帕累托前沿。官方建议把它作为组织内文档集合的默认首轮解析，最难的文档仍可用更大的视觉语言模型。据 X 上的报道，官方账号 @llama_index 同步发布了这一消息。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "knowledge-base",
+   "ocr",
+   "llamaindex",
+   "document-parsing"
+  ],
+  "links": {
+   "hf": "https://huggingface.co/llamaindex/OCRia-nano-1",
+   "github": "https://github.com/run-llama/liteparse",
+   "paper": "https://www.llamaindex.ai/ocria/ocria-nano-1-report.pdf",
+   "x": "https://x.com/llama_index/status/2124952874316632394"
+  },
+  "highlights": [
+   "810 万参数的开源权重可在本地 CPU 跑文档解析：官方称单核约 426 毫秒/页，比默认 Tesseract 快 2–5 倍以上，表格和版面准确率优于 Marker、PP-OCRv6 tiny 和 Tesseract。",
+   "它被定位为日常文档的默认首轮解析，最难的扫描件和复杂页面仍需更大的视觉语言模型。"
+  ],
+  "lessons": [
+   "知识库入库可以把轻量 CPU 解析作为默认第一道，再把失败或低置信页面交给更大的文档模型，而不必一开始就对全部页面跑 VLM。"
+  ]
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
@@ -2416,6 +2495,32 @@
   ],
   "lessons": [
    "压缩 Agent 记忆时，可先按实体和时序合并检索单元，再用可校验的短文本编码，避免只做删除或只做拉长合并。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-24",
+  "title": "MemT-1.0-Pro：与 NVIDIA 合作，把持久记忆做进 554B 模型计算",
+  "url": "https://github.com/MemTensor/MemT-1.0",
+  "summary": "MemTensor 官方仓库宣布与 NVIDIA 合作发布 MemT-1.0-Pro。MemT-1.0 把动态本地记忆和可训练的超记忆做进模型计算，推理时不必回读原始上下文；官方称在 128K 历史长度下，固定大小的持久状态相比完整 KV cache 可减少约 66 倍存储。Pro 基于 NVIDIA Nemotron 3 Ultra 550B-A55B，总参数 554B，激活 59B，其中可训练记忆参数 4.23B，动态记忆状态 13M。同系列还有基于 Qwen3.6-35B-A3B 的 Nano 和基于 DeepSeek-V4-Flash 的 Flash。官方写明：在 11 项记忆基准上，Pro、Flash、Nano 分列所评参数记忆方法的前三，但强的文本记忆系统整体仍然领先，尤其是需要精细回溯长历史证据的任务。技术报告此前已挂在 arXiv（2610.26825）。据 X 上的讨论，该 Pro 版本的消息集中出现在 11 月 22 日前后。仓库创建于 2026-10-19，Nano 与 Flash 更早发布。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "memt",
+   "nvidia",
+   "parametric-memory"
+  ],
+  "links": {
+   "hf": "https://huggingface.co/MemTensor/MemT-1.0-Pro",
+   "paper": "https://arxiv.org/abs/2610.26825"
+  },
+  "highlights": [
+   "Pro 把持久记忆做成模型计算的一部分：554B 总参数、59B 激活，动态记忆状态固定为 13M；官方称 128K 历史上可比完整 KV cache 少约 66 倍存储。",
+   "在 11 项记忆基准上，Pro、Flash、Nano 分列所评参数记忆方法前三，但官方同时写明强的文本记忆系统整体仍然领先。"
+  ],
+  "lessons": [
+   "评估“模型内记忆”时，应与外部文本记忆系统分开对比，并重点看长历史证据回溯，而不是只看参数记忆赛道的名次。"
   ]
  },
  {
@@ -3093,6 +3198,56 @@
   ],
   "lessons": [
    "不要只用「规则被点名了多少次」来决定保留哪些自动抽取的审查规则，应逐阶段记录它是否催生了真实改动，并和原始审查线程对照。"
+  ]
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-24",
+  "title": "Anthropic 推出 Claude Ship：审查、修复并按策略审批 PR",
+  "url": "https://claude.com/resources/articles/introducing-claude-ship",
+  "summary": "2026-11-23，Anthropic 宣布 Claude Ship 对 Claude Team 和 Enterprise 方案开放测试。它由已正式可用的 Code Review，以及测试中的 PR Steward 和 Claude Approvals 组成。Code Review 从多种角度审查 PR，对发现做对抗核验后分类并评论；官方称在 Claude Code 团队内部，Code Review 只是更广流程中的一层，6 月到 9 月合并的 PR 增加一倍以上，被回退的比例下降超过 40%，仓库可选择 Quick、Standard 或 Deep。PR Steward 负责让 PR 保持通过，处理失败的 CI、合并冲突和审查意见，但被设计为不批准、不合并；每次推送后会说明改了什么以及如何撤销，也可用 @claude 指令干预或停止。Claude Approvals 读取仓库里的策略文件，允许的常规变更可自行批准，也可要求更深入的人工签字，官方建议先以只观察模式运行，再纳入分支保护。开发者可在 Claude Code 中使用 /ship：推送、开 PR、审查并处理反馈与失败检查；能否合并仍取决于开发者权限和仓库分支规则。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "code-review",
+   "anthropic",
+   "claude-ship",
+   "pr-review"
+  ],
+  "links": {
+   "docs": "https://code.claude.com/docs/en/ship-command",
+   "blog": "https://claude.com/product/claude-ship"
+  },
+  "highlights": [
+   "Claude Ship 把已正式可用的 Code Review，与测试中的 PR Steward、Claude Approvals 串成审查、修复和按策略审批的流程；面向 Team 和 Enterprise。",
+   "PR Steward 被设计为不批准、不合并；Approvals 读取仓库策略文件，官方建议先只观察，再纳入分支保护。",
+   "Claude Code 团队称，在 Code Review 作为更广流程一层的前提下，6 到 9 月合并 PR 增加一倍以上，回退比例下降超过 40%。这是单一团队的内部观察，不是独立对照实验。"
+  ],
+  "lessons": [
+   "若让 Agent 参与审批，应把批准策略写成仓库文件，先观察再接入分支保护，并明确修复 Agent 不得自行合并。"
+  ]
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-24",
+  "title": "Azure DevOps 上 GitHub Advanced Security 的 Agentic Autofix 进入公开预览",
+  "url": "https://devblogs.microsoft.com/devops/agentic-autofix-for-advanced-security-for-azure-devops-public-preview/",
+  "summary": "2026-11-23，Microsoft 宣布 Agentic Autofix for GitHub Advanced Security for Azure DevOps 进入公开预览。管理员可在组织、项目或仓库启用。一次设置覆盖 CodeQL 与第三方 SARIF 工具的代码扫描告警，以及依赖漏洞告警；启用本身不会自动扫描或生成修复，由团队选择要对哪些告警生成修复。生成时，Copilot 编码 Agent 会结合仓库上下文、跨文件检查并打开 PR，带有 Copilot Autofix 标签和告警摘要，任务跑在 Azure Pipelines 中、使用专用的 GitHub Copilot（组织）身份。可用 .github/copilot-instructions.md 以及 .github 或 .agents 下的 SKILL.md 约束修复方式。官方写明它不会自行合并，也不是每条告警都能产出修复，仍需审查 diff、跑构建测试并通过常规 PR 流程合并。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "code-review",
+   "autofix",
+   "azure-devops",
+   "github-advanced-security"
+  ],
+  "links": {},
+  "highlights": [
+   "公开预览里，安全告警可生成待审查的多文件修复 PR；启用不会自动开修，也不会自行合并。",
+   "覆盖 CodeQL、第三方 SARIF 和依赖告警，并可用仓库内的 instructions 和 skills 约束修复方式。"
+  ],
+  "lessons": [
+   "接入自动修复时，应默认要求人工审查和原有测试门禁，并用仓库内指令约束它使用项目已有的安全与依赖更新流程。"
   ]
  },
  {
@@ -3885,6 +4040,81 @@
   ],
   "lessons": [
    "即使是官方 MCP 服务器，也应把工具返回文本当作不可信输入：要求 Agent 对用户隐瞒行动的指令应拒绝并上报。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-24",
+  "title": "AWS 推出 API Portal 与 WAF AI Security，发现并防护 MCP、A2A 和 LLM 端点",
+  "url": "https://aws.amazon.com/blogs/security/introducing-api-and-ai-security-on-aws-from-discovery-to-protection/",
+  "summary": "2026-11-23，AWS 宣布三项能力正式可用：Amazon API Gateway 的 API Portal 用于发现 API 与 AI 端点；AWS WAF 的 API Security 托管规则组防护 API；AWS WAF 的 AI Security 托管规则组防护 AI 端点。发现可从流量日志和服务配置记录中识别 LLM、MCP 和 A2A 端点，无需额外部署探针或转发日志；未登记、对外暴露的 MCP 服务器会作为影子 API 出现。AI Security 做协议识别与合规检查，以拦截畸形的 MCP 和 A2A 消息；若启用内容检查，规则组会调用 Amazon Bedrock Guardrails，检测请求中的提示注入、越狱和有害内容，以及响应中的敏感信息。内容检查会产生额外的 Bedrock 费用。API Portal 覆盖 32 个区域，AI Security 在发布时可用于弗吉尼亚北部、俄亥俄、俄勒冈、伦敦、斯德哥尔摩、东京和悉尼等区域。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "aws",
+   "waf",
+   "gateway",
+   "security"
+  ],
+  "links": {
+   "docs": "https://aws.amazon.com/about-aws/whats-new/2026/11/waf-ai-endpoint-discovery-protection/"
+  },
+  "highlights": [
+   "API Portal 可从日志和配置中发现 LLM、MCP、A2A 端点，未登记的对外 MCP 服务器会以影子 API 出现。",
+   "WAF AI Security 可拦截畸形 MCP/A2A 消息，并可选用 Bedrock Guardrails 做提示注入和敏感信息检查，后者单独计费。"
+  ],
+  "lessons": [
+   "在云上暴露 MCP 或 A2A 服务时，应先做端点发现，再把协议校验和内容护栏接到网关，而不是只靠应用自己声明。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-24",
+  "title": "Canva MCP 正式开放，面向所有开发者与 Agent",
+  "url": "https://www.canva.com/newsroom/news/canva-mcp-update/",
+  "summary": "2026-11-23，Canva 宣布其 MCP 服务器正式开放，开发者可在 Developer Portal 注册并启用，不再排队。此前访问主要限于社区开发者，以及与 OpenAI、Anthropic 等合作方的连接器。官方称 MCP 已在 ChatGPT、Claude、Gemini、Muse 等助手中支撑大量设计任务；过去一个月约有 50 万人通过 MCP 注册 Canva，10 月用量接近翻倍（较 9 月增长 93%），首次使用的人中约四成是新用户。同步推出新的 REST API、扩展的 Canva CLI 和服务账号，设计结果仍可在 Canva 里编辑。这是生态开放，不是 MCP 协议本身的变更。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "canva",
+   "ecosystem",
+   "ga"
+  ],
+  "links": {},
+  "highlights": [
+   "Canva MCP 取消等待名单，向所有开发者和 Agent 开放，并同时提供 REST API、CLI 和服务账号。",
+   "官方称过去一个月约 50 万人经 MCP 注册 Canva，10 月用量较 9 月增长 93%；首次使用者中约四成是新用户。"
+  ],
+  "lessons": [
+   "评估 MCP 生态时，除协议和网关外，也应跟踪大型 SaaS 把只读连接器升级为可写、可嵌入工作流的开放节奏。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-24",
+  "title": "IETF 出现个人草案：用 SCIM 资源类型管理 MCP 服务器与工具组",
+  "url": "https://datatracker.ietf.org/doc/draft-gaikwad-scim-mcp-server/",
+  "summary": "2026-11-22 更新、标注日期为 2026-11-23 的个人 Internet-Draft（draft-gaikwad-scim-mcp-server-00，作者 Madhava Gaikwad）提出用 SCIM 资源类型在网关、私有注册表和 Agent 宿主之间传递 MCP 治理记录。草案定义 McpServer（端点、OAuth 受保护资源标识与授权服务器、所有者、可用主体、可选的已批准工具列表、以及是否获准使用）和 McpToolGroup（来自一台或多台服务器的命名工具集及其可用主体），并说明如何通过推送、拉取和 SCIM Security Event Tokens 同步变更。它明确不描述 MCP 服务器能力、不授权单次工具调用，也不是 IETF 或 MCP 官方 SEP 的背书；文档写明任何人都可以向 IETF 提交 Internet-Draft，本稿没有 IETF 背书，在标准流程中没有正式地位。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "scim",
+   "ietf",
+   "authorization",
+   "gateway"
+  ],
+  "links": {
+   "spec": "https://datatracker.ietf.org/doc/html/draft-gaikwad-scim-mcp-server-00"
+  },
+  "highlights": [
+   "草案建议用 SCIM 的 McpServer 和 McpToolGroup 在网关、注册表和宿主之间同步 MCP 服务器的批准状态、所有者和可用主体。",
+   "这是个人投稿的 Internet-Draft，不是 IETF 标准，也不是官方 MCP SEP。"
+  ],
+  "lessons": [
+   "企业若要统一批准和撤回 MCP 服务器，可以关注这类身份治理接口，但在其进入标准或被主流网关实现之前，只能当作设计参考。"
   ]
  },
  {
