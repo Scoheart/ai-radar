@@ -1147,6 +1147,63 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-26",
+  "title": "OpenClaw Foundation 发布 ShellBench：日常任务上头部模型约六成通过",
+  "url": "https://openclaw.ai/blog/shellbench",
+  "summary": "11月24日，OpenClaw Foundation 与 Parsewave、Hugging Face、Red Hat、UC Berkeley 等合作发布 ShellBench：100道来自逾1000万次匿名真实交互的日常任务，工作区中位188个文件；90道按721条标准（含381条安全）全部通过才算完成，10道用代码测试。12个模型、5种 harness、共53100次评测。五套 harness 平均，GPT-6 Astra 62.5%、Claude Fable 5.2 61.9%、GPT-6.1 Sol 61.4%，官方称 Sol 的预估 token 成本约为 Astra 的六分之一；Astra 三次中至少一次通过 75.1%，三次全过仅 48.8%。全部 run 中 15.7% 未过安全项；在已满足全部正确性标准的 26151 次中，仍有 9.9% 未过安全项。Kaggle 独立复现（OpenClaw 2026.10.5、高推理、每题3次）榜首为 GPT-6.1 Sol 64.3%。公开20题、留出80题。分数来自官方，未独立复现。据 X 上的报道，OpenClaw 与 Kaggle 官方账号同步公布。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "shellbench",
+   "openclaw",
+   "agent-benchmark",
+   "safety"
+  ],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.32946",
+   "leaderboard": "https://www.kaggle.com/benchmarks/openclaw-foundation/shellbench",
+   "dataset": "https://huggingface.co/datasets/OpenClaw/ShellBench",
+   "x": "https://x.com/openclaw/status/2125326970976366734"
+  },
+  "highlights": [
+   "五套 harness 平均，前三名只差 1.1 个百分点，即使最强模型也有约四成任务无法满足全部要求。",
+   "正确不等于可用：在已满足全部正确性标准的 run 里，仍有 9.9% 未过安全项；Astra 三次全过只有 48.8%。",
+   "Kaggle 独立榜用的是单一 harness（OpenClaw 2026.10.5），榜首是 GPT-6.1 Sol 的 64.3%，与论文里五套平均的 Astra 62.5% 不是同一口径。"
+  ],
+  "lessons": [
+   "评测日常助手时，应把安全标准与正确性分开统计，并报告多次尝试的稳定性，而不是只看单次通过率。",
+   "工作区里的过时记录、冲突信息和钓鱼邮件应进入评测集，否则分数很难反映真实委托场景。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-26",
+  "title": "AgenticPPL：读完终端输出后写下的 command 困惑度，才能正向预测 Terminal-Bench",
+  "url": "https://wenhaochai.com/blogs/agentic-ppl.html",
+  "summary": "11月25日，Wenhao Chai 发表方法博文 AgenticPPL。在 Terminal-Bench 2.1 的 Terminus-2 轨迹上，对整段轨迹算普通困惑度会把模型排反（开发集 Spearman ρ 为 −0.292）。该方法只取读完终端输出后写下的 command，并对单 token 截断后再平均。预先固定的检验中，开发集 ρ 为 +0.890；留出轨迹×开发集模型为 +0.854；留出轨迹×15个留出模型（21–37B，只测一次）为 +0.788，而普通困惑度为 −0.495。这是一次前向、无需沙箱生成的代理指标，不是新的任务基准。据 X 上的报道，作者账号同步发布了这篇感恩节博文。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "agenticppl",
+   "terminal-bench",
+   "llm-eval",
+   "perplexity"
+  ],
+  "links": {
+   "x": "https://x.com/wenhaocha1/status/2125721109303533973"
+  },
+  "highlights": [
+   "普通轨迹困惑度在 Terminal-Bench 2.1 上把模型排反，主要反向信号来自终端输出。",
+   "在预先留出的 15 个 21–37B 模型上，AgenticPPL 的 Spearman ρ 为 +0.788，普通困惑度为 −0.495；留出模型只测了一次。"
+  ],
+  "lessons": [
+   "用困惑度代理智能体能力时，要先确认信号来自哪些 token；把终端输出和模型自己写的命令混在一起平均，可能得到相反的排序。"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -1981,6 +2038,78 @@
   ]
  },
  {
+  "topic": "knowledge-base",
+  "date": "2026-11-26",
+  "title": "Google Agent Retrieval 公开预览托管导入与 SearchDocuments，一次调用返回带出处的段落",
+  "url": "https://developers.googleblog.com/from-files-to-cited-answers-in-one-api-call-managed-ingestion-and-searchdocuments-in-agent-retrieval/",
+  "summary": "11月24日，Google 为 Agent Retrieval（原 Vector Search 2.0）公布两项公开预览：托管导入可解析、切分并用 Gemini Embedding 2 嵌入 Cloud Storage 中的 PDF、DOCX、PPTX、XLSX 和 TXT；SearchDocuments 一次调用返回带页码或时间戳的匹配段落。文档与视频需分库。官方称 18 份 Alphabet 投资者 PDF 约 9 分钟可检索，19 分钟视频按画面和语音检索每次约 0.3–0.5 秒。也可按文档过滤、做重排序，并返回元数据。这是官方测试，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "knowledge-base",
+   "rag",
+   "google",
+   "agent-retrieval",
+   "document-parsing"
+  ],
+  "links": {},
+  "highlights": [
+   "托管导入把解析、切分和嵌入收进一次导入，查询侧一次 API 调用就返回带页码或时间戳的出处。",
+   "文档和视频要分开建库；官方演示是 18 份 PDF 约 9 分钟可查，视频查询约 0.3–0.5 秒。"
+  ],
+  "lessons": [
+   "自建知识库时，应要求检索结果带页码或时间戳，并能按单个文件缩小范围，而不是只返回一段无出处文本。"
+  ]
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-11-26",
+  "title": ".NET 预览 DocumentExtractionClient：用统一结构抽取 PDF、扫描件和 Office 文件",
+  "url": "https://devblogs.microsoft.com/dotnet/document-extraction-dotnet-preview/",
+  "summary": "11月24日，Microsoft 发布 Microsoft.Extensions.DocumentExtraction 预览，其中的 DocumentExtractionClient 把 PDF、扫描件和 Office 文件抽成统一的标题、段落、表格和插图结构。提供者可换成进程内 PDF 解析、任意 IChatClient 背后的视觉模型，或 Azure Content Understanding，再接入 Microsoft.Extensions.DataIngestion 做检索增强生成。这是预览 SDK，不是新的评测基准。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "knowledge-base",
+   "document-parsing",
+   "dotnet",
+   "rag",
+   "microsoft"
+  ],
+  "links": {},
+  "highlights": [
+   "不同解析器共用同一套抽取结果结构，换提供者不必重写下游切分和入库代码。",
+   "目前仍是预览，官方也写明与 DataIngestion 的组合还会继续简化。"
+  ],
+  "lessons": [
+   "文档解析层应先产出带层级和表格结构的中间表示，再送去切分和嵌入，避免把页眉页码一并切进知识库。"
+  ]
+ },
+ {
+  "topic": "knowledge-base",
+  "date": "2026-11-26",
+  "title": "Amazon 论文：把生成的 SPARQL 解析成单跳图遍历计划，而不是直接执行查询",
+  "url": "https://arxiv.org/abs/2611.31771",
+  "summary": "11月24日，Amazon 团队提交论文（arXiv 2611.31771）：先用稠密检索定位相关区域，再让模型把图遍历计划写成 SPARQL，但只解析该查询、并不直接在图上执行，然后沿 Wikidata 的推理路径确认和补全段落。在统一语料和阅读器、同一配置下，作者报告 HotpotQA 为 62.5/75.1 EM/F1，2WikiMultiHopQA 为 73.5/81.0，MuSiQue 为 37.1/50.0，均高于其复现的 HippoRAG2、T²RAG 和 IRCoT。直接执行生成的 SPARQL 最多掉 11.4 EM，主要因为查询返回空结果，而不是语法错误。分数来自论文，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "knowledge-base",
+   "graphrag",
+   "sparql",
+   "wikidata",
+   "multihop-qa"
+  ],
+  "links": {},
+  "highlights": [
+   "关键设计是把 SPARQL 当作可解析的遍历计划，而不是拿到查询就执行；直接执行最多掉 11.4 EM，空结果是主因。",
+   "在三个多跳问答基准上，同一套配置都高于作者复现的 HippoRAG2、T²RAG 和 IRCoT。"
+  ],
+  "lessons": [
+   "用大模型规划知识图谱遍历时，应先检查生成查询是否会得到空结果，并保留解析后的路径，而不是把查询直接交给图引擎。"
+  ]
+ },
+ {
   "topic": "memory",
   "date": "2026-10-24",
   "title": "Letta FrontierMemory 1.0：用睡眠期蒸馏评测从经验中持续学习",
@@ -2627,6 +2756,85 @@
   ],
   "lessons": [
    "评估“模型内记忆”时，应与外部文本记忆系统分开对比，并重点看长历史证据回溯，而不是只看参数记忆赛道的名次。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-26",
+  "title": "Leto：按对未来回复的效用来选择记忆，而不是按对过去对话的保真度",
+  "url": "https://arxiv.org/abs/2611.33005",
+  "summary": "11月24日，DigitalOcean 的 Shuguang Chen 与 Salman Paracha 提交 Leto（arXiv 2611.33005）。论文认为记忆的价值在于能否改进随后的回复，因而把记忆写成对未来请求效用的预测：原子事实作为索引指向原文，请求到来前用 memory replay 补上请求未明说的上下文，再按回复结果更新效用估计。作者在 6 套记忆系统、5 个基准上报告：PrefEval 准确率比所比最强系统高 16.3 个百分点，PERMA 任务完成高 3.1 分，MemoryArena 五个环境总体最好；长上下文理解与检索原始历史相当，但所用上下文 token 更少。分数来自论文，未独立复现，也未见公开实现仓库。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "leto",
+   "digitalocean",
+   "prefeval",
+   "memoryarena"
+  ],
+  "links": {},
+  "highlights": [
+   "作者把记忆的写与取都改成对未来效用的预测，并用回复结果回写效用，而不是只衡量记忆是否忠实覆盖旧对话。",
+   "个性化任务上的差距最大：PrefEval 比所比最强系统高 16.3 个百分点；长上下文任务则与检索原文历史持平，但上下文更短。"
+  ],
+  "lessons": [
+   "评估记忆系统时，除了问“记没记住”，还应看记忆是否改变了未再提及偏好或规则时的最终行为。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-26",
+  "title": "SAG-Mem：不抽取语义记忆，直接在完整对话上做词项扩展检索",
+  "url": "https://zleap.com/en/blog/sag2-agent-memory",
+  "summary": "11月24–25日，Zleap 发布 SAG-Mem 与 SAG-Mem-Lite，并挂出技术报告（arXiv 2611.33124）。系统把完整对话按不重叠块保存，构建阶段不用 LLM 抽取或建语义图；查询时先用 BM25 初检，再由证据评估选出有用块并用词项扩展二次检索，同时为相对时间补上日历解释。官方称在 LoCoMo 和 LongMemEval 上分别得到 83.08 和 80.20，均为所评最高，其中 LongMemEval 比最强基线高 7.20 分；Lite 为 77.09 和 77.20，成本低于文中对比的 Mem0、MemOS、Zep 和 TDAM。评测代码已开源。分数来自作者，未独立复现。据 X 上的报道，有研究者同步介绍了这篇报告。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "sag-mem",
+   "zleap",
+   "locomo",
+   "longmemeval"
+  ],
+  "links": {
+   "paper": "https://arxiv.org/abs/2611.33124",
+   "github": "https://github.com/Zleap-AI/SAG-Mem-Benchmark",
+   "x": "https://x.com/_reachsumit/status/2125663938868371750"
+  },
+  "highlights": [
+   "完整版在 LoCoMo / LongMemEval 上为 83.08 / 80.20，官方称均为所评最高；LongMemEval 比最强基线高 7.20 分。",
+   "Lite 用向量相似度替代证据评分，分数为 77.09 / 77.20，官方称成本低于所比的 Mem0、MemOS、Zep 和 TDAM。"
+  ],
+  "lessons": [
+   "长期对话记忆不必默认先做事实抽取；先保住带日期的原文，再在查询时做互补证据扩展，是一条可复现的对照基线。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-26",
+  "title": "OpenClaw 2026.11.10 上线可选记忆组件 Knowledge：带出处的本地 Markdown 记忆库",
+  "url": "https://docs.openclaw.ai/releases/2026.11.10",
+  "summary": "11月25日，OpenClaw 发布 2026.11.10，新增可选记忆组件 Knowledge：在本地用 Markdown 保存人物、项目、决策及带出处的摘录，可在 Control UI 中浏览并查看项目时间线。需将 plugins.slots.memory 设为 knowledge，支持热加载，且不改动已有 memory-core 数据。还支持 scribe 摄入、按关键词/别名/日期搜索、保留历史的修订，以及本地 Git 检查点。官方发布说明与 X 同步公布。这是产品能力，没有公布基准分数。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "openclaw",
+   "knowledge",
+   "markdown"
+  ],
+  "links": {
+   "docs": "https://docs.openclaw.ai/plugins/knowledge",
+   "github": "https://github.com/openclaw/openclaw/releases/tag/v2026.11.10",
+   "x": "https://x.com/openclaw/status/2125591827600531554"
+  },
+  "highlights": [
+   "Knowledge 默认关闭，切换后热加载，并明确不改动已有 memory-core 数据。",
+   "每条声明和关系保留出处摘录，修订与合并会留下可检查的历史和本地 Git 检查点。"
+  ],
+  "lessons": [
+   "给智能体加长期记忆时，应能追溯一条结论来自哪段原文，并能在不抹掉历史的前提下修正错误记忆。"
   ]
  },
  {
@@ -4277,6 +4485,54 @@
   ],
   "lessons": [
    "自建 MCP 服务器时可同步支持 Skills、Tasks 和 Elicitation，以便在兼容客户端里做长任务和人工确认，而不是只暴露同步工具。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-26",
+  "title": "Google Antigravity 支持 MCP Apps：工具结果可在工作区里渲染交互界面",
+  "url": "https://antigravity.google/blog/mcp-apps-in-antigravity/",
+  "summary": "11月24日，Google 宣布 Antigravity 支持开放扩展 MCP Apps（SEP-1865，状态为 Final）。标准 MCP 工具结果通常是文本或 JSON；MCP Apps 可以按 ui:// 资源把交互 HTML 直接画在聊天记录里，还可通过可选的 Antigravity 扩展在侧栏、左侧全页或自定义文件查看器中打开。官方称标准 MCP Apps 无需改代码即可使用。这是宿主侧实现，不是新的 SEP。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "mcp-apps",
+   "antigravity",
+   "sep-1865",
+   "google"
+  ],
+  "links": {
+   "spec": "https://modelcontextprotocol.io/seps/1865"
+  },
+  "highlights": [
+   "Antigravity 接入的是已经定稿的 SEP-1865，而不是新提案。",
+   "默认在聊天里内嵌渲染；侧栏、全页和自定义文件查看器属于可选的宿主扩展。"
+  ],
+  "lessons": [
+   "为 MCP 工具设计返回值时，除了 JSON 摘要，还可按 MCP Apps 提供可检查的界面，减少模型用文字转述结构化结果。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-26",
+  "title": "Vercel MCP 可管理 AI Gateway：虚拟模型、路由规则和预算",
+  "url": "https://vercel.com/changelog/agents-can-now-manage-ai-gateway-through-vercel-mcp",
+  "summary": "11月24日，Vercel 更新称智能体可通过 Vercel MCP 管理 AI Gateway：用自然语言创建和修改带保存设置的虚拟模型、配置团队路由规则，以及查看和设置团队、项目和成员预算。官方举例可创建一个启用 Zero Data Retention 的虚拟模型，随后用固定模型 ID 调用，而不必改客户端。权限仍受 Vercel 团队权限约束。这是产品功能，不是协议变更。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "vercel",
+   "ai-gateway"
+  ],
+  "links": {},
+  "highlights": [
+   "智能体可以创建带固定 ID 的虚拟模型，之后改底层模型和设置不必改客户端。",
+   "路由和预算操作仍受原有团队权限约束，不是额外开了一套不受控的管理接口。"
+  ],
+  "lessons": [
+   "把网关配置做成 MCP 工具时，应沿用原有身份和权限，而不是给智能体单独的不受限管理通道。"
   ]
  },
  {
