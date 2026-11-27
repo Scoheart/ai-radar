@@ -1204,6 +1204,80 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-27",
+  "title": "TransHarness：从分布外轨迹演化出的干预策略，能迁移到新的编程基准",
+  "url": "https://arxiv.org/abs/2611.33757",
+  "summary": "华中科技大学等提出 TransHarness。现有 harness 演化方法容易在演化所用的基准上过拟合。该方法从同一任务的成功与失败轨迹对比中学习干预策略，再用跨任务回放和独立语义筛选，保留能按当前任务证据做检查和纠正的策略。作者只用测试分布之外的 300 条源轨迹。论文报告 DeepSWE v1.1 为 76.4%、Terminal-Bench 2.1 为 95.5%，分别比最强基线模型 GPT-6 Astra 高 2.4 和 5.6 个百分点；在 DeepSWE 上回归率为 9.7%，低于 Self-Harness 的 13.0%。给 Qwen Code 加上后，DeepSWE 从 55.8% 升到 63.7%。分数来自论文，未见公开代码，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "transharness",
+   "harness-evolution",
+   "deepswe",
+   "terminal-bench"
+  ],
+  "links": {},
+  "highlights": [
+   "只用分布外 300 条轨迹，DeepSWE v1.1 和 Terminal-Bench 2.1 分别达到 76.4% 和 95.5%，比 GPT-6 Astra 高 2.4 和 5.6 个百分点。",
+   "在 DeepSWE 上，相对基线 harness 的净提升来自 +13.0 的恢复和 −9.7 的回归，回归低于 Self-Harness 的 −13.0。",
+   "论文复现显示，Meta-Harness 在独立演化集上提升，但在 DeepSWE v1.1 上下降，说明同一基准上的反馈不等于可迁移的改进。"
+  ],
+  "lessons": [
+   "演化 coding agent 的 harness 时，不要只用同一基准的留出题做选择；应准备分布外的演化集，并在另一个基准上同时报告恢复和回归，而不只看净分。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-27",
+  "title": "黑盒测试选择可以大幅降低智能体评测成本，但估分和找失败要用不同策略",
+  "url": "https://arxiv.org/abs/2611.34617",
+  "summary": "代尔夫特理工大学评估了 14 种黑盒测试选择策略，覆盖 10 个智能体基准（含 SWE-bench Verified），每个基准 12 到 101 个智能体。作者报告：没有任何单一策略同时最擅长成功率估计和尽早暴露失败。在 20% 任务预算下，Category Partition 在 10 个基准中的 5 个上取得最低中位估分误差。对 GPT 5.2 Codex 的 SWE-bench Verified，该方法只跑 100 题而非 500 题，执行成本从 225 美元降到 47 美元，成功率估计的绝对误差为 0.8 个百分点。同样预算下，用 LLM-as-judge 做选择时，选中任务中有 53.0% 能暴露失败，随机抽样为 27.4%。分数来自论文，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "test-selection",
+   "swe-bench",
+   "llm-as-judge",
+   "cost"
+  ],
+  "links": {},
+  "highlights": [
+   "没有一种策略同时最适合估分和找失败：Category Partition 更适合估计成功率，LLM-as-judge 更适合尽早发现失败。",
+   "在 SWE-bench Verified 上，Category Partition 用 20% 的题目把 GPT 5.2 Codex 的执行成本从 225 美元降到 47 美元，估分绝对误差为 0.8 个百分点。"
+  ],
+  "lessons": [
+   "回归测试智能体时，应先明确本次运行是要估分还是要找失败，再选抽样策略，不要默认随机抽一个子集。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-27",
+  "title": "让模型自己决定何时压缩上下文：紧预算下准确率可接近翻倍，但各模型用法差异很大",
+  "url": "https://arxiv.org/abs/2611.34147",
+  "summary": "作者在 NVIDIA 开源智能体框架 NOOA 中比较两种策略：由 harness 在窗口满时触发压缩，以及由模型通过上下文 API 自己决定压缩什么、何时压缩。评测覆盖文档研究和机器学习工程，上下文预算从 8K 到 512K。作者报告，能有效使用该 API 的模型准确率更高，而且常常更省输入 token，在紧预算下更明显：GPT 6.1 在 32K 预算的 OfficeQA Pro v2 上从 21% 升到 56%；Kimi 最多可少用 41% 的输入 token。各模型调用 API 的频率、压缩激进程度和开始时机差别很大，提示也会改变时机。通过在编辑后复用未改动后缀的 KV cache，预填充计算最多降低 15%，准确率没有可测量的变化。这是受控对比，不是新的任务基准。分数来自论文，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "context-management",
+   "nooa",
+   "compaction",
+   "long-context"
+  ],
+  "links": {},
+  "highlights": [
+   "在 32K 预算的 OfficeQA Pro v2 上，模型自主管理上下文使 GPT 6.1 的分数从 21% 升到 56%。",
+   "模型何时开始压缩、压缩多狠，随模型和提示变化很大；有的模型会在仍有空余时过早压缩。",
+   "推理引擎若支持在编辑后复用未改动后缀的 KV cache，预填充最多可减少 15%。"
+  ],
+  "lessons": [
+   "给模型开上下文管理工具还不够，还要用不同预算和提示检查它会不会过早压缩，并把开始压缩的时机纳入评测。"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -2838,6 +2912,88 @@
   ]
  },
  {
+  "topic": "memory",
+  "date": "2026-11-27",
+  "title": "TASK Memory：正确记忆进了提示，模型仍可能忽略或用错对象",
+  "url": "https://arxiv.org/abs/2611.34762",
+  "summary": "北航团队把“记忆已正确取回并放入提示，但回答仍与之矛盾或用到了错误对象”称为使用时记忆幻觉。在五个开源模型上，忽略记忆最高达 46%，把记忆用到邻近实体最高达 24%，若再叠加权重编辑可达 49%；在同时存有新旧版本时，53% 的回答仍给出已被替代的值。TASK 给每条记忆同时配备文本、可移除的知识编辑和一对不存内容的激活引导向量，由查询是否命中同一地址来决定采用记忆还是保留模型自己的答案。在预先登记、只测一次的协议下，作者报告十个模型–数据集格子中忽略记忆均降至不超过 1.5%，邻近误用从 39.2% 降到 7.5%；在 300 条记忆库上比 BM25 RAG 高 16.4 个百分点，3,000 条时优势仍在。23 项跨模型比较中有 21 项显著。实验主要在事实编辑和多跳问答上，不是通用智能体任务。分数来自论文，未见公开实现，未独立复现。据 X 上的报道，有账号同步讨论了这些数字。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "task-memory",
+   "hallucination",
+   "knowledge-editing",
+   "activation-steering"
+  ],
+  "links": {
+   "x": "https://x.com/hlr_newsletter/status/2125914982596419735"
+  },
+  "highlights": [
+   "使用时幻觉不是存错了：正确记忆已在提示里，忽略记忆仍可高达 46%，用错对象可达 24%。",
+   "在预先登记、只测一次的设置下，忽略记忆降到不超过 1.5%，CounterFact 上邻近误用从 39.2% 降到 7.5%。",
+   "实验主要在事实编辑和多跳问答上，还不能直接当成通用智能体记忆任务的结论。"
+  ],
+  "lessons": [
+   "评测记忆系统时，除了检索是否命中，还应单独统计：模型是否采用了已注入的记忆，以及是否把它用到了错误实体或过期版本。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-27",
+  "title": "MGMem：不做生成式索引，直接用确定性提及图取回原始对话",
+  "url": "https://arxiv.org/abs/2611.33174",
+  "summary": "港科广提出 MGMem：构建索引时不调用生成式 LLM，而是用判别式解析得到跨 session 的提及关联图，再用主语条件的三阶段解析定位问题对象，并把原始对话片段交给阅读器。作者在本地三次匹配协议重跑中报告，LoCoMo 准确率为 75.89±0.10%，比 EMem 高 2.60 个百分点、比 LightMem 高 13.47 个百分点，且生成式索引调用为零；片段检索 hit@1/5/10 为 0.591/0.837/0.893。对照系统为十段 LoCoMo 对话构建记忆，平均需要 309 到 6081 次生成式索引调用。在完整 LongMemEval-S（500 题）上，MGMem 为 72.60%，低于 BM25 的 74.60% 和 Hybrid 的 73.80%。代码已开源。分数来自论文，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "mgmem",
+   "locomo",
+   "longmemeval",
+   "provenance"
+  ],
+  "links": {
+   "github": "https://github.com/junhong-h/MGMem"
+  },
+  "highlights": [
+   "在匹配协议的 LoCoMo 上，三次运行为 75.89±0.10%，高于 EMem 和 LightMem，且构建索引不调用生成式模型。",
+   "在完整 LongMemEval-S 上为 72.60%，低于 BM25 的 74.60%，优势不能直接外推到所有记忆基准。",
+   "生成式索引在十段对话上就要数百到数千次调用，且重复运行会写出不同摘要或图谱。"
+  ],
+  "lessons": [
+   "若记忆需要可复现和可追溯到原话，应把“是否用 LLM 改写历史”当成单独的设计选择，并同时报告构建成本和原话命中率。"
+  ]
+ },
+ {
+  "topic": "memory",
+  "date": "2026-11-27",
+  "title": "HoMe：用失败归因自动改记忆系统的 harness，分数略升、查询 token 明显下降",
+  "url": "https://arxiv.org/abs/2611.34624",
+  "summary": "上海交大、阿里巴巴和北大提出 HoMe，在开源记忆系统 ReMe 上自动优化由代码、提示和配置组成的 harness。框架用 session 级记忆版本和执行轨迹定位共性失败，再结合候选门控、冒烟测试、自适应抽样和记忆复用控制评估成本。在每个基准做完一次完整初评后，再做六次正式候选评估。官方博客与论文同步给出：LongMemEval-S 从 88.8% 升到 91.6%，每查询 token 从 43.9K 降到 17.9K（减少 59.2%）；BEAM-1M 从 65.0% 升到 70.4%，token 从 101.8K 降到 60.4K（减少 40.7%）。代码在 ReMe 仓库中。分数来自作者，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "memory",
+   "home",
+   "reme",
+   "longmemeval",
+   "beam",
+   "harness"
+  ],
+  "links": {
+   "github": "https://github.com/agentscope-ai/ReMe",
+   "blog": "https://reme.agentscope.io/en/blog_20261124"
+  },
+  "highlights": [
+   "在 ReMe 上只做六次正式候选评估后，LongMemEval-S 从 88.8% 升到 91.6%，查询阶段 token 减少 59.2%。",
+   "BEAM-1M 从 65.0% 升到 70.4%，查询阶段 token 减少 40.7%。"
+  ],
+  "lessons": [
+   "优化记忆系统时，可以把代码、提示和配置当成同一个 harness 来迭代，并用失败轨迹定位是构建、检索还是回答环节出了问题，同时跟踪查询 token，而不是只看准确率。"
+  ]
+ },
+ {
   "topic": "code-review",
   "date": "2026-10-24",
   "title": "阿里开源 OpenCodeReview 与 AACR-Bench：确定性分发加证伪反思",
@@ -3562,6 +3718,33 @@
   ],
   "lessons": [
    "接入自动修复时，应默认要求人工审查和原有测试门禁，并用仓库内指令约束它使用项目已有的安全与依赖更新流程。"
+  ]
+ },
+ {
+  "topic": "code-review",
+  "date": "2026-11-27",
+  "title": "Claude 5.5 做审查时，提高 effort 能少放过错误补丁，但所有设置仍接受至少 45% 的错误补丁",
+  "url": "https://arxiv.org/abs/2611.33639",
+  "summary": "Trust My Bot 等让 Claude Opus、Sonnet、Haiku 5.5 各以 low、medium、high 三种 effort，审查同一批 90 个来自 SWE-bench Verified 的 Django 智能体补丁。按更强的 SWE-ABS 测试，55 个是错的、35 个是对的。Opus 研究预先登记。三个模型里，high 接受错误补丁的比例都低于 low（Opus 为 0.45 对 0.67，Sonnet 为 0.49 对 0.65，Haiku 为 0.51 对 0.78）。对 Opus，medium 相对 high 的差异在 15 个百分点的非劣效范围内（差 0.018，95% CI 为 −0.065 到 0.108），成本低 20%，但未达到预先登记的 30% 降本目标。Sonnet 和 Haiku 的 medium 分别便宜 39% 和 51%，但未能证明非劣于 high。没有任何设置是可靠门禁：每种都接受了至少 45% 的错误补丁。在 55 个错误补丁里，有 32 个问题未必需要失败测试所检查的行为；去掉它们后，对任何模型预先登记的准确性假设都不成立。分数来自论文，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "code-review",
+   "claude",
+   "effort",
+   "swe-bench",
+   "swe-abs"
+  ],
+  "links": {
+   "docs": "https://doi.org/10.17605/osf.io/r8q2m"
+  },
+  "highlights": [
+   "三种 Claude 5.5 在 high effort 下都会比 low 更少放过“基准测试能过、更强测试不过”的补丁，但每种设置仍接受至少 45% 的这类错误补丁。",
+   "Opus 的 medium 与 high 在 15 个百分点范围内相当，只便宜 20%，没有达到预先登记的 30% 降本。",
+   "若去掉 32 个“问题未必对应失败测试所查行为”的补丁，准确性相关假设对任何模型都不成立。"
+  ],
+  "lessons": [
+   "用 AI 审查给合并设门禁时，不能只看它能抓住多少明显错误，还要用“基准测试能过、更强测试不能过”的补丁来测漏检，并且不要默认更高 effort 就值得它的成本。"
   ]
  },
  {
@@ -4533,6 +4716,33 @@
   ],
   "lessons": [
    "把网关配置做成 MCP 工具时，应沿用原有身份和权限，而不是给智能体单独的不受限管理通道。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-27",
+  "title": "AWS 为 MCP 服务器上线企业托管授权：由企业 IdP 签发 ID-JAG，再换成 AWS 访问令牌",
+  "url": "https://aws.amazon.com/blogs/security/secure-agentic-access-to-aws-with-enterprise-managed-authorization/",
+  "summary": "11月25日，AWS Security 博客宣布 AWS Sign-In 支持企业托管授权（EMA）。这是 MCP 的扩展（io.modelcontextprotocol/enterprise-managed-authorization）：员工先用企业 IdP（如 Okta）登录 AI 应用，IdP 按组织策略签发短时 ID-JAG；应用把它交给 AWS Sign-In，换取与 IAM 角色绑定的 OAuth 访问令牌，无需员工再对每个 MCP 服务器单独授权。IAM 策略仍决定智能体可调用哪些 AWS 操作。这是把身份认证和资源授权分在两个信任域里处理，不是新的工具协议。官方同时提供配置文档，MCP 官网已有该扩展说明。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "ema",
+   "id-jag",
+   "aws",
+   "authorization"
+  ],
+  "links": {
+   "spec": "https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization",
+   "docs": "https://docs.aws.amazon.com/signin/latest/userguide/enterprise-managed-authorization.html"
+  },
+  "highlights": [
+   "登录 AI 应用并不自动获得 AWS 权限；要由企业 IdP 签发 ID-JAG，再向 AWS Sign-In 换取绑定 IAM 角色的访问令牌。",
+   "管理员在现有 IdP 里集中规定哪些应用可以访问哪些 MCP 服务器，员工不必对每个服务器再点一次授权。"
+  ],
+  "lessons": [
+   "给企业部署 MCP 时，应把“谁登录了哪个 AI 应用”和“该应用能以谁的身份调用哪些云资源”分开配置，并沿用现有 IAM 最小权限，而不是给模型发长期密钥。"
   ]
  },
  {
