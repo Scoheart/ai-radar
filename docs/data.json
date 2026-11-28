@@ -1278,6 +1278,84 @@
   ]
  },
  {
+  "topic": "eval",
+  "date": "2026-11-28",
+  "title": "SkillsBench 的技能提分经源码审计后并不可靠，按单任务分数做门控也站不住",
+  "url": "https://arxiv.org/abs/2611.33943",
+  "summary": "作者审计 SkillsBench 源码并分析 7,554 次公开试验、1,421 个配对单元格。审计发现两处已核实的评分器依赖和一处操作定义缺口，这三项任务平均提分 74.6 个百分点，全量平均为 18.7 个百分点；还有四项任务的技能目录是占位符，某执行 harness 在多数运行中额外加入 48 个内置技能。经多重检验校正后，没有任何任务级负向提分达到统计显著；每格最多三次运行，58% 的单元格在算术上不可能出现下降，因此不能用负向单元格数量证明技能有害。按无技能分数做门控，在日志上看似提升 2–3 个百分点，但把条件标签打乱后仍能“提升” 4–7 个百分点，在未参与拟合的留出运行上没有显著改进。分数来自论文，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "skillsbench",
+   "skill-lift",
+   "audit"
+  ],
+  "links": {
+   "github": "https://github.com/rrrrr4788/skillsbench-lift-reanalysis"
+  },
+  "highlights": [
+   "两处评分器依赖和一处定义缺口所在的三项任务平均提分 74.6 个百分点，把全量平均从表面上看高到了 18.7 个百分点。",
+   "经多重检验校正后，没有任何任务级“用了技能反而变差”达到显著；按无技能分数做门控，打乱标签后仍能“提升” 4–7 个百分点，留出运行上没有显著改进。"
+  ],
+  "lessons": [
+   "不要只用 SkillsBench 的单任务原始提分来决定给智能体开关或淘汰某个技能；先核对评分器是否泄漏、对照是否干净，并用多次运行和留出集做显著性检验。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-28",
+  "title": "OS-Omni：跨六平台的长程计算机使用基准，最佳智能体仍落后人类，iOS 和 macOS 差距最大",
+  "url": "https://arxiv.org/abs/2611.34232",
+  "summary": "OS-Omni 在 Windows、Ubuntu、macOS、iOS、Android 和 Web 上评测通用计算机使用智能体，按最终状态打分。首发 v1 共 300 题：每平台 48 题，另有 12 道桌面加安卓的跨平台工作流。人研究显示平均 67.54 步，远高于 OSWorld 参照的 15.0 步。论文表格中，Claude Opus 5.5 宏平均成功率为 68.5%，人类参照为 77.3%；GPT-6 Astra 为 66.1%，Gemini 4 Argon 为 58.6%。三个前沿模型在 Linux 上都超过人类，但 iOS 和 macOS 的最佳成绩分别为 41.7% 和 54.2%，比人类低 33.5 和 25.6 个百分点；Gemini 4 Argon 在 Linux 上为 95.8%，在 iOS 上为 18.8%。分数来自论文，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "os-omni",
+   "computer-use",
+   "cua",
+   "cross-platform"
+  ],
+  "links": {
+   "github": "https://github.com/OS-Copilot/OS-Omni",
+   "x": "https://x.com/SihanXuOfficial/status/2126364202264580590"
+  },
+  "highlights": [
+   "Claude Opus 5.5 宏平均 68.5%，落后人类参照 77.3% 共 8.8 个百分点；任务平均 67.54 步，远高于 OSWorld 的 15.0 步。",
+   "三个前沿模型在 Linux 上都超过人类，但 iOS 和 macOS 最佳成绩只有 41.7% 和 54.2%，分别比人类低 33.5 和 25.6 个百分点；Gemini 4 Argon 在 Linux 上 95.8%，在 iOS 上 18.8%。"
+  ],
+  "lessons": [
+   "评测或演示计算机使用智能体时，不要只看 Linux 或桌面环境的分数；要在实际部署的系统（尤其是 iOS 和 macOS）上按最终状态复测长程任务。"
+  ]
+ },
+ {
+  "topic": "eval",
+  "date": "2026-11-28",
+  "title": "DRBench Pro 以知识覆盖为主指标评测深度研究智能体，最好成绩也只有 57.04%",
+  "url": "https://arxiv.org/abs/2611.34852",
+  "summary": "浙江大学与腾讯提出 DRBench Pro：从维基百科构建本地知识树，再采样子图生成研究问题和与树中关系一一对应的评分细则，智能体只看到研究问题。广度（研究方向）和深度（知识链）的几何平均为整体覆盖率。基准含 24 个领域、144 个案例、44,102 条细则，评了 16 个深度研究智能体。论文报告 Claude Opus 5 整体覆盖率 57.04%，广度 53.09%，深度 61.91%，均为最高；Grok 4.5 整体为 50.98%，相对更强在广度，o3 Deep Research 相对更强在深度。细则判断与人工标注的 Macro-F1 为 0.893，排名在测试过的度量扰动下保持稳定。知识树来自维基百科，不是专业文献全集。分数来自论文，未独立复现。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "eval",
+   "drbench-pro",
+   "deep-research",
+   "knowledge-coverage"
+  ],
+  "links": {
+   "github": "https://github.com/ZJU-REAL/DRBenchPro",
+   "demo": "https://zjureal.com/DRBenchPro/"
+  },
+  "highlights": [
+   "16 个智能体中，Claude Opus 5 整体覆盖率最高，也只有 57.04%（广度 53.09%，深度 61.91%）；Grok 4.5 为 50.98%。",
+   "细则与人工标注的 Macro-F1 为 0.893；广度和深度的排名会交叉，单一总分会掩盖覆盖形态的差异。"
+  ],
+  "lessons": [
+   "评深度研究智能体时，不要只看报告写得是否流畅或事实是否正确，还要按研究方向的广度和知识链的深度检查漏了哪些分支。"
+  ]
+ },
+ {
   "topic": "knowledge-base",
   "date": "2026-10-24",
   "title": "CorpusMap：以实体为中心的 Agentic Search 导航层",
@@ -4743,6 +4821,31 @@
   ],
   "lessons": [
    "给企业部署 MCP 时，应把“谁登录了哪个 AI 应用”和“该应用能以谁的身份调用哪些云资源”分开配置，并沿用现有 IAM 最小权限，而不是给模型发长期密钥。"
+  ]
+ },
+ {
+  "topic": "mcp",
+  "date": "2026-11-28",
+  "title": "MacRemote 把本机选定的 CLI 和本地 MCP 经权限控制分享给云端智能体",
+  "url": "https://www.macstories.net/stories/macremote-connect-any-agent-to-your-macs-tools-now-free-and-open-source/",
+  "summary": "MacStories 创始人 Federico Viticci 于 2026 年 11 月 26 日公开免费开源（MIT）的 macOS 应用 MacRemote。应用内置 MCP 服务器，把用户选定的本机命令行工具和本地 MCP 服务，经基于权限的 Cloudflare 隧道分享给任意兼容 MCP 的云端或跨设备智能体；隧道可以使用随机域名或自有域名。官方强调用户始终掌握控制权：可选择认证方式，按应用授予或收回工具，并接受或拒绝接入请求。官方称其遵循较新的 MCP 规范，并支持长时 Tasks、文件上传和 Skills over MCP 等能力。它不是远程终端。这是客户端与本机工具的桥接应用，不是新的协议规范。",
+  "source": "网页/文档",
+  "agent": "AI前沿者",
+  "tags": [
+   "mcp",
+   "macremote",
+   "permissions",
+   "local-tools"
+  ],
+  "links": {
+   "github": "https://github.com/viticci/MacRemote"
+  },
+  "highlights": [
+   "本机选出的 CLI 和已有 MCP 服务，可通过 Cloudflare 隧道按应用授权给云端智能体使用，并可随时收回。",
+   "官方称其遵循较新 MCP 规范，并支持 Tasks、文件上传和 Skills over MCP；它不是远程 shell。"
+  ],
+  "lessons": [
+   "若要把本机工具交给云端智能体，应使用按工具授权、可随时撤销的桥接，而不是打开一个不受限的远程终端。"
   ]
  },
  {
